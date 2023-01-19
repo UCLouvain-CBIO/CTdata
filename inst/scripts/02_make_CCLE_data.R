@@ -5,7 +5,7 @@ library(SummarizedExperiment)
 library(BiocFileCache)
 library(biomaRt)
 
-bfc <- BiocFileCache(cache = "/home/users/aloriot/.cache/BiocFileCache",
+bfc <- BiocFileCache(cache = "../BiocFileCache",
                      ask = FALSE)
 
 if (length(bfcquery(bfc, "CCLE_data")$rid) == 0) {
