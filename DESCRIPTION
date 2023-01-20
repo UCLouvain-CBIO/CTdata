@@ -1,6 +1,6 @@
 Package: CTdata
 Title: Data companion to CTexploreR
-Version: 0.0.0.9000
+Version: 0.99.0
 Authors@R: 
     c(person(given = "Axelle",
            family = "Loriot",
@@ -34,4 +34,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Depends: 
     R (>= 3.5)
-LazyData: true
+biocViews: Transcriptomics
+           Epigenetics,
+           CancerData,
+           DataImport,
+           ExperimentHubSoftware
