@@ -121,7 +121,7 @@ metadata <-
   )
 
 
-write.csv(metadata, file = "../../eh_data/metadata.csv", row.names = FALSE)
+write.csv(metadata, file = "../data/metadata.csv", row.names = FALSE)
 
 ExperimentHubData::makeExperimentHubMetadata(pathToPackage = "/data/cbio/Packages/CTdata",
                                              fileName = "metadata.csv")
