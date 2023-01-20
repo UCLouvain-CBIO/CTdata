@@ -8,7 +8,7 @@ library("org.Hs.eg.db")
 
 load(file = "../../eh_data/GTEX_data.rda")
 
-bfc <- BiocFileCache(cache = "/home/users/aloriot/.cache/BiocFileCache",
+bfc <- BiocFileCache(cache = "../BiocFileCache",
                      ask = FALSE)
 
 # Load and save TCGA expression data
