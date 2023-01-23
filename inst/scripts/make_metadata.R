@@ -47,7 +47,7 @@ metadata <-
       "BED",
       "BED",
       "TXT",
-      "",
+      "TSV",
       "CSV"),
     SourceUrl = c(
       "https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz",
@@ -59,7 +59,7 @@ metadata <-
       "https://www.encodeproject.org/",
       "https://www.encodeproject.org/",
       "https://portal.gdc.cancer.gov/",
-      "",
+      "https://zenodo.org/record/7537824/files/cancermine_collated.tsv?download=1",
       "https://ndownloader.figshare.com/files/34989922, https://ndownloader.figshare.com/files/35020903"),
     SourceVersion = c(
       "8",
@@ -71,7 +71,7 @@ metadata <-
       "5",
       "5",
       "36.0",
-      "",
+      "49",
       "22Q2"),
     Species = "Homo sapiens",
     TaxonomyId = "9606",
@@ -86,7 +86,7 @@ metadata <-
       "ENCODE Project",
       "ENCODE Project",
       "The Cancer Genome Atlas",
-      "",
+      "CancerMine",
       "Cancer Cell Line Encyclopedia"),
     Maintainer = "Axelle Loriot <axelle.loriot@uclouvain.be>",
     RDataClass = c(
@@ -122,6 +122,8 @@ metadata <-
 
 
 write.csv(metadata, file = "../data/metadata.csv", row.names = FALSE)
+write.csv(metadata, file = "../extdata/metadata.csv", row.names = FALSE)
+
 
 ExperimentHubData::makeExperimentHubMetadata(pathToPackage = "/data/cbio/Packages/CTdata",
                                              fileName = "metadata.csv")
