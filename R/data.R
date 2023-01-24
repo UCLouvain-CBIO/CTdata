@@ -152,7 +152,7 @@
 #' @description Methylation values of CpGs located within Cancer-Testis
 #' (CT) promoters in a set of normal tissues.
 #'
-#' @format A RangedSummarizedExperiment object with 53578 rows and 14 columns
+#' @format A RangedSummarizedExperiment object with 53770 rows and 14 columns
 #' - Rows correspond to CpGs (located within CT genes promoters)
 #' - Columns correspond to normal tissues
 #' - Methylation values from WGBS data
@@ -167,7 +167,7 @@
 #' @description Mean methylation values of all CpGs located within Cancer-Testis
 #' (CT) promoters in a set of normal tissues
 #'
-#' @format A SummarizedExperiment object with 306 rows and 14 columns
+#' @format A SummarizedExperiment object with 307 rows and 14 columns
 #' - Rows correspond to CT genes
 #' - Mean methylation levels in normal tissues are stored in columns
 #' - CpG densities and results of methylation analysis are stored
@@ -210,13 +210,13 @@
 #'
 #' @details
 #' - The colData contains clinical data from TCGA as well as global
-#' hypomethylation levels obtained from paper `DNA methylation loss promotes
-#' immune evasion of tumours with high mutation and copy number load`
+#' hypomethylation levels obtained from paper "DNA methylation loss promotes
+#' immune evasion of tumours with high mutation and copy number load"
 #' from Jang et al., Nature Commun 2019 that were added (see
 #' inst/scripts/make_TCGA_TPM.R for details).
 #' - The rowData contains genes information and, for each gene, the percentage
 #' of tumors that are positive (TPM >= 10), and the percentage of tumors that
-#' are negative (TPM < 0.1). In column "TCGA_category", genes are labelled as
+#' are negative (TPM < 0.1). In column `TCGA_category`, genes are labelled as
 #' "activated" when the percentage of positive tumors is > 0 and when at least
 #' 20% of tumors are negative. Genes are labelled as "not_activated" when the
 #' percentage of positive tumors is 0. Genes are labelled as "leaky" when less
@@ -231,7 +231,7 @@
 #' @description Methylation values of probes located within Cancer-Testis
 #' (CT) promoters in samples from TCGA (tumor and peritumoral samples)
 #'
-#' @format A RangedSummarizedExperiment object with 689 rows and 3423 columns
+#' @format A RangedSummarizedExperiment object with 692 rows and 3423 columns
 #' - Rows correspond to Infinium 450k probes
 #' - Columns correspond to samples
 #' - Methylation data from the assay are Beta values
@@ -247,7 +247,7 @@
 #'
 #' @description Cancer-Testis (CT) genes description
 #'
-#' @format A `tibble` object with 306 rows and 33 columns.
+#' @format A `tibble` object with 307 rows and 34 columns.
 #' - Rows correspond to CT genes
 #' - Columns give CT genes characteristics
 #'
@@ -334,7 +334,7 @@
 #' @description Correlation coefficients between Cancer-Testis genes and all
 #' genes found on the CCLE database.
 #'
-#' @format A `matrix` object with 306 rows and 24327 columns.
+#' @format A `matrix` object with 307 rows and 24327 columns.
 #' - Rows correspond to CT genes
 #' - Columns correspond to all genes from CCLE database
 #'
