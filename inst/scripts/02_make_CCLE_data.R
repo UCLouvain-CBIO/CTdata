@@ -68,7 +68,7 @@ rownames(TPM_mat) <- TPM$ensembl_gene_id
 ## Values are in log2(TPM + 1), convert to TPM
 TPM_mat <- 2^(TPM_mat) - 1
 
-# Estimate frequencies of activation of each CT gene
+# Estimate frequencies of activation of each gene
 # in all selected cell lines.
 # Gene are considered as "activated" if TPM >= TPM_thr
 TPM_thr <- 10
