@@ -1,6 +1,15 @@
 .Rproj.user
 eh_data
-inst/extdata/
+inst/extdata/*.bed
 inst/BiocFileCache
 .Rhistory
-
+inst/extdata/*.fa
+inst/extdata/*.tsv
+inst/extdata/*.xlsx
+inst/extdata/*.cov.gz
+inst/extdata/DAC_coldata.rda
+inst/extdata/DAC_raw_counts_multiM.rda
+inst/extdata/DAC_raw_counts.rda
+inst/extdata/normal_tissues_RNAseq_raw_counts_multiM.rda
+inst/extdata/normal_tissues_RNAseq_raw_counts.rda
+inst/extdata/normal_tissues_RNAseq_coldata.rda

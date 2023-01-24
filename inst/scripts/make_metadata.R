@@ -120,8 +120,6 @@ metadata <-
                  "MethylationData", sep = ":")
   )
 
-
-write.csv(metadata, file = "../data/metadata.csv", row.names = FALSE)
 write.csv(metadata, file = "../extdata/metadata.csv", row.names = FALSE)
 
 
