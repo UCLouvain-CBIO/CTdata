@@ -17,9 +17,6 @@ A SummarizedExperiment object with 24327 rows and 1229 columns
 TPM values downloaded using depmap bioconductor package
 (see inst/scripts/make_CCLE_data.R for details).
 }
-\usage{
-CCLE_data
-}
 \description{
 Gene expression data in cancer cell lines from CCLE
 }
@@ -44,4 +41,3 @@ least 20\% of cell lines and never expressed (TPM >= 10) in any cell line.
 of cell lines.
 }
 }
-\keyword{datasets}

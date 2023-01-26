@@ -20,9 +20,6 @@ of CpGs located in promoter region (defined as 1000 nt upstream TSS and
 200 nt downstream TSS) (see inst/scripts/make_CT_mean_methylation_in_tissues.R
 for details).
 }
-\usage{
-CT_mean_methylation_in_tissues
-}
 \description{
 Mean methylation values of all CpGs located within Cancer-Testis
 (CT) promoters in a set of normal tissues
@@ -46,4 +43,3 @@ germline, based on the ratio with somatic tissues (FALSE if somatic_met_level
 is at least twice higher than germline_met_level).
 }
 }
-\keyword{datasets}

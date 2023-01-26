@@ -18,9 +18,6 @@ https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-
 Some categories of tissues were pooled (mean expression values are
 given in pooled tissues) (see inst/scripts/make_GTEX_data.R for details).
 }
-\usage{
-GTEX_data
-}
 \description{
 Gene expression data in normal tissues from GTEx database.
 }
@@ -43,4 +40,3 @@ are genes undetectable in GTEX database probably due to multi-mapping issues
 found in a somatic tissue.
 }
 }
-\keyword{datasets}

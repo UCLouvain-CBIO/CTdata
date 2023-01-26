@@ -25,9 +25,6 @@ in at least one cell line.
 RNAseq fastq files were downloaded from Encode database.
 SRA reference of samples are stored in the colData.
 }
-\usage{
-DAC_treated_cells
-}
 \description{
 Gene expression values in a set of cell lines treated
 or not with 5-Aza-2′-Deoxycytidine (DAC), a demethylating agent.
@@ -37,4 +34,3 @@ Differential expression analysis was done using DESeq2_1.36.0,
 using as design = ~ treatment
 (see inst/scripts/make_DAC_treated_cells.R for details).
 }
-\keyword{datasets}

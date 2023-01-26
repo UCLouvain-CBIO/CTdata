@@ -19,9 +19,6 @@ by counting multimapped reads.
 RNAseq fastq files were downloaded from Encode database
 (see inst/scripts/make_normal_tissues_multimapping.R for details).
 }
-\usage{
-normal_tissues_multimapping_data
-}
 \description{
 Gene expression values (TPM) in a set of normal tissues
 obtained by counting or not multi-mapped reads. Many CT genes belong to gene
@@ -38,4 +35,3 @@ their TPM value has increased compared to without multimapping (ratio > 5),
 and their TPM value is at least 10 times higher in testis than in
 any other somatic tissue.
 }
-\keyword{datasets}

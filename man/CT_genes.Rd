@@ -14,9 +14,6 @@ A \code{tibble} object with 307 rows and 34 columns.
 \source{
 (see inst/scripts/make_CT_genes.R for details)
 }
-\usage{
-CT_genes
-}
 \description{
 Cancer-Testis (CT) genes description
 }
@@ -98,4 +95,3 @@ tumor-suppressor functions have been associated to genes
 (source: \href{http://bionlp.bcgsc.ca/cancermine/}{Cancermine}).
 }
 }
-\keyword{datasets}

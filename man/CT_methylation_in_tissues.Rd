@@ -17,11 +17,7 @@ A RangedSummarizedExperiment object with 53770 rows and 14 columns
 WGBS methylation data was downloaded from Encode and from GEO databases
 (see inst/scripts/make_CT_methylation_in_tissues.R for details).
 }
-\usage{
-CT_methylation_in_tissues
-}
 \description{
 Methylation values of CpGs located within Cancer-Testis
 (CT) promoters in a set of normal tissues.
 }
-\keyword{datasets}

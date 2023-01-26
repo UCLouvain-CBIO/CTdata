@@ -27,7 +27,11 @@
 #' https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz.
 #' Some categories of tissues were pooled (mean expression values are
 #' given in pooled tissues) (see inst/scripts/make_GTEX_data.R for details).
-"GTEX_data"
+#'
+#' @name GTEX_data
+#'
+#' @docType data
+NULL
 
 #' Genes expression data in CCLE
 #'
@@ -59,7 +63,11 @@
 #'
 #' @source TPM values downloaded using depmap bioconductor package
 #' (see inst/scripts/make_CCLE_data.R for details).
-"CCLE_data"
+#'
+#' @name CCLE_data
+#'
+#' @docType data
+NULL
 
 #' Gene expression values in normal tissues with or without allowing multimapping
 #'
@@ -87,7 +95,12 @@
 #'
 #' @source RNAseq fastq files were downloaded from Encode database
 #' (see inst/scripts/make_normal_tissues_multimapping.R for details).
-"normal_tissues_multimapping_data"
+#'
+#' @name normal_tissues_multimapping_data
+#'
+#' @docType data
+NULL
+
 
 #' Genes differential expression analysis (with RNAseq expression values)
 #' in cell lines treated or not with a demethylating agent.
@@ -114,7 +127,11 @@
 #'
 #' @source RNAseq fastq files were downloaded from Encode database.
 #' SRA reference of samples are stored in the colData.
-"DAC_treated_cells"
+#'
+#' @name DAC_treated_cells
+#'
+#' @docType data
+NULL
 
 #' Genes differential expression analysis (with RNAseq expression values where
 #' multi-mapping was allowed) in cell lines treated or not with a demethylating
@@ -145,7 +162,11 @@
 #'
 #' @source RNAseq fastq files were downloaded from Encode database.
 #' SRA reference of samples are stored in the colData.
-"DAC_treated_cells_multimapping"
+#'
+#' @name DAC_treated_cells_multimapping
+#'
+#' @docType data
+NULL
 
 #' Methylation of CpGs located within CT promoters in normal tissues.
 #'
@@ -160,7 +181,12 @@
 #'
 #' @source WGBS methylation data was downloaded from Encode and from GEO databases
 #' (see inst/scripts/make_CT_methylation_in_tissues.R for details).
-"CT_methylation_in_tissues"
+#'
+#' @name CT_methylation_in_tissues
+#'
+#' @docType data
+NULL
+
 
 #' Cancer-Testis genes’ promoters mean methylation in normal tissues
 #'
@@ -194,7 +220,11 @@
 #' of CpGs located in promoter region (defined as 1000 nt upstream TSS and
 #' 200 nt downstream TSS) (see inst/scripts/make_CT_mean_methylation_in_tissues.R
 #' for details).
-"CT_mean_methylation_in_tissues"
+#'
+#' @name CT_mean_methylation_in_tissues
+#'
+#' @docType data
+NULL
 
 #' Gene expression in TCGA samples
 #'
@@ -224,7 +254,11 @@
 #'
 #' @source SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC expression data were
 #' downloaded with TCGAbiolinks (see inst/scripts/make_TCGA_TPM.R for details).
-"TCGA_TPM"
+#'
+#' @name TCGA_TPM
+#'
+#' @docType data
+NULL
 
 #' Methylation of CT promoters in TCGA samples
 #'
@@ -241,7 +275,11 @@
 #' @source SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC methylation data were
 #' downloaded with TCGAbiolinks and subsetted to select probes located in CT genes
 #' promoter regions (see inst/scripts/make_TCGA_CT_methylation.R for details).
-"TCGA_CT_methylation"
+#'
+#' @name TCGA_CT_methylation
+#'
+#' @docType data
+NULL
 
 #' CT genes description table
 #'
@@ -327,7 +365,11 @@
 #' (source: [Cancermine](http://bionlp.bcgsc.ca/cancermine/)).
 #'
 #' @source (see inst/scripts/make_CT_genes.R for details)
-"CT_genes"
+#'
+#' @name CT_genes
+#'
+#' @docType data
+NULL
 
 #' Gene correlations in CCLE cancer cell lines
 #'
@@ -343,6 +385,10 @@
 #' using log transformed expression values from `CCLE_data` (all cell lines).
 #'
 #' @source (see inst/scripts/make_CCLE_correlation_matrix.R for details)
-"CCLE_correlation_matrix"
+#'
+#' @name CCLE_correlation_matrix
+#'
+#' @docType data
+NULL
 
 

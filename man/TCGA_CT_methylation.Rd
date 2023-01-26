@@ -19,11 +19,7 @@ SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC methylation data were
 downloaded with TCGAbiolinks and subsetted to select probes located in CT genes
 promoter regions (see inst/scripts/make_TCGA_CT_methylation.R for details).
 }
-\usage{
-TCGA_CT_methylation
-}
 \description{
 Methylation values of probes located within Cancer-Testis
 (CT) promoters in samples from TCGA (tumor and peritumoral samples)
 }
-\keyword{datasets}

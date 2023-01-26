@@ -18,9 +18,6 @@ A SummarizedExperiment object with 24350 rows and 4087 columns
 SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC expression data were
 downloaded with TCGAbiolinks (see inst/scripts/make_TCGA_TPM.R for details).
 }
-\usage{
-TCGA_TPM
-}
 \description{
 Gene expression data in TCGA samples
 (tumor and peritumoral samples).
@@ -41,4 +38,3 @@ percentage of positive tumors is 0. Genes are labelled as "leaky" when less
 than 20\% of tumors are negative.
 }
 }
-\keyword{datasets}
