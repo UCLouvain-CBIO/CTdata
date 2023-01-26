@@ -5,7 +5,7 @@
 \alias{CT_mean_methylation_in_tissues}
 \title{Cancer-Testis genes’ promoters mean methylation in normal tissues}
 \format{
-A SummarizedExperiment object with 306 rows and 14 columns
+A SummarizedExperiment object with 307 rows and 14 columns
 \itemize{
 \item Rows correspond to CT genes
 \item Mean methylation levels in normal tissues are stored in columns
