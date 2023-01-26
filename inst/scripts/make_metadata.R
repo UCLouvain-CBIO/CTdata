@@ -1,3 +1,7 @@
+default_tags <- paste("ExperimentHub", "ExperimentData",
+                      "ReproducibleResearch", "RepositoryData",
+                      "Homo_sapiens_Data", sep = ":")
+
 metadata <-
   data.frame(
     Title = c(
@@ -114,11 +118,30 @@ metadata <-
       "CTdata/eh_data/TCGA_CT_methylation.rda",
       "CTdata/eh_data/CT_genes.rda",
       "CTdata/eh_data/CCLE_correlation_matrix.rda"),
-    Tags = paste("ExperimentHub", "ExperimentData",
-                 "ReproducibleResearch", "RepositoryData",
-                 "CancerData", "Homo_sapiens_Data", "Cancer-Testis",
-                 "MethylationData", sep = ":")
+    Tags = c(paste(default_tags, "GeneExpression", "NormalTissues", sep = ":"),
+             paste(default_tags, "GeneExpression", "CancerData", "CellLines",
+                   sep = ":"),
+             paste(default_tags, "GeneExpression", "NormalTissues", "Multimapping",
+                   sep = ":"),
+             paste(default_tags, "GeneExpression", "CellLines", "DemethylatingAgent",
+                   sep = ":"),
+             paste(default_tags, "GeneExpression", "CellLines", "DemethylatingAgent",
+                   "Multimapping", sep = ":"),
+             paste(default_tags, "GeneExpression", "CancerData", "TumorSamples",
+                   sep = ":"),
+             paste(default_tags, "MethylationData", "CancerTestis", "NormalTissues",
+                   sep = ":"),
+             paste(default_tags, "MethylationData", "CancerTestis", "NormalTissues",
+                   sep = ":"),
+             paste(default_tags, "MethylationData", "CancerTestis", "CancerData",
+                   "TumorSamples", sep = ":"),
+             paste(default_tags, "CancerTestis", "MethylationData", "GeneExpression",
+                   "CancerData", "NormalTissues", "TumorSamples", sep = ":"),
+             paste(default_tags, "CancerTestis", "GeneExpression", "CancerData",
+                   "CellLines", sep = ":"))
   )
+
+
 
 write.csv(metadata, file = "../extdata/metadata.csv", row.names = FALSE)
 
