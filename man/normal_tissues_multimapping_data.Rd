@@ -3,17 +3,16 @@
 \docType{data}
 \name{normal_tissues_multimapping_data}
 \alias{normal_tissues_multimapping_data}
-\title{Gene expression values in normal tissues with or without allowing
-multimapping}
+\title{Gene expression values in normal tissues with or without allowing multimapping}
 \format{
 A \code{SummarizedExperiment} object with 24359 rows and 18 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to normal tissues.
-\item First assay, \code{TPM_no_multimapping}, gives TPM expression values obtained
-when discarding multimapped reads.
-\item Second assay, \code{TPM_with_multimapping}, gives TPM expression values obtained
-by counting multimapped reads.
+\item First assay, \code{TPM_no_multimapping}, gives TPM expression values
+obtained when discarding multimapped reads.
+\item Second assay, \code{TPM_with_multimapping}, gives TPM expression
+values obtained by counting multimapped reads.
 }
 }
 \source{
