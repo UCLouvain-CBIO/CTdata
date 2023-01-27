@@ -5,7 +5,7 @@
 \alias{CT_methylation_in_tissues}
 \title{Methylation of CpGs located within CT promoters in normal tissues.}
 \format{
-A RangedSummarizedExperiment object with 53770 rows and 14 columns
+A \code{RangedSummarizedExperiment} object with 53770 rows and 14 columns
 \itemize{
 \item Rows correspond to CpGs (located within CT genes promoters)
 \item Columns correspond to normal tissues
@@ -14,10 +14,11 @@ A RangedSummarizedExperiment object with 53770 rows and 14 columns
 }
 }
 \source{
-WGBS methylation data was downloaded from Encode and from GEO databases
-(see inst/scripts/make_CT_methylation_in_tissues.R for details).
+WGBS methylation data was downloaded from Encode and from GEO
+databases (see \code{inst/scripts/make_CT_methylation_in_tissues.R} for
+details).
 }
 \description{
-Methylation values of CpGs located within Cancer-Testis
-(CT) promoters in a set of normal tissues.
+Methylation values of CpGs located within Cancer-Testis (CT)
+promoters in a set of normal tissues.
 }

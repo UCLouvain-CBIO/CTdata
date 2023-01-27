@@ -5,7 +5,7 @@
 \alias{TCGA_TPM}
 \title{Gene expression in TCGA samples}
 \format{
-A SummarizedExperiment object with 24350 rows and 4087 columns
+A \code{SummarizedExperiment} object with 24350 rows and 4087 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to samples
@@ -16,25 +16,27 @@ A SummarizedExperiment object with 24350 rows and 4087 columns
 }
 \source{
 SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC expression data were
-downloaded with TCGAbiolinks (see inst/scripts/make_TCGA_TPM.R for details).
+downloaded with TCGAbiolinks (see \code{inst/scripts/make_TCGA_TPM.R}
+for details).
 }
 \description{
-Gene expression data in TCGA samples
-(tumor and peritumoral samples).
+Gene expression data in TCGA samples (tumor and peritumoral
+samples).
 }
 \details{
 \itemize{
 \item The colData contains clinical data from TCGA as well as global
-hypomethylation levels obtained from paper "DNA methylation loss promotes
-immune evasion of tumours with high mutation and copy number load"
-from Jang et al., Nature Commun 2019 that were added (see
-inst/scripts/make_TCGA_TPM.R for details).
-\item The rowData contains genes information and, for each gene, the percentage
-of tumors that are positive (TPM >= 10), and the percentage of tumors that
-are negative (TPM < 0.1). In column \code{TCGA_category}, genes are labelled as
-"activated" when the percentage of positive tumors is > 0 and when at least
-20\% of tumors are negative. Genes are labelled as "not_activated" when the
-percentage of positive tumors is 0. Genes are labelled as "leaky" when less
-than 20\% of tumors are negative.
+hypomethylation levels obtained from paper \emph{DNA methylation loss
+promotes immune evasion of tumours with high mutation and copy
+number load} from Jang et al., Nature Commun 2019 that were added
+(see \code{inst/scripts/make_TCGA_TPM.R} for details).
+\item The rowData contains genes information and, for each gene, the
+percentage of tumors that are positive (TPM >= 10), and the
+percentage of tumors that are negative (TPM < 0.1). In column
+\code{TCGA_category}, genes are labelled as "activated" when the
+percentage of positive tumors is > 0 and when at least 20\% of
+tumors are negative. Genes are labelled as "not_activated" when
+the percentage of positive tumors is 0. Genes are labelled as
+"leaky" when less than 20\% of tumors are negative.
 }
 }

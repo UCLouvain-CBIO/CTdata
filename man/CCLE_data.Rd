@@ -5,7 +5,7 @@
 \alias{CCLE_data}
 \title{Genes expression data in CCLE}
 \format{
-A SummarizedExperiment object with 24327 rows and 1229 columns
+A \code{SummarizedExperiment} object with 24327 rows and 1229 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to CCLE cell lines
@@ -14,8 +14,8 @@ A SummarizedExperiment object with 24327 rows and 1229 columns
 }
 }
 \source{
-TPM values downloaded using depmap bioconductor package
-(see inst/scripts/make_CCLE_data.R for details).
+TPM values downloaded using depmap bioconductor package (see
+inst/scripts/make_CCLE_data.R for details).
 }
 \description{
 Gene expression data in cancer cell lines from CCLE
@@ -24,20 +24,21 @@ Gene expression data in cancer cell lines from CCLE
 The rowData contains
 \itemize{
 \item A column \code{percent_of_positive_CCLE_cell_lines} that gives the
-percentage of CCLE cell lines (all cell lines combined) expressing
-the gene at a highly level (TPM >= 10).
-\item A column \code{percent_of_negative_CCLE_cell_lines} that gives the percent
-of CCLE cell lines (all cell lines combined) in which genes are
-completely repressed (TPM < 0.1)
-\item A column \code{max_TPM_in_CCLE} that gives the maximal expression (in TPM) found
-in all cell lines.
+percentage of CCLE cell lines (all cell lines combined)
+expressing the gene at a highly level (TPM >= 10).
+\item A column \code{percent_of_negative_CCLE_cell_lines} that gives the
+percent of CCLE cell lines (all cell lines combined) in which
+genes are completely repressed (TPM < 0.1)
+\item A column \code{max_TPM_in_CCLE} that gives the maximal expression (in
+TPM) found in all cell lines.
 \item A column \code{CCLE_category} gives the category ("activated",
-"not_activated", "leaky") assigned to each gene.
-"activated" category corresponds to genes highly expressed (TPM >= 10) in at
-least one cell line and repressed (TPM <= 0.1) in at least 20\% of cell lines.
-"not_activated" category corresponds to genes repressed (TPM <= 0.1) in at
-least 20\% of cell lines and never expressed (TPM >= 10) in any cell line.
-"leaky" category corresponds to genes repressed (TPM <= 0.1) in less than 20\%
-of cell lines.
+"not_activated", "leaky") assigned to each gene.  "activated"
+category corresponds to genes highly expressed (TPM >= 10) in at
+least one cell line and repressed (TPM <= 0.1) in at least 20\% of
+cell lines.  "not_activated" category corresponds to genes
+repressed (TPM <= 0.1) in at least 20\% of cell lines and never
+expressed (TPM >= 10) in any cell line.  "leaky" category
+corresponds to genes repressed (TPM <= 0.1) in less than 20\% of
+cell lines.
 }
 }

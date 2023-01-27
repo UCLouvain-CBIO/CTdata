@@ -5,7 +5,8 @@
 \alias{TCGA_CT_methylation}
 \title{Methylation of CT promoters in TCGA samples}
 \format{
-A RangedSummarizedExperiment object with 692 rows and 3423 columns
+A \code{RangedSummarizedExperiment} object with 692 rows and 3423
+columns
 \itemize{
 \item Rows correspond to Infinium 450k probes
 \item Columns correspond to samples
@@ -16,10 +17,11 @@ A RangedSummarizedExperiment object with 692 rows and 3423 columns
 }
 \source{
 SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC methylation data were
-downloaded with TCGAbiolinks and subsetted to select probes located in CT genes
-promoter regions (see inst/scripts/make_TCGA_CT_methylation.R for details).
+downloaded with TCGAbiolinks and subsetted to select probes located
+in CT genes promoter regions (see
+\code{inst/scripts/make_TCGA_CT_methylation.R} for details).
 }
 \description{
-Methylation values of probes located within Cancer-Testis
-(CT) promoters in samples from TCGA (tumor and peritumoral samples)
+Methylation values of probes located within Cancer-Testis (CT)
+promoters in samples from TCGA (tumor and peritumoral samples)
 }

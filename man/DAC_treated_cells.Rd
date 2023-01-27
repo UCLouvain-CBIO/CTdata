@@ -3,34 +3,38 @@
 \docType{data}
 \name{DAC_treated_cells}
 \alias{DAC_treated_cells}
-\title{Genes differential expression analysis (with RNAseq expression values)
-in cell lines treated or not with a demethylating agent.}
+\title{Genes differential expression analysis (with RNAseq expression
+values) in cell lines treated or not with a demethylating agent.}
 \format{
-A SummarizedExperiment object with 24359 rows and 32 columns
+A \code{SummarizedExperiment} object with 24359 rows and 32 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id).
 \item Columns correspond to samples.
-\item Expression data correspond to counts that have been normalised (by DESeq2
-method) and log-transformed (log1p).
-\item The colData contains the SRA references of the fastq files that were
-downloaded, and informations about the cell lines and the DAC treatment.
-\item The rowData contains the results of a differential expression evaluating
-the DAC treatment effect. For each each cell line, the log2FC between treated
-and control cells is given, as well as the p-adjusted value. The column
-\code{induced} flags genes significantly induced (log2FoldChange >= 2 and padj <= 0.05)
-in at least one cell line.
+\item Expression data correspond to counts that have been normalised
+(by DESeq2 method) and log-transformed (log1p).
+\item The colData contains the SRA references of the fastq files that
+were downloaded, and informations about the cell lines and the
+DAC treatment.
+\item The rowData contains the results of a differential expression
+evaluating the DAC treatment effect. For each each cell line, the
+log2FC between treated and control cells is given, as well as the
+p-adjusted value. The column \code{induced} flags genes significantly
+induced (log2FoldChange >= 2 and padj <= 0.05) in at least one
+cell line.
 }
 }
 \source{
-RNAseq fastq files were downloaded from Encode database.
-SRA reference of samples are stored in the colData.
+RNAseq
+
+fastq files were downloaded from Encode database.  SRA reference of
+samples are stored in the colData.
 }
 \description{
-Gene expression values in a set of cell lines treated
-or not with 5-Aza-2′-Deoxycytidine (DAC), a demethylating agent.
+Gene expression values in a set of cell lines treated or not with
+5-Aza-2'-Deoxycytidine (DAC), a demethylating agent.
 }
 \details{
 Differential expression analysis was done using DESeq2_1.36.0,
-using as design = ~ treatment
-(see inst/scripts/make_DAC_treated_cells.R for details).
+using as \code{design = ~ treatment} (see
+\code{inst/scripts/make_DAC_treated_cells.R} for details).
 }

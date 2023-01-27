@@ -12,14 +12,15 @@ A \code{matrix} object with 307 rows and 24327 columns.
 }
 }
 \source{
-(see inst/scripts/make_CCLE_correlation_matrix.R for details)
+See \code{inst/scripts/make_CCLE_correlation_matrix.R} for details.
 }
 \description{
-Correlation coefficients between Cancer-Testis genes and all
-genes found on the CCLE database.
+Correlation coefficients between Cancer-Testis genes and all genes
+found on the CCLE database.
 }
 \details{
 Correlation coefficients (Pearson) between CT genes and all other
-genes are given in the matrix. These correlation coefficients were calculated
-using log transformed expression values from \code{CCLE_data} (all cell lines).
+genes are given in the matrix. These correlation coefficients were
+calculated using log transformed expression values from \code{CCLE_data}
+(all cell lines).
 }
