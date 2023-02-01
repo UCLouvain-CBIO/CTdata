@@ -5,15 +5,16 @@
 \title{A short function that returns the default CTdata tags and, if
 provided, additional data-specific tags.}
 \usage{
-makeTags(x = character())
+makeTags(x)
 }
 \arguments{
-\item{x}{\code{character()} containing specific tags. Default is an
-empty vector.}
+\item{x}{An optional \code{character()} containing specific tags.}
 }
 \value{
 A \code{character} containing the default tags and optional
-data-specific tags.
+data-specific tags. If \code{x} is missing or is of length 0, the
+default tags are returned. Otherwise, a vector of length equal to
+\code{length(x)} is returned.
 }
 \description{
 A short function that returns the default CTdata tags and, if
@@ -22,6 +23,8 @@ provided, additional data-specific tags.
 \examples{
 
 CTdata:::makeTags() ## only default tags
+
+CTdata:::makeTags(character()) ## only default tags
 
 CTdata:::makeTags("myTag") ## one additional tag
 

@@ -1,5 +1,3 @@
-makeTags <- CTdata:::makeTags
-
 metadata <-
     data.frame(
         Title = c(
@@ -116,29 +114,21 @@ metadata <-
             "CTdata/eh_data/TCGA_CT_methylation.rda",
             "CTdata/eh_data/CT_genes.rda",
             "CTdata/eh_data/CCLE_correlation_matrix.rda"),
-        Tags = c(makeTags(c("GeneExpression", "NormalTissues")),
-                 makeTags(c("GeneExpression", "CancerData",
-                                     "CellLines")),
-                 makeTags(c("GeneExpression", "NormalTissues",
-                                     "Multimapping")),
-                 makeTags(c("GeneExpression", "CellLines",
-                                     "DemethylatingAgent")),
-                 makeTags(c("GeneExpression", "CellLines",
-                                     "DemethylatingAgent", "Multimapping")),
-                 makeTags(c("GeneExpression", "CancerData",
-                            "TumorSamples")),
-                 makeTags(c("MethylationData", "CancerTestis",
-                            "NormalTissues")),
-                 makeTags(c("MethylationData", "CancerTestis",
-                            "NormalTissues")),
-                 makeTags(c("MethylationData", "CancerTestis",
-                            "CancerData", "TumorSamples")),
-                 makeTags(c("CancerTestis", "MethylationData",
-                            "GeneExpression", "CancerData",
-                            "NormalTissues", "TumorSamples")),
-                 makeTags(c("CancerTestis", "GeneExpression",
-                            "CancerData", "CellLines")))
+        Tags = c("GeneExpression:NormalTissues",
+                 "GeneExpression:CancerData:CellLines",
+                 "GeneExpression:NormalTissues:Multimapping",
+                 "GeneExpression:CellLines:DemethylatingAgent",
+                 "GeneExpression:CellLines:DemethylatingAgent:Multimapping",
+                 "GeneExpression:CancerData:TumorSamples",
+                 "MethylationData:CancerTestis:NormalTissues",
+                 "MethylationData:CancerTestis:NormalTissues",
+                 "MethylationData:CancerTestis:CancerData:TumorSamples",
+                 "CancerTestis:MethylationData:GeneExpression:CancerData:NormalTissues:TumorSamples",
+                 "CancerTestis:GeneExpression:CancerData:CellLines")
     )
+
+## Add default tags
+metadata$Tags <- CTdata:::makeTags(metadata$Tags)
 
 write.csv(metadata, file = "../extdata/metadata.csv", row.names = FALSE)
 

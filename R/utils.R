@@ -1,24 +1,31 @@
 ##' A short function that returns the default CTdata tags and, if
 ##' provided, additional data-specific tags.
 ##'
-##' @param x `character()` containing specific tags. Default is an
-##'     empty vector.
+##' @param x An optional `character()` containing specific tags.
 ##'
 ##' @return
 ##'
 ##' A `character` containing the default tags and optional
-##' data-specific tags.
+##' data-specific tags. If `x` is missing or is of length 0, the
+##' default tags are returned. Otherwise, a vector of length equal to
+##' `length(x)` is returned.
 ##'
 ##' @examples
 ##'
 ##' CTdata:::makeTags() ## only default tags
 ##'
+##' CTdata:::makeTags(character()) ## only default tags
+##'
 ##' CTdata:::makeTags("myTag") ## one additional tag
 ##'
 ##' CTdata:::makeTags(c("myTag", "myOtherTag")) ## two additional tag
-makeTags <- function(x = character()) {
+makeTags <- function(x) {
     defaultTags <- c("ExperimentHub", "ExperimentData",
                       "ReproducibleResearch", "RepositoryData",
-                      "Homo_sapiens_Data")
-    paste(c(defaultTags, x), collapse = ":")
+                     "Homo_sapiens_Data")
+    defaultTags <- paste(defaultTags, collapse = ":")
+    if (missing(x) || !length(x))
+        return(defaultTags)
+    sapply(x, function(.x) paste(c(defaultTags, .x), collapse = ":"),
+           USE.NAMES = FALSE)
 }
