@@ -1,0 +1,155 @@
+---
+title: "Cancer Testis Datasets"
+author:
+- name: Laurent Gatto, Julie Devis, Axelle Loriot
+package: CTdata
+output:
+  BiocStyle::html_document:
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Cancer Testis Datasets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %%\VignetteKeywords{ExperimentHub, Cancer, Testis, Gene expression, methylation, Homo sapiens}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
+
+# Introduction
+
+
+`CTdata` is the companion Package for `CTexploreR` and provides omics
+data to select and characterise cancer testis genes. Data come from
+public databases and include expression and methylation values of
+genes in normal and tumor samples as well as in tumor cell lines, and
+expression in cells treated with a demethylating agent is also
+available.
+
+The data are served through the `ExperimentHub` infrastructure, which
+allows download them only ones and cache them for further
+use. Currently available data are summarised in the table below and
+details in the next section.
+
+```{r data}
+library("CTdata")
+DT::datatable(CTdata())
+```
+
+# Installation
+
+To install the package:
+
+```{r install1, eval = FALSE}
+if (!require("BiocManager"))
+    install.packages("CTdata")
+
+BiocManager::install("CTdata")
+```
+
+To install the package from GitHub:
+
+```{r install2, eval = FALSE}
+if (!require("BiocManager"))
+    install.packages("BiocManager")
+
+BiocManager::install("UCLouvain-CBIO/CTdata")
+```
+
+# Available data
+
+For details about each data, see their respective manual pages.
+
+## GTEX data
+
+A `SummarisedExperiment` object with gene expression data in normal
+tissues from GTEx database:
+
+```{r}
+GTEX_data()
+```
+
+## CCLE data
+
+A `SummarisedExperiment` object with gene expression data in cancer
+cell lines from CCLE:
+
+```{r}
+CCLE_data()
+```
+
+A `matrix` with gene correlations in CCLE cancer cell lines:
+
+```{r}
+CCLE_correlation_matrix()
+```
+
+## Normal tissue gene expression
+
+A `SummarisedExperiment` object with gene expression values in normal
+tissues with or without allowing multimapping:
+
+```{r}
+normal_tissues_multimapping_data()
+```
+
+## Demethylated gene expression
+
+A `SummarisedExperiment` object containing genes differential
+expression analysis (with RNAseq expression values) in cell lines
+treated or not with a demethylating agent.
+
+```{r}
+DAC_treated_cells()
+```
+
+As above, with multimapping:
+
+```{r}
+DAC_treated_cells_multimapping()
+```
+
+## Metylation in normal tissue
+
+A `RangedSummarizedExperiment` containing methylation of CpGs located
+within CT promoters in normal tissues:
+
+```{r}
+CT_methylation_in_tissues()
+```
+
+A `SummarisedExperiment` with Cancer-Testis genes' promoters mean
+methylation in normal tissues:
+
+```{r}
+CT_mean_methylation_in_tissues()
+```
+
+## TCGA data
+
+A `SummarisedExperiment` with gene expression data in TCGA samples
+(tumor and peritumoral samples):
+
+```{r}
+TCGA_TPM()
+```
+
+```{r}
+TCGA_CT_methylation()
+```
+## CT genes
+
+A `tibble` with Cancer-Testis (CT) genes:
+
+```{r}
+CT_genes()
+```
+
+
+
+# Session information {-}
+
+```{r sessioninfo, echo=FALSE}
+sessionInfo()
+```

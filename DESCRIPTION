@@ -37,6 +37,10 @@ biocViews: Transcriptomics,
            Epigenetics,
            DataImport,
            ExperimentHubSoftware
-Suggests: 
-    testthat (>= 3.0.0)
+Suggests:
+    testthat (>= 3.0.0),
+    DT,
+    BiocStyle,
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
