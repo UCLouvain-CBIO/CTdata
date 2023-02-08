@@ -98,7 +98,7 @@ NULL
 #' @docType data
 NULL
 
-#' Gene expression values in normal tissues with or without allowing multimapping
+#' Gene expression values in normal tissues
 #'
 #' @description
 #'
@@ -144,8 +144,7 @@ NULL
 NULL
 
 
-#' Genes differential expression analysis (with RNAseq expression
-#' values) in cell lines treated or not with a demethylating agent.
+#' DE genes with/without demethylating agent
 #'
 #' @description
 #'
@@ -190,9 +189,7 @@ NULL
 #' @docType data
 NULL
 
-#' Genes differential expression analysis (with RNAseq expression
-#' values where multi-mapping was allowed) in cell lines treated or
-#' not with a demethylating agent.
+#' DE genes treated or not with a demethylating agent
 #'
 #' @description
 #'
@@ -240,7 +237,7 @@ NULL
 #' @docType data
 NULL
 
-#' Methylation of CpGs located within CT promoters in normal tissues.
+#' Methylation of CpGs within CT promoters
 #'
 #' @description
 #'
@@ -271,7 +268,7 @@ NULL
 NULL
 
 
-#' Cancer-Testis genes’ promoters mean methylation in normal tissues
+#' CT genes' promoters mean methylation
 #'
 #' @description
 #'
