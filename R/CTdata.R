@@ -28,7 +28,7 @@
 ##'
 ##' @examples
 ##'
-##' MsDataHub()
+##' CTdata()
 CTdata <- function() {
    fl <- system.file("extdata", "metadata.csv", package = "CTdata")
    read.csv(fl, stringsAsFactors = FALSE)
