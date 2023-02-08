@@ -3,7 +3,7 @@
 \docType{data}
 \name{CT_methylation_in_tissues}
 \alias{CT_methylation_in_tissues}
-\title{Methylation of CpGs located within CT promoters in normal tissues.}
+\title{Methylation of CpGs within CT promoters}
 \format{
 A \code{RangedSummarizedExperiment} object with 53770 rows and 14 columns
 \itemize{

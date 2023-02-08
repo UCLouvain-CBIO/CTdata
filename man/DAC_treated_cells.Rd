@@ -3,8 +3,7 @@
 \docType{data}
 \name{DAC_treated_cells}
 \alias{DAC_treated_cells}
-\title{Genes differential expression analysis (with RNAseq expression
-values) in cell lines treated or not with a demethylating agent.}
+\title{DE genes with/without demethylating agent}
 \format{
 A \code{SummarizedExperiment} object with 24359 rows and 32 columns
 \itemize{

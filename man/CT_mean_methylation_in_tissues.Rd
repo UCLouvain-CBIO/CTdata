@@ -3,7 +3,7 @@
 \docType{data}
 \name{CT_mean_methylation_in_tissues}
 \alias{CT_mean_methylation_in_tissues}
-\title{Cancer-Testis genes’ promoters mean methylation in normal tissues}
+\title{CT genes' promoters mean methylation}
 \format{
 A \code{SummarizedExperiment} object with 307 rows and 14 columns
 \itemize{

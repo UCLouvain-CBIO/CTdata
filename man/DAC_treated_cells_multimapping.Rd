@@ -3,9 +3,7 @@
 \docType{data}
 \name{DAC_treated_cells_multimapping}
 \alias{DAC_treated_cells_multimapping}
-\title{Genes differential expression analysis (with RNAseq expression
-values where multi-mapping was allowed) in cell lines treated or
-not with a demethylating agent.}
+\title{DE genes treated or not with a demethylating agent}
 \format{
 A \code{SummarizedExperiment} object with 24359 rows and 32 columns
 \itemize{

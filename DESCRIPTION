@@ -37,6 +37,9 @@ biocViews: Transcriptomics,
            Epigenetics,
            DataImport,
            ExperimentHubSoftware
+Imports:
+    ExperimentHub,
+    utils
 Suggests:
     testthat (>= 3.0.0),
     DT,

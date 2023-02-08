@@ -3,7 +3,7 @@
 \docType{data}
 \name{normal_tissues_multimapping_data}
 \alias{normal_tissues_multimapping_data}
-\title{Gene expression values in normal tissues with or without allowing multimapping}
+\title{Gene expression values in normal tissues}
 \format{
 A \code{SummarizedExperiment} object with 24359 rows and 18 columns
 \itemize{
