@@ -46,4 +46,6 @@ Suggests:
     BiocStyle,
     knitr,
     rmarkdown
+VignetteBuilder: knitr
+BugReports: https://github.com/UCLouvain-CBIO/CTdata/issues
 Config/testthat/edition: 3
