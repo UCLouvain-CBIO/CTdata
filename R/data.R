@@ -40,7 +40,7 @@
 #' Downloaded from
 #' https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz.
 #' Some categories of tissues were pooled (mean expression values are
-#' given in pooled tissues) (see `inst/scripts/make_GTEX_data.R` for
+#' given in pooled tissues) (see `scripts/make_GTEX_data.R` for
 #' details).
 #'
 #' @name GTEX_data
@@ -91,7 +91,7 @@ NULL
 #' @source
 #'
 #' TPM values downloaded using depmap bioconductor package (see
-#' inst/scripts/make_CCLE_data.R for details).
+#' `scripts/make_CCLE_data.R` for details).
 #'
 #' @name CCLE_data
 #'
@@ -136,7 +136,7 @@ NULL
 #' @source
 #'
 #' RNAseq fastq files were downloaded from Encode database (see
-#' `inst/scripts/make_normal_tissues_multimapping.R` for details).
+#' `scripts/make_normal_tissues_multimapping.R` for details).
 #'
 #' @name normal_tissues_multimapping_data
 #'
@@ -177,7 +177,7 @@ NULL
 #'
 #' Differential expression analysis was done using DESeq2_1.36.0,
 #' using as `design = ~ treatment` (see
-#' `inst/scripts/make_DAC_treated_cells.R` for details).
+#' `scripts/make_DAC_treated_cells.R` for details).
 #'
 #' @source RNAseq
 #'
@@ -225,7 +225,7 @@ NULL
 #'
 #' Differential expression analysis was done using DESeq2_1.36.0,
 #' using as `design = ~ treatment` (see
-#' `inst/scripts/make_DAC_treated_cells_multimapping.R` for details).
+#' `scripts/make_DAC_treated_cells_multimapping.R` for details).
 #'
 #' @source
 #'
@@ -259,7 +259,7 @@ NULL
 #' @source
 #'
 #' WGBS methylation data was downloaded from Encode and from GEO
-#' databases (see `inst/scripts/make_CT_methylation_in_tissues.R` for
+#' databases (see `scripts/make_CT_methylation_in_tissues.R` for
 #' details).
 #'
 #' @name CT_methylation_in_tissues
@@ -318,7 +318,7 @@ NULL
 #' databases. Mean methylation levels are evaluated using methylation
 #' values of CpGs located in promoter region (defined as 1000 nt
 #' upstream TSS and 200 nt downstream TSS) (see
-#' `inst/scripts/make_CT_mean_methylation_in_tissues.R` for details).
+#' `scripts/make_CT_mean_methylation_in_tissues.R` for details).
 #'
 #' @name CT_mean_methylation_in_tissues
 #'
@@ -366,7 +366,7 @@ NULL
 #' @source
 #'
 #' SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC expression data were
-#' downloaded with TCGAbiolinks (see `inst/scripts/make_TCGA_TPM.R`
+#' downloaded with TCGAbiolinks (see `scripts/make_TCGA_TPM.R`
 #' for details).
 #'
 #' @name TCGA_TPM
@@ -401,7 +401,7 @@ NULL
 #' SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC methylation data were
 #' downloaded with TCGAbiolinks and subsetted to select probes located
 #' in CT genes promoter regions (see
-#' `inst/scripts/make_TCGA_CT_methylation.R` for details).
+#' `scripts/make_TCGA_CT_methylation.R` for details).
 #'
 #' @name TCGA_CT_methylation
 #'
@@ -538,7 +538,7 @@ NULL
 #'
 #' @source
 #'
-#' See `inst/scripts/make_CT_genes.R` for details on how this list of
+#' See `scripts/make_CT_genes.R` for details on how this list of
 #' curated CT genes was created.
 #'
 #' @name CT_genes
@@ -570,7 +570,7 @@ NULL
 #'
 #' @source
 #'
-#' See `inst/scripts/make_CCLE_correlation_matrix.R` for details.
+#' See `scripts/make_CCLE_correlation_matrix.R` for details.
 #'
 #' @name CCLE_correlation_matrix
 #'
