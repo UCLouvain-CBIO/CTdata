@@ -1,7 +1,7 @@
 ---
 title: "Cancer Testis Datasets"
 author:
-- name: Laurent Gatto, Julie Devis, Axelle Loriot
+- name: Julie Devis, Laurent Gatto, Axelle Loriot
 package: CTdata
 output:
   BiocStyle::html_document:
@@ -18,7 +18,6 @@ BiocStyle::markdown()
 ```
 
 # Introduction
-
 
 `CTdata` is the companion Package for `CTexploreR` and provides omics
 data to select and characterise cancer testis genes. Data come from
@@ -61,7 +60,7 @@ BiocManager::install("UCLouvain-CBIO/CTdata")
 
 For details about each data, see their respective manual pages.
 
-## Global datasets 
+## Global datasets
 
 ### GTEX data
 
@@ -118,18 +117,25 @@ TCGA_TPM()
 
 ## CT genes determination
 
-We datasets above, we generated a list of 307 CT genes (see figure below for 
-details). 
+```{r, echo = FALSE}
+ctgenes <- CT_genes()
+n <- nrow(ctgenes)
+```
 
-We use multimapping because many CT genes belong to gene families from which 
-members have identical or nearly identical sequences. This is likely the reason 
-why these genes are not detected in GTEx database, as GTEx processing pipeline 
-specifies that overlapping intervals between genes are excluded from all genes 
-for counting. Some CT can thus only be detected in RNAseq data in which 
+
+We datasets above, we generated a list of `r n` CT genes (see figure
+below for details).
+
+We uses multimapping because many CT genes belong to gene families
+from which members have identical or nearly identical sequences. This
+is likely the reason why these genes are not detected in GTEx
+database, as GTEx processing pipeline specifies that overlapping
+intervals between genes are excluded from all genes for counting. Some
+CT genes can thus only be detected in RNAseq data in which
 multimapping reads are not discarded.
 
 ```{r, echo=FALSE, fig.align='center', out.width = '100%'}
-knitr::include_graphics("figs/CT_selection.svg")
+knitr::include_graphics("CT_selection.svg")
 ```
 
 
