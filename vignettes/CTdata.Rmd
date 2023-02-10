@@ -61,7 +61,9 @@ BiocManager::install("UCLouvain-CBIO/CTdata")
 
 For details about each data, see their respective manual pages.
 
-## GTEX data
+## Global datasets 
+
+### GTEX data
 
 A `SummarisedExperiment` object with gene expression data in normal
 tissues from GTEx database:
@@ -70,7 +72,7 @@ tissues from GTEx database:
 GTEX_data()
 ```
 
-## CCLE data
+### CCLE data
 
 A `SummarisedExperiment` object with gene expression data in cancer
 cell lines from CCLE:
@@ -79,13 +81,8 @@ cell lines from CCLE:
 CCLE_data()
 ```
 
-A `matrix` with gene correlations in CCLE cancer cell lines:
 
-```{r}
-CCLE_correlation_matrix()
-```
-
-## Normal tissue gene expression
+### Normal tissue gene expression
 
 A `SummarisedExperiment` object with gene expression values in normal
 tissues with or without allowing multimapping:
@@ -94,11 +91,11 @@ tissues with or without allowing multimapping:
 normal_tissues_multimapping_data()
 ```
 
-## Demethylated gene expression
+### Demethylated gene expression
 
 A `SummarisedExperiment` object containing genes differential
 expression analysis (with RNAseq expression values) in cell lines
-treated or not with a demethylating agent.
+treated or not with a demethylating agent (5-Aza-2'-Deoxycytidine).
 
 ```{r}
 DAC_treated_cells()
@@ -110,7 +107,35 @@ As above, with multimapping:
 DAC_treated_cells_multimapping()
 ```
 
-## Metylation in normal tissue
+### TCGA data
+
+A `SummarisedExperiment` with gene expression data in TCGA samples
+(tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC):
+
+```{r}
+TCGA_TPM()
+```
+
+## CT genes determination
+
+We datasets above, we generated a list of 307 CT genes (see figure below for 
+details). 
+
+We use multimapping because many CT genes belong to gene families from which 
+members have identical or nearly identical sequences. This is likely the reason 
+why these genes are not detected in GTEx database, as GTEx processing pipeline 
+specifies that overlapping intervals between genes are excluded from all genes 
+for counting. Some CT can thus only be detected in RNAseq data in which 
+multimapping reads are not discarded.
+
+```{r, echo=FALSE, fig.align='center', out.width = '100%'}
+knitr::include_graphics("figs/CT_selection.svg")
+```
+
+
+## CT datasets
+
+### Metylation in normal tissue
 
 A `RangedSummarizedExperiment` containing methylation of CpGs located
 within CT promoters in normal tissues:
@@ -126,21 +151,28 @@ methylation in normal tissues:
 CT_mean_methylation_in_tissues()
 ```
 
-## TCGA data
+### TCGA data
 
 A `SummarisedExperiment` with gene expression data in TCGA samples
-(tumor and peritumoral samples):
+(tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC):
 
-```{r}
-TCGA_TPM()
-```
 
 ```{r}
 TCGA_CT_methylation()
 ```
-## CT genes
 
-A `tibble` with Cancer-Testis (CT) genes:
+### CCLE data
+
+A `matrix` with gene expression correlations in CCLE cancer cell lines:
+
+```{r}
+CCLE_correlation_matrix()
+```
+
+
+### CT genes
+
+A `tibble` with Cancer-Testis (CT) genes and their characteristics:
 
 ```{r}
 CT_genes()
