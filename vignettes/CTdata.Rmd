@@ -19,7 +19,6 @@ BiocStyle::markdown()
 
 # Introduction
 
-
 `CTdata` is the companion Package for `CTexploreR` and provides omics
 data to select and characterise cancer testis genes. Data come from
 public databases and include expression and methylation values of
@@ -28,7 +27,7 @@ expression in cells treated with a demethylating agent is also
 available.
 
 The data are served through the `ExperimentHub` infrastructure, which
-allows download them only ones and cache them for further
+allows download them only once and cache them for further
 use. Currently available data are summarised in the table below and
 details in the next section.
 
