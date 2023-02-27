@@ -123,7 +123,7 @@ n <- nrow(ctgenes)
 ```
 
 
-We datasets above, we generated a list of `r n` CT genes (see figure
+With the datasets above, we generated a list of `r n` CT genes (see figure
 below for details).
 
 We uses multimapping because many CT genes belong to gene families
