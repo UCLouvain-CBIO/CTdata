@@ -9,7 +9,7 @@ output:
 vignette: >
   %\VignetteIndexEntry{Cancer Testis Datasets}
   %\VignetteEngine{knitr::rmarkdown}
-  %%\VignetteKeywords{ExperimentHub, Cancer, Testis, Gene expression, methylation, Homo sapiens}
+  %\VignetteKeywords{ExperimentHub, Cancer, Testis, Gene expression, methylation, Homo sapiens}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -109,7 +109,8 @@ DAC_treated_cells_multimapping()
 ### TCGA data
 
 A `SummarisedExperiment` with gene expression data in TCGA samples
-(tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC):
+(tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
+and HNSC):
 
 ```{r}
 TCGA_TPM()
@@ -123,8 +124,8 @@ n <- nrow(ctgenes)
 ```
 
 
-With the datasets above, we generated a list of `r n` CT genes (see figure
-below for details).
+With the datasets above, we generated a list of `r n` CT genes (see
+figure below for details).
 
 We uses multimapping because many CT genes belong to gene families
 from which members have identical or nearly identical sequences. This
@@ -160,7 +161,8 @@ CT_mean_methylation_in_tissues()
 ### TCGA data
 
 A `SummarisedExperiment` with gene expression data in TCGA samples
-(tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC):
+(tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
+and HNSC):
 
 
 ```{r}

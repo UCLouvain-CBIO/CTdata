@@ -26,6 +26,6 @@ makeTags <- function(x) {
     defaultTags <- paste(defaultTags, collapse = ":")
     if (missing(x) || !length(x))
         return(defaultTags)
-    sapply(x, function(.x) paste(c(defaultTags, .x), collapse = ":"),
-           USE.NAMES = FALSE)
+    vapply(x, function(.x) paste(c(defaultTags, .x), collapse = ":"),
+           USE.NAMES = FALSE, "")
 }
