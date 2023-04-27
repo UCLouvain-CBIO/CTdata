@@ -64,7 +64,7 @@ For details about each data, see their respective manual pages.
 
 ### GTEX data
 
-A `SummarisedExperiment` object with gene expression data in normal
+A `SummarizedExperiment` object with gene expression data in normal
 tissues from GTEx database:
 
 ```{r}
@@ -73,7 +73,7 @@ GTEX_data()
 
 ### CCLE data
 
-A `SummarisedExperiment` object with gene expression data in cancer
+A `SummarizedExperiment` object with gene expression data in cancer
 cell lines from CCLE:
 
 ```{r}
@@ -83,7 +83,7 @@ CCLE_data()
 
 ### Normal tissue gene expression
 
-A `SummarisedExperiment` object with gene expression values in normal
+A `SummarizedExperiment` object with gene expression values in normal
 tissues with or without allowing multimapping:
 
 ```{r}
@@ -92,7 +92,7 @@ normal_tissues_multimapping_data()
 
 ### Demethylated gene expression
 
-A `SummarisedExperiment` object containing genes differential
+A `SummarizedExperiment` object containing genes differential
 expression analysis (with RNAseq expression values) in cell lines
 treated or not with a demethylating agent (5-Aza-2'-Deoxycytidine).
 
@@ -108,7 +108,7 @@ DAC_treated_cells_multimapping()
 
 ### TCGA data
 
-A `SummarisedExperiment` with gene expression data in TCGA samples
+A `SummarizedExperiment` with gene expression data in TCGA samples
 (tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
 and HNSC):
 
@@ -151,7 +151,7 @@ within CT promoters in normal tissues:
 CT_methylation_in_tissues()
 ```
 
-A `SummarisedExperiment` with Cancer-Testis genes' promoters mean
+A `SummarizedExperiment` with Cancer-Testis genes' promoters mean
 methylation in normal tissues:
 
 ```{r}
@@ -160,7 +160,7 @@ CT_mean_methylation_in_tissues()
 
 ### TCGA data
 
-A `SummarisedExperiment` with gene expression data in TCGA samples
+A `SummarizedExperiment` with gene expression data in TCGA samples
 (tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
 and HNSC):
 
@@ -174,7 +174,8 @@ TCGA_CT_methylation()
 A `matrix` with gene expression correlations in CCLE cancer cell lines:
 
 ```{r}
-CCLE_correlation_matrix()
+dim(CCLE_correlation_matrix())
+CCLE_correlation_matrix()[1:10, 1:5]
 ```
 
 
@@ -185,7 +186,6 @@ A `tibble` with Cancer-Testis (CT) genes and their characteristics:
 ```{r}
 CT_genes()
 ```
-
 
 
 # Session information {-}
