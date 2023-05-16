@@ -23,7 +23,8 @@ all_genes$TPM_testis <- assay(GTEX_data)[, "Testis"]
 ## GTEX_category from GTEX_data (when their TPM < 1 in testis)
 ################################################################################
 all_genes <- all_genes %>%
-  left_join(as_tibble(rowData(normal_tissues_multimapping_data)))
+  left_join(as_tibble(rowData(normal_tissues_multimapping_data),
+                      rownames = "ensembl_gene_id"))
 
 ################################################################################
 ## Add testis_specificity summarizing testis-specificity analysis from
@@ -42,7 +43,7 @@ all_genes <- all_genes %>%
 ## and at least one cell line is highly positive (TPM >= 10)
 ################################################################################
 all_genes <- all_genes %>%
-  left_join(as_tibble(rowData(CCLE_data)))
+  left_join(as_tibble(rowData(CCLE_data), rownames = "ensembl_gene_id"))
 all_genes[is.na(all_genes$CCLE_category), "CCLE_category"] <- "not_in_CCLE"
 
 ################################################################################
@@ -56,9 +57,9 @@ all_genes[is.na(all_genes$CCLE_category), "CCLE_category"] <- "not_in_CCLE"
 ################################################################################
 
 all_genes <- all_genes %>%
-  left_join(as_tibble(rowData(TCGA_TPM)) %>%
-              dplyr::select(external_gene_name, percent_pos_tum, percent_neg_tum,
-                            max_TPM_in_TCGA, TCGA_category))
+  left_join(as_tibble(rowData(TCGA_TPM), rownames = "ensembl_gene_id") %>%
+              dplyr::select(ensembl_gene_id, external_gene_name, percent_pos_tum,
+                            percent_neg_tum, max_TPM_in_TCGA, TCGA_category))
 
 all_genes[all_genes$lowly_expressed_in_GTEX == TRUE &
             all_genes$multimapping_analysis == "testis_specific",
@@ -67,7 +68,8 @@ all_genes[all_genes$lowly_expressed_in_GTEX == TRUE &
 ################################################################################
 ## Add DAC column specifying if genes are induced by 5-Aza-2′-Deoxycytidine
 ################################################################################
-induced <- as_tibble(rowData(DAC_treated_cells_multimapping)) %>%
+induced <- as_tibble(rowData(DAC_treated_cells_multimapping),
+                     rownames = "ensembl_gene_id") %>%
   filter(induced == TRUE) %>%
   pull(external_gene_name)
 
@@ -102,7 +104,7 @@ canonical_transcripts <- transcripts_infos %>%
   filter(transcript_biotype == "protein_coding" | transcript_biotype == "lncRNA")
 all_genes <- all_genes %>%
   left_join(canonical_transcripts %>%
-              dplyr::select(ensembl_gene_id, external_gene_name,
+              dplyr::select(ensembl_gene_id,
                             external_transcript_name, ensembl_transcript_id,
                             chromosome_name, strand, transcript_start,
                             transcript_end, transcription_start_site,
@@ -233,7 +235,7 @@ CT_list <- CT_list %>%
                    transcription_start_site, transcript_end, transcript_length,
                    transcript_biotype)) %>%
   left_join(transcripts_infos %>%
-              dplyr::select(ensembl_gene_id, external_gene_name,
+              dplyr::select(ensembl_gene_id,
                             external_transcript_name, ensembl_transcript_id,
                             chromosome_name, strand, transcription_start_site,
                             transcript_length, transcript_biotype))
