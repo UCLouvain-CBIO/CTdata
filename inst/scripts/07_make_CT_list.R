@@ -199,7 +199,7 @@ CT_list[CT_list$external_gene_name == "LINC00452", "external_transcript_name"] <
 CT_list[CT_list$external_gene_name == "LINC02293", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "G2E3-AS1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC00221", "external_transcript_name"] <- NA
-CT_list[CT_list$external_gene_name == "LINC01193", "external_transcript_name"] <- "LINC01193-201A"
+CT_list[CT_list$external_gene_name == "LINC01193", "external_transcript_name"] <- "LINC01193-201"
 CT_list[CT_list$external_gene_name == "EWSAT1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "INSYN1-AS1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC02152", "external_transcript_name"] <- NA
