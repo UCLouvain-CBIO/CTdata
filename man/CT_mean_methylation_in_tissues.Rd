@@ -5,7 +5,7 @@
 \alias{CT_mean_methylation_in_tissues}
 \title{CT genes' promoters mean methylation}
 \format{
-A \code{SummarizedExperiment} object with 307 rows and 14 columns
+A \code{SummarizedExperiment} object with 308 rows and 14 columns
 \itemize{
 \item Rows correspond to CT genes
 \item Mean methylation levels in normal tissues are stored in columns
@@ -18,7 +18,7 @@ WGBS methylation data was downloaded from Encode and from GEO
 databases. Mean methylation levels are evaluated using methylation
 values of CpGs located in promoter region (defined as 1000 nt
 upstream TSS and 200 nt downstream TSS) (see
-\code{inst/scripts/make_CT_mean_methylation_in_tissues.R} for details).
+\code{scripts/make_CT_mean_methylation_in_tissues.R} for details).
 }
 \description{
 Mean methylation values of all CpGs located within Cancer-Testis

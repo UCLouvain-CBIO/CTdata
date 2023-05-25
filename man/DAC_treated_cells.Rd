@@ -35,5 +35,5 @@ Gene expression values in a set of cell lines treated or not with
 \details{
 Differential expression analysis was done using DESeq2_1.36.0,
 using as \code{design = ~ treatment} (see
-\code{inst/scripts/make_DAC_treated_cells.R} for details).
+\code{scripts/make_DAC_treated_cells.R} for details).
 }

@@ -16,7 +16,7 @@ A \code{SummarizedExperiment} object with 24359 rows and 32 columns
 Downloaded from
 https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz.
 Some categories of tissues were pooled (mean expression values are
-given in pooled tissues) (see \code{inst/scripts/make_GTEX_data.R} for
+given in pooled tissues) (see \code{scripts/make_GTEX_data.R} for
 details).
 }
 \description{

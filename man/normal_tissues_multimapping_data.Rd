@@ -17,7 +17,7 @@ values obtained by counting multimapped reads.
 }
 \source{
 RNAseq fastq files were downloaded from Encode database (see
-\code{inst/scripts/make_normal_tissues_multimapping.R} for details).
+\code{scripts/make_normal_tissues_multimapping.R} for details).
 }
 \description{
 Gene expression values (TPM) in a set of normal tissues obtained by

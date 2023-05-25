@@ -16,7 +16,7 @@ A \code{SummarizedExperiment} object with 24350 rows and 4087 columns
 }
 \source{
 SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC expression data were
-downloaded with TCGAbiolinks (see \code{inst/scripts/make_TCGA_TPM.R}
+downloaded with TCGAbiolinks (see \code{scripts/make_TCGA_TPM.R}
 for details).
 }
 \description{

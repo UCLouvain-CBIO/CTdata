@@ -15,7 +15,7 @@ A \code{SummarizedExperiment} object with 24327 rows and 1229 columns
 }
 \source{
 TPM values downloaded using depmap bioconductor package (see
-inst/scripts/make_CCLE_data.R for details).
+\code{scripts/make_CCLE_data.R} for details).
 }
 \description{
 Gene expression data in cancer cell lines from CCLE

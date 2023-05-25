@@ -5,14 +5,14 @@
 \alias{CCLE_correlation_matrix}
 \title{Gene correlations in CCLE cancer cell lines}
 \format{
-A \code{matrix} object with 307 rows and 24327 columns.
+A \code{matrix} object with 308 rows and 24327 columns.
 \itemize{
 \item Rows correspond to CT genes
 \item Columns correspond to all genes from CCLE database
 }
 }
 \source{
-See \code{inst/scripts/make_CCLE_correlation_matrix.R} for details.
+See \code{scripts/make_CCLE_correlation_matrix.R} for details.
 }
 \description{
 Correlation coefficients between Cancer-Testis genes and all genes

@@ -5,14 +5,14 @@
 \alias{CT_genes}
 \title{CT genes description table}
 \format{
-A \code{tibble} object with 307 rows and 34 columns.
+A \code{tibble} object with 308 rows and 34 columns.
 \itemize{
 \item Rows correspond to CT genes
 \item Columns give CT genes characteristics
 }
 }
 \source{
-See \code{inst/scripts/make_CT_genes.R} for details on how this list of
+See \code{scripts/make_CT_genes.R} for details on how this list of
 curated CT genes was created.
 }
 \description{

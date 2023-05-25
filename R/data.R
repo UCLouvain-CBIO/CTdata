@@ -277,7 +277,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 307 rows and 14 columns
+#' A `SummarizedExperiment` object with 308 rows and 14 columns
 #'
 #' - Rows correspond to CT genes
 #'
@@ -416,7 +416,7 @@ NULL
 #'
 #' @format
 #'
-#' A `tibble` object with 307 rows and 34 columns.
+#' A `tibble` object with 308 rows and 34 columns.
 #'
 #' - Rows correspond to CT genes
 #'
@@ -555,7 +555,7 @@ NULL
 #'
 #' @format
 #'
-#' A `matrix` object with 307 rows and 24327 columns.
+#' A `matrix` object with 308 rows and 24327 columns.
 #'
 #' - Rows correspond to CT genes
 #'

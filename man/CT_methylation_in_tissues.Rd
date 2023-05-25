@@ -15,7 +15,7 @@ A \code{RangedSummarizedExperiment} object with 53770 rows and 14 columns
 }
 \source{
 WGBS methylation data was downloaded from Encode and from GEO
-databases (see \code{inst/scripts/make_CT_methylation_in_tissues.R} for
+databases (see \code{scripts/make_CT_methylation_in_tissues.R} for
 details).
 }
 \description{
