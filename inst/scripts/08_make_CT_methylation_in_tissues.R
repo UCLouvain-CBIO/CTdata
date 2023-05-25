@@ -78,8 +78,8 @@ Encode_tissues <- c("adipose", "colon", "esophagus", "heart", "intestine",
 ## adipose ENCFF318AMC.bed
 ## colon ENCFF157POM.bed
 ## esophagus ENCFF625GVK.bed
-## heart.bed ENCFF536RSX.bed
-## intestine.bed ENCFF241AQC.bed
+## heart ENCFF536RSX.bed
+## intestine ENCFF241AQC.bed
 ## lung ENCFF039JFT.bed
 ## muscle ENCFF121ZES.bed
 ## pancreas ENCFF763RUE.bed
