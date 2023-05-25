@@ -5,7 +5,7 @@
 \alias{CT_methylation_in_tissues}
 \title{Methylation of CpGs within CT promoters}
 \format{
-A \code{RangedSummarizedExperiment} object with 53770 rows and 14 columns
+A \code{RangedSummarizedExperiment} object with 53992 rows and 14 columns
 \itemize{
 \item Rows correspond to CpGs (located within CT genes promoters)
 \item Columns correspond to normal tissues

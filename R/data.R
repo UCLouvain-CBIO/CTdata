@@ -246,7 +246,7 @@ NULL
 #'
 #' @format
 #'
-#' A `RangedSummarizedExperiment` object with 53770 rows and 14 columns
+#' A `RangedSummarizedExperiment` object with 53992 rows and 14 columns
 #'
 #' - Rows correspond to CpGs (located within CT genes promoters)
 #'
@@ -383,7 +383,7 @@ NULL
 #'
 #' @format
 #'
-#' A `RangedSummarizedExperiment` object with 692 rows and 3423
+#' A `RangedSummarizedExperiment` object with 694 rows and 3423
 #' columns
 #'
 #' - Rows correspond to Infinium 450k probes
