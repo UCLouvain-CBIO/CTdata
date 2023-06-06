@@ -416,7 +416,7 @@ NULL
 #'
 #' @format
 #'
-#' A `tibble` object with 308 rows and 34 columns.
+#' A `tibble` object with 308 rows and 35 columns.
 #'
 #' - Rows correspond to CT genes
 #'
@@ -536,6 +536,9 @@ NULL
 #'   and tumor-suppressor functions have been associated to genes
 #'   (source: [Cancermine](http://bionlp.bcgsc.ca/cancermine/)).
 #'
+#' - Columns `testis_cell_type` specifies the testis cell-type showing the
+#' highest mean expression of each gene (based on testis scRNAseq).
+#'
 #' @source
 #'
 #' See `scripts/make_CT_genes.R` for details on how this list of
@@ -573,6 +576,49 @@ NULL
 #' See `scripts/make_CCLE_correlation_matrix.R` for details.
 #'
 #' @name CCLE_correlation_matrix
+#'
+#' @docType data
+NULL
+
+#' Testis scRNAseq data
+#'
+#' @description
+#'
+#' Testis single cell RNAseq data from
+#' `The adult human testis transcriptional cell atlas` (Guo et al. 2018)
+#'
+#' @format
+#'
+#' A `SingleCellExperiment` object with 27467 rows and 6490 columns
+#'
+#' - Rows correspond to genes (gene names as rownames)
+#' - Columns correspond to testis cells
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `nGene` gives the number of distinct genes detected per cell.
+#'
+#' - Column `nUMI` gives the total UMI number per cell.
+#'
+#' - Column `clusters` gives cluster number defined in the Guo's paper.
+#'
+#' - Column `type` gives the testis cell type associated to the cluster number.
+#'
+#' - Column `Donor` gives the Donor origin of the cells.
+#'
+#' The rowData contains the `testis_cell_type` column, specifying the testis
+#' cell-type showing the highest median expression of each gene.
+#'
+#' @source
+#'
+#' The count matrix `GSE112013_Combined_UMI_table.txt.gz` was downloaded from
+#' GEO (accession: GSE11201). Metadata correspond to `TableS1` from the paper's
+#' supplemental data. The data were converted in a SingleCellExperiment
+#' (see `scripts/13_make_testis_scRNAseq_data.R` for details).
+#'
+#' @name testis_sce
 #'
 #' @docType data
 NULL
