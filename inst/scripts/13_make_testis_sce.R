@@ -1,4 +1,4 @@
-## Code to prepare `testis_ssRNAseq_data` dataset goes here
+## Code to prepare `testis_sce` dataset goes here
 
 
 library(tidyverse)
@@ -67,8 +67,8 @@ coldata <- data.frame(metadata[, -1], row.names = metadata$CellID)
 testis_sce <- SingleCellExperiment(assays = list(counts = mat[, rownames(coldata)]),
                                    colData = coldata)
 
-keep <- rowSums(assay(testis_sce)) > 0
-testis_sce <- testis_sce[keep,]
+# keep <- rowSums(assay(testis_sce)) > 0
+# testis_sce <- testis_sce[keep,]
 
 testis_sce <- logNormCounts(testis_sce)
 
@@ -78,20 +78,20 @@ testis_sce <- logNormCounts(testis_sce)
 ##########################################################################
 
 testis_cell_type <- as_tibble(logcounts(testis_sce),
-                                     rownames = "external_gene_name") %>%
+                              rownames = "external_gene_name") %>%
   pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               select(CellID, type)) %>%
   group_by(external_gene_name, type) %>%
   summarise(mean_exp = mean(logCounts)) %>%
+  filter(mean_exp > 0) %>%
   filter(mean_exp == max(mean_exp)) %>%
   dplyr::rename(testis_cell_type = type) %>%
   select(external_gene_name, testis_cell_type) %>%
   unique()
 
-rowdata <- data.frame(testis_cell_type = testis_cell_type$testis_cell_type,
-                      row.names = testis_cell_type$external_gene_name)
-rowData(testis_sce) <- rowdata[rownames(testis_sce), , drop = FALSE]
+rowData(testis_sce) <- tibble(external_gene_name = rownames(testis_sce)) %>%
+  left_join(testis_cell_type)
 
 save(testis_sce, file = "../../eh_data/testis_sce.rda",
      compress = "xz",
