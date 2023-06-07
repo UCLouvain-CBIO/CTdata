@@ -67,9 +67,6 @@ coldata <- data.frame(metadata[, -1], row.names = metadata$CellID)
 testis_sce <- SingleCellExperiment(assays = list(counts = mat[, rownames(coldata)]),
                                    colData = coldata)
 
-# keep <- rowSums(assay(testis_sce)) > 0
-# testis_sce <- testis_sce[keep,]
-
 testis_sce <- logNormCounts(testis_sce)
 
 ##########################################################################

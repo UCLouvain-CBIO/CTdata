@@ -589,7 +589,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SingleCellExperiment` object with 27467 rows and 6490 columns
+#' A `SingleCellExperiment` object with 27477 rows and 6490 columns
 #'
 #' - Rows correspond to genes (gene names as rownames)
 #' - Columns correspond to testis cells
@@ -609,14 +609,14 @@ NULL
 #' - Column `Donor` gives the Donor origin of the cells.
 #'
 #' The rowData contains the `testis_cell_type` column, specifying the testis
-#' cell-type showing the highest median expression of each gene.
+#' cell-type showing the highest mean expression of each gene.
 #'
 #' @source
 #'
 #' The count matrix `GSE112013_Combined_UMI_table.txt.gz` was downloaded from
 #' GEO (accession: GSE11201). Metadata correspond to `TableS1` from the paper's
 #' supplemental data. The data were converted in a SingleCellExperiment
-#' (see `scripts/13_make_testis_scRNAseq_data.R` for details).
+#' (see `scripts/13_make_testis_sce.R` for details).
 #'
 #' @name testis_sce
 #'
