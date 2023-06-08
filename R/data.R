@@ -416,7 +416,7 @@ NULL
 #'
 #' @format
 #'
-#' A `tibble` object with 308 rows and 35 columns.
+#' A `tibble` object with 308 rows and 37 columns.
 #'
 #' - Rows correspond to CT genes
 #'
@@ -536,8 +536,14 @@ NULL
 #'   and tumor-suppressor functions have been associated to genes
 #'   (source: [Cancermine](http://bionlp.bcgsc.ca/cancermine/)).
 #'
-#' - Columns `testis_cell_type` specifies the testis cell-type showing the
-#' highest mean expression of each gene (based on testis scRNAseq).
+#' - Column `percent_pos_testis_germcells` gives the percent of testis germ cells
+#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
+#'
+#' - Column `percent_pos_testis_somatic` gives the percent of testis somatic cells
+#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
+#'
+#' - Column`testis_cell_type` specifies the testis cell-type showing the highest
+#'  mean expression of each gene (based on testis scRNAseq data).
 #'
 #' @source
 #'
@@ -607,6 +613,17 @@ NULL
 #' - Column `type` gives the testis cell type associated to the cluster number.
 #'
 #' - Column `Donor` gives the Donor origin of the cells.
+#'
+#' Description of the rowData:
+#'
+#' - Column `percent_pos_testis_germcells` gives the percent of testis germ cells
+#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
+#'
+#' - Column `percent_pos_testis_somatic` gives the percent of testis somatic cells
+#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
+#'
+#' - Column`testis_cell_type` specifies the testis cell-type showing the highest
+#'  mean expression of each gene (based on testis scRNAseq data).
 #'
 #' The rowData contains the `testis_cell_type` column, specifying the testis
 #' cell-type showing the highest mean expression of each gene.
