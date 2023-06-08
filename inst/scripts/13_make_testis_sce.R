@@ -77,7 +77,7 @@ testis_sce <- logNormCounts(testis_sce)
 ## in which the genes are detected (count > 0)
 ## - `testis_cell_type` column, specifying the testis cell-type showing
 ## the highest mean expression of each gene.
-## Genes must be detected ((count > 0) in at least 1% of the cells within
+## Genes must be detected (count > 0) in at least 1% of the cells within
 ## a specific testis cell-type to be assigned to it.
 ##########################################################################
 
