@@ -116,6 +116,18 @@ and HNSC):
 TCGA_TPM()
 ```
 
+
+### Testis scRNAseq data
+
+A `SingleCellExperiment` object containing gene expression from testis single 
+cell RNAseq experiment (`The adult human testis transcriptional cell atlas`
+(Guo et al. 2018)):
+
+```{r}
+testis_sce()
+```
+
+
 ## CT genes determination
 
 ```{r, echo = FALSE}
