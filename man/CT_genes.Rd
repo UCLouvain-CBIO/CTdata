@@ -5,7 +5,7 @@
 \alias{CT_genes}
 \title{CT genes description table}
 \format{
-A \code{tibble} object with 308 rows and 34 columns.
+A \code{tibble} object with 308 rows and 37 columns.
 \itemize{
 \item Rows correspond to CT genes
 \item Columns give CT genes characteristics
@@ -104,5 +104,11 @@ gene.
 \item Columns \code{oncogene} and \code{tumor_suppressor} informs if oncogenic
 and tumor-suppressor functions have been associated to genes
 (source: \href{http://bionlp.bcgsc.ca/cancermine/}{Cancermine}).
+\item Column \code{percent_pos_testis_germcells} gives the percent of testis germ cells
+in wich the genes are detected (count > 0) (based on testis scRNAseq data).
+\item Column \code{percent_pos_testis_somatic} gives the percent of testis somatic cells
+in wich the genes are detected (count > 0) (based on testis scRNAseq data).
+\item Column\code{testis_cell_type} specifies the testis cell-type showing the highest
+mean expression of each gene (based on testis scRNAseq data).
 }
 }
