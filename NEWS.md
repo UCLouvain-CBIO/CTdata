@@ -1,5 +1,9 @@
 # CTdata 1.1
 
+## CTdata 1.1.2
+
+- Suggest SummarizedExperiment.
+
 ## CTdata 1.1.1
 
 - Only display a small subset of `CCLE_correlation_matrix()` in the

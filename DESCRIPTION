@@ -1,6 +1,6 @@
 Package: CTdata
 Title: Data companion to CTexploreR
-Version: 1.1.1
+Version: 1.1.2
 Authors@R:
     c(person(given = "Axelle",
            family = "Loriot",
@@ -47,7 +47,8 @@ Suggests:
     DT,
     BiocStyle,
     knitr,
-    rmarkdown
+    rmarkdown,
+    SummarizedExperiment
 VignetteBuilder: knitr
 BugReports: https://github.com/UCLouvain-CBIO/CTdata/issues
 Config/testthat/edition: 3
