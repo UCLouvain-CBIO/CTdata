@@ -1,5 +1,9 @@
 # CTdata 1.1
 
+## CTdata 1.1.3
+
+- Load SummarizedExperiment in vignette.
+
 ## CTdata 1.1.2
 
 - Suggest SummarizedExperiment.

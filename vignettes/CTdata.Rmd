@@ -67,6 +67,10 @@ For details about each data, see their respective manual pages.
 A `SummarizedExperiment` object with gene expression data in normal
 tissues from GTEx database:
 
+```{r, message = FALSE}
+library("SummarizedExperiment")
+```
+
 ```{r}
 GTEX_data()
 ```
@@ -119,7 +123,7 @@ TCGA_TPM()
 
 ### Testis scRNAseq data
 
-A `SingleCellExperiment` object containing gene expression from testis single 
+A `SingleCellExperiment` object containing gene expression from testis single
 cell RNAseq experiment (`The adult human testis transcriptional cell atlas`
 (Guo et al. 2018)):
 
