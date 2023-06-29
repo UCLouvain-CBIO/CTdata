@@ -38,7 +38,7 @@ metadata <-
             "3.17",
             "3.17",
             "3.17",
-            "3.17"),
+            "3.18"),
         Genome = "hg38",
         SourceType = c(
             "tab",
