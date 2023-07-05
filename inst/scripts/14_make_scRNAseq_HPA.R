@@ -3,9 +3,11 @@
 library("tidyverse")
 library("SummarizedExperiment")
 
-## scRNAseq from normal tissues dowloaded from the Human Protein Atlas:
-## - rna_single_cell_type.tsv downloaded directly from https://www.proteinatlas.org/about/download
-## - The cell types group associated to each cell type were copied manually from https://www.proteinatlas.org/humanproteome/single+cell+type
+## scRNAseq from normal tissues downloaded from the Human Protein Atlas:
+## - rna_single_cell_type.tsv downloaded directly from
+## https://www.proteinatlas.org/about/download
+## - The cell types group associated to each cell type were copied manually from
+## https://www.proteinatlas.org/humanproteome/single+cell+type
 
 data <- read_tsv("../extdata/rna_single_cell_type.tsv")
 data <- data %>%
@@ -44,6 +46,16 @@ scRNAseq_HPA <- SummarizedExperiment(assays = list(TPM = mat[, cell_types_by_gro
 
 not_somatic_group <- c("Germ_cells", "Trophoblast_cells")
 somatic_groups <- unique(cell_types_by_group$group[!cell_types_by_group$group %in% not_somatic_group])
+
+##########################################################################
+## Add 3 columns to the rowData:
+## - `values_in_somatics` giving the maximum expression value found in a
+## somatic cell type
+## - `max_in_germcells_group` giving the maximum expression value found in
+## a germ cell type
+## - `Higher_in_somatic_cell_type` column, specifying if a somatic cell type
+## was found to express the gene at a higher level than any germ cell type
+##########################################################################
 
 values_in_somatics <- as_tibble(assay(scRNAseq_HPA), rownames = "ensembl_gene_id") %>%
   pivot_longer(names_to = "Cell_type", values_to = "counts", -ensembl_gene_id) %>%
