@@ -4,6 +4,7 @@
 library(tidyverse)
 library(SingleCellExperiment)
 library(scater)
+library(biomaRt)
 
 ## Data from The adult human testis transcriptional cell atlas (Guo et al. 2018)
 ## `GSE112013_Combined_UMI_table.txt.gz` was downloaded from GEO (accession:
@@ -59,14 +60,51 @@ metadata$clusters <- as.factor(metadata$clusters)
 
 counts <- read_tsv(file = "../extdata/GSE112013_Combined_UMI_table.txt")
 
+# Some gene names are not the official ones!
+ensembl <- biomaRt::useDataset("hsapiens_gene_ensembl", useMart("ensembl"))
+
+attributes_vector <- c("ensembl_gene_id",
+                       "external_gene_name",
+                       "external_synonym",
+                       "ensembl_transcript_id",
+                       "external_transcript_name",
+                       "chromosome_name",
+                       "transcript_biotype",
+                       "transcript_is_canonical")
+transcripts_infos <- as_tibble(biomaRt::getBM(attributes = attributes_vector,
+                                              mart = ensembl))
+canonical_transcripts <- transcripts_infos %>%
+  dplyr::filter(transcript_is_canonical == 1) %>%
+  dplyr::filter(external_transcript_name != "") %>%
+  dplyr::filter(chromosome_name %in% c(1:22, "X", "Y", "MT")) %>%
+  dplyr::filter(transcript_biotype == "protein_coding" |
+                  transcript_biotype == "lncRNA")
+
+counts_correct_gene_names <- counts %>%
+  filter(Gene %in% canonical_transcripts$external_gene_name)
+
+counts_incorrect_gene_names <- counts %>%
+  filter(!Gene %in% canonical_transcripts$external_gene_name)
+
+# Change incorrect genes names using official ones, when possible
+counts_incorrect_gene_names <- counts_incorrect_gene_names %>%
+  left_join(canonical_transcripts %>%
+              dplyr::select(ensembl_gene_id, external_gene_name, external_synonym), by = c("Gene" = "external_synonym")) %>%
+  dplyr::select(Gene, ensembl_gene_id, external_gene_name, everything()) %>%
+  filter(!is.na(external_gene_name)) %>%
+  filter(!external_gene_name %in% counts_correct_gene_names$Gene) %>%
+  filter(!duplicated(external_gene_name)) %>%
+  dplyr::select(-Gene, -ensembl_gene_id) %>%
+  dplyr::rename(Gene = external_gene_name)
+
+counts <- rbind(counts_correct_gene_names, counts_incorrect_gene_names)
+
 mat <- as.matrix(counts[, -1])
 rownames(mat) <- counts$Gene
-
 coldata <- data.frame(metadata[, -1], row.names = metadata$CellID)
 
 testis_sce <- SingleCellExperiment(assays = list(counts = mat[, rownames(coldata)]),
                                    colData = coldata)
-
 testis_sce <- logNormCounts(testis_sce)
 
 ##########################################################################
@@ -92,27 +130,29 @@ percent_pos_germcells <- as_tibble(logcounts(testis_sce),
                                    rownames = "external_gene_name") %>%
   pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
-              select(CellID, type)) %>%
+              dplyr::select(CellID, type)) %>%
   filter(type %in% germ_cells) %>%
   group_by(external_gene_name) %>%
   summarise(n_pos = count(logCounts > 0)) %>%
-  mutate(n_germ_cells = n_germ_cells, percent_pos_testis_germcells = n_pos / n_germ_cells * 100)
+  mutate(n_germ_cells = n_germ_cells,
+         percent_pos_testis_germcells = n_pos / n_germ_cells * 100)
 
 percent_pos_somatic <- as_tibble(logcounts(testis_sce),
                                  rownames = "external_gene_name") %>%
   pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
-              select(CellID, type)) %>%
+              dplyr::select(CellID, type)) %>%
   filter(type %in% somatic_cells) %>%
   group_by(external_gene_name) %>%
   summarise(n_pos = count(logCounts > 0)) %>%
-  mutate(n_germ_cells = n_somatic_cells, percent_pos_testis_somatic = n_pos / n_germ_cells * 100)
+  mutate(n_germ_cells = n_somatic_cells,
+         percent_pos_testis_somatic = n_pos / n_germ_cells * 100)
 
 testis_cell_type <- as_tibble(logcounts(testis_sce),
                               rownames = "external_gene_name") %>%
   pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
-              select(CellID, type)) %>%
+              dplyr::select(CellID, type)) %>%
   group_by(external_gene_name, type) %>%
   summarise(mean_exp = mean(logCounts), n_pos = count(logCounts > 0)) %>%
   left_join(enframe(table(testis_sce$type), name = "type", value = "n_cells")) %>%
@@ -120,12 +160,14 @@ testis_cell_type <- as_tibble(logcounts(testis_sce),
   filter(percent_pos > 1) %>%
   filter(mean_exp == max(mean_exp)) %>%
   dplyr::rename(testis_cell_type = type) %>%
-  select(external_gene_name, testis_cell_type) %>%
+  dplyr::select(external_gene_name, testis_cell_type) %>%
   unique()
 
 rowData(testis_sce) <- tibble(external_gene_name = rownames(testis_sce)) %>%
-  left_join(percent_pos_germcells %>% select(external_gene_name, percent_pos_testis_germcells)) %>%
-  left_join(percent_pos_somatic %>% select(external_gene_name, percent_pos_testis_somatic)) %>%
+  left_join(percent_pos_germcells %>%
+              dplyr::select(external_gene_name, percent_pos_testis_germcells)) %>%
+  left_join(percent_pos_somatic %>%
+              dplyr::select(external_gene_name, percent_pos_testis_somatic)) %>%
   left_join(testis_cell_type)
 
 save(testis_sce, file = "../../eh_data/testis_sce.rda",
