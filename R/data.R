@@ -595,7 +595,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SingleCellExperiment` object with 27477 rows and 6490 columns
+#' A `SingleCellExperiment` object with 19777 rows and 6490 columns
 #'
 #' - Rows correspond to genes (gene names as rownames)
 #' - Columns correspond to testis cells
@@ -635,7 +635,57 @@ NULL
 #' supplemental data. The data were converted in a SingleCellExperiment
 #' (see `scripts/13_make_testis_sce.R` for details).
 #'
-#' @name testis_sce
+#' @name scRNAseq_HPA
 #'
 #' @docType data
 NULL
+
+#' Gene expression in human cell types
+#'
+#' @description
+#'
+#' Gene expression profiles in different human cell types based on scRNAseq data
+#' obtained from the Human Protein Atlas (https://www.proteinatlas.org)
+#'
+#' @format
+#'
+#' A `SummarizedExperiment` object with 20082 rows and 66 columns
+#'
+#' - Rows correspond to genes (ensembl gene id as rownames)
+#' - Columns correspond to cell types
+#' - Expression values correspond to ranscripts per million protein coding genes
+#' (pTPM)
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `Cell_type` gives cell type.
+#'
+#' - Column `group` gives the cell type group (defined in the Human Protein Atlas).
+#'
+#' Description of the rowData:
+#'
+#' - Column `max_TPM_in_a_somatic_cell_type` gives the maximum expression value
+#' found in a somatic cell type
+#'
+#' - Column `max_in_germcells_group` gives the maximum expression value found
+#' in a germ cell type
+#'
+#' - Column `Higher_in_somatic_cell_type` specifies if a somatic cell type
+## was found to express the gene at a higher level than any germ cell type
+#'
+#' @source
+#'
+#' Gene expression values in cell types, based on multiple scRNAseq datasets
+#' obtained from the Human Protein Atlas
+#' (https://www.proteinatlas.org/about/download)
+#' The data were converted in a SummarizedExperiment
+#' (see `scripts/14_make_scRNAseq_HPA.R` for details).
+#'
+#' @name scRNAseq_HPA
+#'
+#' @docType data
+NULL
+
+
