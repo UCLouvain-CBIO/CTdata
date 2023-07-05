@@ -2,6 +2,7 @@
 
 library("tidyverse")
 library("SingleCellExperiment")
+library("SummarizedExperiment")
 
 load("../../eh_data/CT_genes.rda")
 load("../../eh_data/testis_sce.rda")
