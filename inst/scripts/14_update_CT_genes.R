@@ -7,17 +7,16 @@ load("../../eh_data/CT_genes.rda")
 load("../../eh_data/testis_sce.rda")
 
 ##########################################################################
-## Add 3 columns based on testis scRNAseq data:
-## - `percent_pos_testis_germcells` giving the percent of testis germ cells
-## in which the genes are detected (count > 0)
-## - `percent_pos_testis_somatic` giving the percent of testis somatic cells
-## in which the genes are detected (count > 0)
-## - `testis_cell_type` column, specifying the testis cell-type showing
-## the highest mean expression of each gene.
+## Add the `testis_cell_type` column (based on testis scRNAseq data),
+## specifying the testis cell-type showing the highest mean expression
+## of each gene.
+## Remove genes for which testis_cell_type corresponds to a testis somatic
+## cell type.
 ##########################################################################
-
 CT_genes <- CT_genes %>%
-  left_join(as_tibble(rowData(testis_sce)))
+  left_join(as_tibble(rowData(testis_sce)) %>%
+              dplyr::select(external_gene_name, testis_cell_type)) %>%
+  filter(!testis_cell_type %in% c( "Macrophage", "Endothelial", "Myoid", "Sertoli", "Leydig"))
 
 save(CT_genes, file = "../../eh_data/CT_genes.rda",
      compress = "xz",
