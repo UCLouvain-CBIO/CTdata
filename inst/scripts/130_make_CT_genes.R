@@ -70,6 +70,7 @@ CT_genes <- CT_genes %>%
                 "TPM_testis", "max_TPM_somatic",
                 "GTEX_category", "lowly_expressed_in_GTEX",
                 "multimapping_analysis", "testis_specificity",
+                "testis_cell_type", "Higher_in_somatic_cell_type",
                 "percent_of_positive_CCLE_cell_lines",
                 "percent_of_negative_CCLE_cell_lines", "max_TPM_in_CCLE",
                 "CCLE_category", "percent_pos_tum", "percent_neg_tum",
@@ -79,7 +80,6 @@ CT_genes <- CT_genes %>%
                 "CpG_promoter", "external_transcript_name",
                 "ensembl_transcript_id", "transcript_biotype", "oncogene",
                 "tumor_suppressor")
-
 
 save(CT_genes, file = "../../eh_data/CT_genes.rda",
      compress = "xz",

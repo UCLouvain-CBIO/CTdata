@@ -132,10 +132,11 @@ percent_pos_germcells <- as_tibble(logcounts(testis_sce),
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               dplyr::select(CellID, type)) %>%
   filter(type %in% germ_cells) %>%
-  group_by(external_gene_name) %>%
-  summarise(n_pos = count(logCounts > 0)) %>%
+  group_by(external_gene_name, logCounts > 0) %>%
+  summarize(n = n()) %>%
+  filter(`logCounts > 0`) %>%
   mutate(n_germ_cells = n_germ_cells,
-         percent_pos_testis_germcells = n_pos / n_germ_cells * 100)
+         percent_pos_testis_germcells = n / n_germ_cells * 100)
 
 percent_pos_somatic <- as_tibble(logcounts(testis_sce),
                                  rownames = "external_gene_name") %>%
@@ -143,18 +144,33 @@ percent_pos_somatic <- as_tibble(logcounts(testis_sce),
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               dplyr::select(CellID, type)) %>%
   filter(type %in% somatic_cells) %>%
-  group_by(external_gene_name) %>%
-  summarise(n_pos = count(logCounts > 0)) %>%
+  group_by(external_gene_name, logCounts > 0) %>%
+  summarize(n = n()) %>%
+  filter(`logCounts > 0`) %>%
   mutate(n_germ_cells = n_somatic_cells,
-         percent_pos_testis_somatic = n_pos / n_germ_cells * 100)
-
-testis_cell_type <- as_tibble(logcounts(testis_sce),
-                              rownames = "external_gene_name") %>%
+         percent_pos_testis_somatic = n / n_germ_cells * 100)
+### test begin
+mean_exp_per_type <-as_tibble(logcounts(testis_sce),
+          rownames = "external_gene_name") %>%
   pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               dplyr::select(CellID, type)) %>%
   group_by(external_gene_name, type) %>%
-  summarise(mean_exp = mean(logCounts), n_pos = count(logCounts > 0)) %>%
+  summarise(mean_exp = mean(logCounts))
+
+
+n_pos_cell_per_type <- as_tibble(logcounts(testis_sce),
+             rownames = "external_gene_name") %>%
+  pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
+  left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
+              dplyr::select(CellID, type)) %>%
+  group_by(external_gene_name, type, logCounts > 0) %>%
+  summarize(n_pos = n()) %>%
+  filter(`logCounts > 0`)
+
+testis_cell_type <- mean_exp_per_type %>%
+  left_join(n_pos_cell_per_type %>%
+              dplyr::select(-`logCounts > 0`)) %>%
   left_join(enframe(table(testis_sce$type), name = "type", value = "n_cells")) %>%
   mutate(n_cells = as.vector(n_cells), percent_pos = n_pos / n_cells * 100) %>%
   filter(percent_pos > 1) %>%

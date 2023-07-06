@@ -7,6 +7,8 @@ library("biomaRt")
 load(file = "../../eh_data/GTEX_data.rda")
 load(file = "../../eh_data/CCLE_data.rda")
 load(file = "../../eh_data/normal_tissues_multimapping_data.rda")
+load(file = "../../eh_data/testis_sce.rda")
+load(file = "../../eh_data/scRNAseq_HPA.rda")
 load(file = "../../eh_data/DAC_treated_cells_multimapping.rda")
 load(file = "../../eh_data/TCGA_TPM.rda")
 
@@ -35,6 +37,29 @@ all_genes <- all_genes %>%
     GTEX_category == "testis_specific" |
       multimapping_analysis == "testis_specific" ~ "testis_specific",
     GTEX_category == "testis_preferential" ~ "testis_preferential"))
+
+##########################################################################
+## Add the `testis_cell_type` column (based on testis scRNAseq data),
+## specifying the testis cell-type showing the highest mean expression
+## of each gene.
+## Remove genes for which testis_cell_type corresponds to a testis somatic
+## cell type.
+##########################################################################
+all_genes <- all_genes %>%
+  left_join(as_tibble(rowData(testis_sce)) %>%
+              dplyr::select(external_gene_name, testis_cell_type))
+
+##########################################################################
+## Add the `Higher_in_somatic_cell_type` column (based on scRNAseq data
+## of normal tissues from the Human Protein Atlas),
+## specifying if some somatic cell types express the genes at a higher
+## level than the level found in germ cell types, and filtered the CT_genes
+## table accordingly.
+##########################################################################
+all_genes <- all_genes %>%
+  left_join(as_tibble(rowData(scRNAseq_HPA), rownames = "ensembl_gene_id") %>%
+              dplyr::select(ensembl_gene_id, external_gene_name,
+                            Higher_in_somatic_cell_type))
 
 ################################################################################
 ## Add info from rowData(CCLE_TPM), summarising the analysis of CCLE
@@ -118,6 +143,9 @@ all_genes <- all_genes %>%
 CT_list <- all_genes %>%
   filter(testis_specificity == "testis_specific" |
            testis_specificity == "testis_preferential") %>%
+  filter(!testis_cell_type %in% c( "Macrophage", "Endothelial", "Myoid",
+                                   "Sertoli", "Leydig")) %>%
+  filter(is.na(Higher_in_somatic_cell_type) | Higher_in_somatic_cell_type == FALSE) %>%
   filter(CCLE_category == "activated") %>%
   filter(TCGA_category == "activated" | TCGA_category == "multimapping_issue")
 
