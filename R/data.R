@@ -569,7 +569,7 @@ NULL
 #'
 #' - Column `Higher_in_somatic_cell_type` specifies if a somatic cell type
 #'  was found to express the gene at a higher level than any germ cell type
-#'  (based on scRNAseq data of different tissues)
+#'  (based on scRNAseq data of different tissues).
 #'
 #' - Column `percent_of_positive_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are expressed (genes
@@ -644,15 +644,6 @@ NULL
 #' - Columns `oncogene` and `tumor_suppressor` informs if oncogenic
 #'   and tumor-suppressor functions have been associated to genes
 #'   (source: [Cancermine](http://bionlp.bcgsc.ca/cancermine/)).
-#'
-#' - Column `percent_pos_testis_germcells` gives the percent of testis germ cells
-#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
-#'
-#' - Column `percent_pos_testis_somatic` gives the percent of testis somatic cells
-#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
-#'
-#' - Column`testis_cell_type` specifies the testis cell-type showing the highest
-#'  mean expression of each gene (based on testis scRNAseq data).
 #'
 #' @source
 #'

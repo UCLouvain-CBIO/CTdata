@@ -5,7 +5,7 @@
 \alias{TCGA_CT_methylation}
 \title{Methylation of CT promoters in TCGA samples}
 \format{
-A \code{RangedSummarizedExperiment} object with 694 rows and 3423
+A \code{RangedSummarizedExperiment} object with 666 rows and 3423
 columns
 \itemize{
 \item Rows correspond to Infinium 450k probes
