@@ -16,3 +16,4 @@ inst/extdata/GSE112013_Combined_UMI_table.txt
 inst/extdata/Guo_et_al_TableS1
 inst/extdata/Guo_et_al_TableS1_tmp
 inst/extdata/normal_tissues_RNAseq_raw_counts.rda
+inst/extdata/*_cells
