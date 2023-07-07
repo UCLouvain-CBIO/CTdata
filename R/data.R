@@ -115,7 +115,7 @@ NULL
 #'
 #' - Rows correspond to genes (ensembl gene id as rownames)
 #' - Columns correspond to cell types
-#' - Expression values correspond to ranscripts per million protein coding genes
+#' - Expression values correspond to transcripts per million protein coding genes
 #' (pTPM)
 #'
 #' @details
