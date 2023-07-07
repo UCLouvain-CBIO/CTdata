@@ -202,9 +202,9 @@
        y="0"><tspan
          x="83.762855"
          y="92.693202"
-         id="tspan148330"><tspan
+         id="tspan10972"><tspan
            style="font-weight:600;font-family:Montserrat;-inkscape-font-specification:'Montserrat Semi-Bold';baseline-shift:baseline;fill:#ffe4e1"
-           id="tspan148328">GTEX</tspan></tspan></text>
+           id="tspan10970">GTEX</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="scale(0.26458333)"
@@ -219,42 +219,42 @@
        transform="matrix(0.72235197,0,0,0.69418193,-137.33512,-9.288998)"><tspan
          x="199.74263"
          y="71.66906"
-         id="tspan148334"><tspan
+         id="tspan10976"><tspan
            style="font-weight:500;font-size:7.76111px;-inkscape-font-specification:'Montserrat Medium'"
-           id="tspan148332">1555 Testis specific </tspan></tspan><tspan
+           id="tspan10974">1555 Testis specific </tspan></tspan><tspan
          x="199.74263"
          y="78.887299"
-         id="tspan148338"><tspan
+         id="tspan10980"><tspan
            style="font-weight:500;font-size:7.76111px;-inkscape-font-specification:'Montserrat Medium'"
-           id="tspan148336">genes
+           id="tspan10978">genes
 </tspan></tspan><tspan
          x="199.74263"
          y="86.105538"
-         id="tspan148342"><tspan
+         id="tspan10984"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148340">- TPM &gt;= 1 in testis
+           id="tspan10982">- TPM &gt;= 1 in testis
 </tspan></tspan><tspan
          x="199.74263"
          y="93.470024"
-         id="tspan148346"><tspan
+         id="tspan10988"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148344">- TPM &lt; 0.5 in all somatic </tspan></tspan><tspan
+           id="tspan10986">- TPM &lt; 0.5 in all somatic </tspan></tspan><tspan
          x="199.74263"
          y="100.83451"
-         id="tspan148350"><tspan
+         id="tspan10992"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148348">tissues
+           id="tspan10990">tissues
 </tspan></tspan><tspan
          x="199.74263"
          y="108.199"
-         id="tspan148354"><tspan
+         id="tspan10996"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148352">- Expression at least 10x higher </tspan></tspan><tspan
+           id="tspan10994">- Expression at least 10x higher </tspan></tspan><tspan
          x="199.74263"
          y="115.56348"
-         id="tspan148358"><tspan
+         id="tspan11000"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148356">in testis than in somatic tissues </tspan></tspan></text>
+           id="tspan10998">in testis than in somatic tissues </tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-weight:600;font-size:14.9385px;line-height:0.45;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Semi-Bold';text-align:start;text-anchor:start;white-space:pre;inline-size:174.476;stroke-width:0.280097"
@@ -264,31 +264,31 @@
        transform="matrix(0.75542065,0,0,0.69418193,-66.037035,91.234034)"><tspan
          x="199.74263"
          y="71.66906"
-         id="tspan148362"><tspan
+         id="tspan11004"><tspan
            style="font-weight:500;font-size:7.76111px;-inkscape-font-specification:'Montserrat Medium'"
-           id="tspan148360">372 genes activated in tumors
+           id="tspan11002">372 genes activated in tumors
 </tspan></tspan><tspan
          x="199.74263"
          y="78.887299"
-         id="tspan148366"><tspan
+         id="tspan11008"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148364">- No expression (TPM &lt; 0.1) in at least 20% of CCLE cell lines </tspan></tspan><tspan
+           id="tspan11006">- No expression (TPM &lt; 0.1) in at least 20% of CCLE cell lines </tspan></tspan><tspan
          x="199.74263"
          y="86.251785"
-         id="tspan148370"><tspan
+         id="tspan11012"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148368">and TCGA tumor samples
+           id="tspan11010">and TCGA tumor samples
 </tspan></tspan><tspan
          x="199.74263"
          y="93.616272"
-         id="tspan148374"><tspan
+         id="tspan11016"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148372">- Highly expressed (TPM &gt;= 10) in at least one CCLE cell line </tspan></tspan><tspan
+           id="tspan11014">- Highly expressed (TPM &gt;= 10) in at least one CCLE cell line </tspan></tspan><tspan
          x="199.74263"
          y="100.98076"
-         id="tspan148378"><tspan
+         id="tspan11020"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148376">and one TCGA sample
+           id="tspan11018">and one TCGA sample
 </tspan></tspan></text>
     <text
        xml:space="preserve"
@@ -299,37 +299,37 @@
        transform="matrix(0.75542065,0,0,0.69418193,-67.83239,136.46195)"><tspan
          x="199.74263"
          y="71.66906"
-         id="tspan148382"><tspan
+         id="tspan11024"><tspan
            style="font-weight:500;font-size:7.76111px;-inkscape-font-specification:'Montserrat Medium'"
-           id="tspan148380">298 Cancer-Testis genes
+           id="tspan11022">298 Cancer-Testis genes
 </tspan></tspan><tspan
          x="199.74263"
          y="78.887299"
-         id="tspan148386"><tspan
+         id="tspan11028"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148384">- Each gene was associated to its most relevant transcript by </tspan></tspan><tspan
+           id="tspan11026">- Each gene was associated to its most relevant transcript by </tspan></tspan><tspan
          x="199.74263"
          y="86.251785"
-         id="tspan148390"><tspan
+         id="tspan11032"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148388">visualising on IGV RNA-Seq alignment from a testis sample
+           id="tspan11030">visualising on IGV RNA-Seq alignment from a testis sample
 </tspan></tspan><tspan
          x="199.74263"
          y="93.616272"
-         id="tspan148394"><tspan
+         id="tspan11036"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148392">- Removed genes when reads didn't fit to a referenced </tspan></tspan><tspan
+           id="tspan11034">- Removed genes when reads didn't fit to a referenced </tspan></tspan><tspan
          x="199.74263"
          y="100.98076"
-         id="tspan148398"><tspan
+         id="tspan11040"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148396">transcript in the testis sample
+           id="tspan11038">transcript in the testis sample
 </tspan></tspan><tspan
          x="199.74263"
          y="108.34525"
-         id="tspan148402"><tspan
+         id="tspan11044"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148400">
+           id="tspan11042">
 </tspan></tspan></text>
     <rect
        style="opacity:0.81;mix-blend-mode:normal;fill:#b52255;fill-opacity:1;stroke:none;stroke-width:0.156457;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -341,29 +341,31 @@
        ry="5.4336576" />
     <text
        xml:space="preserve"
-       style="font-weight:600;font-size:14.9385px;line-height:0.45;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Semi-Bold';text-align:start;text-anchor:start;white-space:pre;inline-size:105.678;stroke-width:0.280097"
+       style="font-weight:600;font-size:14.9385px;line-height:0.45;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Semi-Bold';text-align:start;text-anchor:start;white-space:pre;inline-size:146.757;stroke-width:0.280097"
        x="199.74263"
        y="71.66906"
        id="text171027-0-7"
-       transform="matrix(0.69418193,0,0,0.69418193,72.36215,-5.9413481)"><tspan
+       transform="matrix(0.69418193,0,0,0.69418193,57.957057,-4.9712092)"><tspan
          x="199.74263"
          y="71.66906"
-         id="tspan148408"><tspan
+         id="tspan11050"><tspan
            style="font-weight:500;font-size:7.76111px;-inkscape-font-specification:'Montserrat Medium'"
-           id="tspan148404">83 Testis specific genes</tspan><tspan
+           id="tspan11046">83 Testis specific genes</tspan><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148406">
+           id="tspan11048">
 </tspan></tspan><tspan
          x="199.74263"
          y="79.033547"
-         id="tspan148412"><tspan
+         id="tspan11056"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148410">- Expression at least 10x higher in </tspan></tspan><tspan
+           id="tspan11052">- Expression at least 10x higher in </tspan><tspan
+           style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
+           id="tspan11054">testis than in </tspan></tspan><tspan
          x="199.74263"
          y="86.398033"
-         id="tspan148416"><tspan
+         id="tspan11060"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148414">testis than in somatic tissues</tspan></tspan></text>
+           id="tspan11058">somatic tissues</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-weight:600;font-size:14.9385px;line-height:0.45;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Semi-Bold';text-align:start;text-anchor:start;white-space:pre;inline-size:87.3643;stroke-width:0.280097"
@@ -373,46 +375,46 @@
        transform="matrix(0.69418193,0,0,0.69418193,-63.108883,-8.7598309)"><tspan
          x="199.74263"
          y="71.66906"
-         id="tspan148420"><tspan
+         id="tspan11064"><tspan
            style="font-weight:500;font-size:7.76111px;-inkscape-font-specification:'Montserrat Medium'"
-           id="tspan148418">328 Testis preferential </tspan></tspan><tspan
+           id="tspan11062">328 Testis preferential </tspan></tspan><tspan
          x="199.74263"
          y="78.887299"
-         id="tspan148424"><tspan
+         id="tspan11068"><tspan
            style="font-weight:500;font-size:7.76111px;-inkscape-font-specification:'Montserrat Medium'"
-           id="tspan148422">genes
+           id="tspan11066">genes
 </tspan></tspan><tspan
          x="199.74263"
          y="86.105538"
-         id="tspan148428"><tspan
+         id="tspan11072"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148426">- TPM &gt;= 1 in testis
+           id="tspan11070">- TPM &gt;= 1 in testis
 </tspan></tspan><tspan
          x="199.74263"
          y="93.470024"
-         id="tspan148432"><tspan
+         id="tspan11076"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148430">- TPM &lt; 0.5 in at least 75% of </tspan></tspan><tspan
+           id="tspan11074">- TPM &lt; 0.5 in at least 75% of </tspan></tspan><tspan
          x="199.74263"
          y="100.83451"
-         id="tspan148438"><tspan
+         id="tspan11082"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148434">somatic </tspan><tspan
+           id="tspan11078">somatic </tspan><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148436">tissues
+           id="tspan11080">tissues
 </tspan></tspan><tspan
          x="199.74263"
          y="108.199"
-         id="tspan148444"><tspan
+         id="tspan11088"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148440">- Expression at least 10x </tspan><tspan
+           id="tspan11084">- Expression at least 10x </tspan><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148442">higher </tspan></tspan><tspan
+           id="tspan11086">higher </tspan></tspan><tspan
          x="199.74263"
          y="115.56348"
-         id="tspan148448"><tspan
+         id="tspan11092"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148446">in testis than in somatic tissues</tspan></tspan></text>
+           id="tspan11090">in testis than in somatic tissues</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-weight:600;font-size:14.9385px;line-height:0.45;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Semi-Bold';white-space:pre;inline-size:66.9132;stroke-width:0.280097"
@@ -422,22 +424,22 @@
        transform="matrix(0.69418193,0,0,0.69418193,22.058964,-32.733632)"><tspan
          x="166.40944"
          y="71.66906"
-         id="tspan148452"><tspan
+         id="tspan11096"><tspan
            style="font-size:7.76111px"
-           id="tspan148450">2622 lowly </tspan></tspan><tspan
+           id="tspan11094">2622 lowly </tspan></tspan><tspan
          x="166.40944"
          y="78.887299"
-         id="tspan148458"><tspan
+         id="tspan11102"><tspan
            style="font-size:7.76111px"
-           id="tspan148454">expresed genes</tspan><tspan
+           id="tspan11098">expresed genes</tspan><tspan
            style="font-weight:500;font-size:10.457px;-inkscape-font-specification:'Montserrat Medium';text-align:center;text-anchor:middle"
-           id="tspan148456">
+           id="tspan11100">
 </tspan></tspan><tspan
          x="166.40944"
          y="86.105538"
-         id="tspan148462"><tspan
+         id="tspan11106"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148460">TPM &lt; 1 in all tissues</tspan></tspan></text>
+           id="tspan11104">TPM &lt; 1 in all tissues</tspan></tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.361172;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker210241)"
        d="m 129.19696,28.551315 64.58108,-0.287569"
@@ -523,15 +525,15 @@
        transform="matrix(0.75542065,0,0,0.69418193,-63.86909,56.583961)"><tspan
          x="199.74263"
          y="71.66906"
-         id="tspan148466"><tspan
+         id="tspan11110"><tspan
            style="font-weight:500;font-size:7.76111px;-inkscape-font-specification:'Montserrat Medium'"
-           id="tspan148464">1923 Germline specific/preferential genes
+           id="tspan11108">1923 Germline specific/preferential genes
 </tspan></tspan><tspan
          x="199.74263"
          y="78.887299"
-         id="tspan148470"><tspan
+         id="tspan11114"><tspan
            style="font-weight:300;font-size:5.64444px;-inkscape-font-specification:'Montserrat Light'"
-           id="tspan148468">- Highest expression level in a testis germ cell type
+           id="tspan11112">- Highest expression level in a testis germ cell type
 </tspan></tspan></text>
     <text
        xml:space="preserve"
@@ -565,28 +567,27 @@
        style="fill:black;fill-opacity:1;line-height:1.25;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;white-space:pre;shape-inside:url(#rect14494)" />
     <text
        xml:space="preserve"
-       transform="matrix(0.19900889,0,0,0.18366897,171.9787,7.7200212)"
+       transform="matrix(0.19900889,0,0,0.18366897,173.44861,8.7489564)"
        id="text11570-9"
-       style="font-style:normal;font-weight:normal;font-size:30.7316px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect11572-8);fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:27.6782px;line-height:1.25;font-family:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect11572-8);fill:#000000;fill-opacity:1;stroke:none"
        x="110.64919"
        y="0"><tspan
-         x="135.73742"
-         y="81.72373"
-         id="tspan148476"><tspan
+         x="131.09716"
+         y="78.91737"
+         id="tspan11118"><tspan
            style="font-weight:600;font-family:Montserrat;-inkscape-font-specification:'Montserrat Semi-Bold';baseline-shift:baseline;fill:#ffe4e1"
-           id="tspan148472">N</tspan><tspan
-           style="font-size:26.8902px"
-           id="tspan148474">ormal tissues RNAseq home-</tspan></tspan><tspan
-         x="165.32619"
-         y="120.13823"
-         id="tspan148480"><tspan
-           style="font-weight:600;font-size:26.8902px;font-family:Montserrat;-inkscape-font-specification:'Montserrat Semi-Bold';baseline-shift:baseline;fill:#ffe4e1"
-           id="tspan148478">processed (multimapping 
+           id="tspan11116">Normal tissues RNAseq home-
 </tspan></tspan><tspan
-         x="244.4774"
-         y="158.55274"
-         id="tspan148484"><tspan
-           style="font-weight:600;font-size:26.8902px;font-family:Montserrat;-inkscape-font-specification:'Montserrat Semi-Bold';baseline-shift:baseline;fill:#ffe4e1"
-           id="tspan148482">reads counted)</tspan></tspan></text>
+         x="159.95164"
+         y="113.70231"
+         id="tspan11122"><tspan
+           style="font-weight:600;font-family:Montserrat;-inkscape-font-specification:'Montserrat Semi-Bold';baseline-shift:baseline;fill:#ffe4e1"
+           id="tspan11120">processed (multimapping 
+</tspan></tspan><tspan
+         x="241.42233"
+         y="148.48725"
+         id="tspan11126"><tspan
+           style="font-weight:600;font-family:Montserrat;-inkscape-font-specification:'Montserrat Semi-Bold';baseline-shift:baseline;fill:#ffe4e1"
+           id="tspan11124">reads counted)</tspan></tspan></text>
   </g>
 </svg>
