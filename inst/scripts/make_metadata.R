@@ -116,7 +116,7 @@ metadata <-
             "tibble",
             "matrix",
             "SingleCellExperiment",
-            "SummarizedExperiment"),
+            "SingleCellExperiment"),
         DispatchClass = "Rda",
         RDataPath = c(
             "CTdata/eh_data/GTEX_data.rda",
