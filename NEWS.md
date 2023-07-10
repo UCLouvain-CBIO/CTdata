@@ -1,5 +1,12 @@
 # CTdata 1.1
 
+## CTdata 1.1.4
+
+- New data: `scRNAseq_HPA` and `testis_sce`.
+- Updated data: `CT_methylation_in_tissues`,
+  `CT_mean_methylation_in_tissues`, `TCGA_CT_methylation`, `CT_genes`
+  and `CCLE_correlation_matrix`.
+
 ## CTdata 1.1.3
 
 - Load SummarizedExperiment in vignette.
