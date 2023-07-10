@@ -134,7 +134,7 @@ testis_sce()
 
 ### Human Protein Atlas data
 
-A `SummarizedExperiment` object containing gene expression in different human 
+A `SingleCellExperiment` object containing gene expression in different human 
 cell types based on scRNAseq data obtained from the Human Protein Atlas 
 (https://www.proteinatlas.org)/
 
