@@ -2,6 +2,7 @@
 
 library("tidyverse")
 library("SummarizedExperiment")
+library("SingleCellExperiment")
 
 ## scRNAseq from normal tissues downloaded from the Human Protein Atlas:
 ## - rna_single_cell_type.tsv downloaded directly from
@@ -40,7 +41,7 @@ cell_types_by_group$Cell_type <- str_to_sentence(cell_types_by_group$Cell_type)
 # Rm "Hofbauer cells" (placental cells => confusing)
 cell_types_by_group <- cell_types_by_group %>% filter(Cell_type != "Hofbauer cells")
 
-scRNAseq_HPA <- SummarizedExperiment(assays = list(TPM = mat[, cell_types_by_group$Cell_type]),
+scRNAseq_HPA <- SingleCellExperiment(assays = list(TPM = mat[, cell_types_by_group$Cell_type]),
                                      colData = cell_types_by_group,
                                      rowData = rowdata)
 

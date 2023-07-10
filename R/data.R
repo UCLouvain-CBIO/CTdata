@@ -111,7 +111,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 20082 rows and 66 columns
+#' A `SingleCellExperiment` object with 20082 rows and 66 columns
 #'
 #' - Rows correspond to genes (ensembl gene id as rownames)
 #' - Columns correspond to cell types

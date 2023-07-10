@@ -5,11 +5,11 @@
 \alias{scRNAseq_HPA}
 \title{Gene expression in human cell types}
 \format{
-A \code{SummarizedExperiment} object with 20082 rows and 66 columns
+A \code{SingleCellExperiment} object with 20082 rows and 66 columns
 \itemize{
 \item Rows correspond to genes (ensembl gene id as rownames)
 \item Columns correspond to cell types
-\item Expression values correspond to ranscripts per million protein coding genes
+\item Expression values correspond to transcripts per million protein coding genes
 (pTPM)
 }
 }
