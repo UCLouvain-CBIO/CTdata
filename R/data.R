@@ -48,6 +48,108 @@
 #' @docType data
 NULL
 
+#' Testis scRNAseq data
+#'
+#' @description
+#'
+#' Testis single cell RNAseq data from
+#' `The adult human testis transcriptional cell atlas` (Guo et al. 2018)
+#'
+#' @format
+#'
+#' A `SingleCellExperiment` object with 19777 rows and 6490 columns
+#'
+#' - Rows correspond to genes (gene names as rownames)
+#' - Columns correspond to testis cells
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `nGene` gives the number of distinct genes detected per cell.
+#'
+#' - Column `nUMI` gives the total UMI number per cell.
+#'
+#' - Column `clusters` gives cluster number defined in the Guo's paper.
+#'
+#' - Column `type` gives the testis cell type associated to the cluster number.
+#'
+#' - Column `Donor` gives the Donor origin of the cells.
+#'
+#' Description of the rowData:
+#'
+#' - Column `percent_pos_testis_germcells` gives the percent of testis germ cells
+#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
+#'
+#' - Column `percent_pos_testis_somatic` gives the percent of testis somatic cells
+#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
+#'
+#' - Column`testis_cell_type` specifies the testis cell-type showing the highest
+#'  mean expression of each gene (based on testis scRNAseq data).
+#'
+#' The rowData contains the `testis_cell_type` column, specifying the testis
+#' cell-type showing the highest mean expression of each gene.
+#'
+#' @source
+#'
+#' The count matrix `GSE112013_Combined_UMI_table.txt.gz` was downloaded from
+#' GEO (accession: GSE11201). Metadata correspond to `TableS1` from the paper's
+#' supplemental data. The data were converted in a SingleCellExperiment
+#' (see `scripts/13_make_testis_sce.R` for details).
+#'
+#' @name testis_sce
+#'
+#' @docType data
+NULL
+
+#' Gene expression in human cell types
+#'
+#' @description
+#'
+#' Gene expression profiles in different human cell types based on scRNAseq data
+#' obtained from the Human Protein Atlas (https://www.proteinatlas.org)
+#'
+#' @format
+#'
+#' A `SingleCellExperiment` object with 20082 rows and 66 columns
+#'
+#' - Rows correspond to genes (ensembl gene id as rownames)
+#' - Columns correspond to cell types
+#' - Expression values correspond to transcripts per million protein coding genes
+#' (pTPM)
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `Cell_type` gives cell type.
+#'
+#' - Column `group` gives the cell type group (defined in the Human Protein Atlas).
+#'
+#' Description of the rowData:
+#'
+#' - Column `max_TPM_in_a_somatic_cell_type` gives the maximum expression value
+#' found in a somatic cell type
+#'
+#' - Column `max_in_germcells_group` gives the maximum expression value found
+#' in a germ cell type
+#'
+#' - Column `Higher_in_somatic_cell_type` specifies if a somatic cell type
+## was found to express the gene at a higher level than any germ cell type
+#'
+#' @source
+#'
+#' Gene expression values in cell types, based on multiple scRNAseq datasets
+#' obtained from the Human Protein Atlas
+#' (https://www.proteinatlas.org/about/download)
+#' The data were converted in a SummarizedExperiment
+#' (see `scripts/14_make_scRNAseq_HPA.R` for details).
+#'
+#' @name scRNAseq_HPA
+#'
+#' @docType data
+NULL
+
 #' Genes expression data in CCLE
 #'
 #' @description
@@ -246,7 +348,7 @@ NULL
 #'
 #' @format
 #'
-#' A `RangedSummarizedExperiment` object with 53992 rows and 14 columns
+#' A `RangedSummarizedExperiment` object with 51725 rows and 14 columns
 #'
 #' - Rows correspond to CpGs (located within CT genes promoters)
 #'
@@ -277,7 +379,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 308 rows and 14 columns
+#' A `SummarizedExperiment` object with 298 rows and 14 columns
 #'
 #' - Rows correspond to CT genes
 #'
@@ -334,7 +436,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 24350 rows and 4087 columns
+#' A `SummarizedExperiment` object with 24350 rows and 4141 columns
 #'
 #' - Rows correspond to genes (ensembl_gene_id)
 #'
@@ -383,7 +485,7 @@ NULL
 #'
 #' @format
 #'
-#' A `RangedSummarizedExperiment` object with 694 rows and 3423
+#' A `RangedSummarizedExperiment` object with 666 rows and 3423
 #' columns
 #'
 #' - Rows correspond to Infinium 450k probes
@@ -416,7 +518,7 @@ NULL
 #'
 #' @format
 #'
-#' A `tibble` object with 308 rows and 37 columns.
+#' A `tibble` object with 298 rows and 36 columns.
 #'
 #' - Rows correspond to CT genes
 #'
@@ -461,6 +563,13 @@ NULL
 #'   assigned to each gene using `GTEX_category` and
 #'   `multimapping_analysis` ("testis_specific" or
 #'   "testis_preferential").
+#'
+#' - Column`testis_cell_type` specifies the testis cell-type showing the highest
+#'  mean expression of each gene (based on testis scRNAseq data).
+#'
+#' - Column `Higher_in_somatic_cell_type` specifies if a somatic cell type
+#'  was found to express the gene at a higher level than any germ cell type
+#'  (based on scRNAseq data of different tissues).
 #'
 #' - Column `percent_of_positive_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are expressed (genes
@@ -536,15 +645,6 @@ NULL
 #'   and tumor-suppressor functions have been associated to genes
 #'   (source: [Cancermine](http://bionlp.bcgsc.ca/cancermine/)).
 #'
-#' - Column `percent_pos_testis_germcells` gives the percent of testis germ cells
-#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
-#'
-#' - Column `percent_pos_testis_somatic` gives the percent of testis somatic cells
-#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
-#'
-#' - Column`testis_cell_type` specifies the testis cell-type showing the highest
-#'  mean expression of each gene (based on testis scRNAseq data).
-#'
 #' @source
 #'
 #' See `scripts/make_CT_genes.R` for details on how this list of
@@ -564,7 +664,7 @@ NULL
 #'
 #' @format
 #'
-#' A `matrix` object with 308 rows and 24327 columns.
+#' A `matrix` object with 298 rows and 24327 columns.
 #'
 #' - Rows correspond to CT genes
 #'
@@ -586,56 +686,6 @@ NULL
 #' @docType data
 NULL
 
-#' Testis scRNAseq data
-#'
-#' @description
-#'
-#' Testis single cell RNAseq data from
-#' `The adult human testis transcriptional cell atlas` (Guo et al. 2018)
-#'
-#' @format
-#'
-#' A `SingleCellExperiment` object with 27477 rows and 6490 columns
-#'
-#' - Rows correspond to genes (gene names as rownames)
-#' - Columns correspond to testis cells
-#'
-#' @details
-#'
-#' Description of the colData:
-#'
-#' - Column `nGene` gives the number of distinct genes detected per cell.
-#'
-#' - Column `nUMI` gives the total UMI number per cell.
-#'
-#' - Column `clusters` gives cluster number defined in the Guo's paper.
-#'
-#' - Column `type` gives the testis cell type associated to the cluster number.
-#'
-#' - Column `Donor` gives the Donor origin of the cells.
-#'
-#' Description of the rowData:
-#'
-#' - Column `percent_pos_testis_germcells` gives the percent of testis germ cells
-#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
-#'
-#' - Column `percent_pos_testis_somatic` gives the percent of testis somatic cells
-#'   in wich the genes are detected (count > 0) (based on testis scRNAseq data).
-#'
-#' - Column`testis_cell_type` specifies the testis cell-type showing the highest
-#'  mean expression of each gene (based on testis scRNAseq data).
-#'
-#' The rowData contains the `testis_cell_type` column, specifying the testis
-#' cell-type showing the highest mean expression of each gene.
-#'
-#' @source
-#'
-#' The count matrix `GSE112013_Combined_UMI_table.txt.gz` was downloaded from
-#' GEO (accession: GSE11201). Metadata correspond to `TableS1` from the paper's
-#' supplemental data. The data were converted in a SingleCellExperiment
-#' (see `scripts/13_make_testis_sce.R` for details).
-#'
-#' @name testis_sce
-#'
-#' @docType data
-NULL
+
+
+

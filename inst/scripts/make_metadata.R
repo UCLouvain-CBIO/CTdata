@@ -12,7 +12,8 @@ metadata <-
             "TCGA_CT_methylation",
             "CT_genes",
             "CCLE_correlation_matrix",
-            "testis_sce"),
+            "testis_sce",
+            "scRNAseq_HPA"),
         Description = c(
             "Gene expression data in normal tissues from GTEx database",
             "Gene expression data in cancer cell lines from CCLE",
@@ -25,7 +26,8 @@ metadata <-
             "Methylation of CT promoters in TCGA samples",
             "Cancer-Testis (CT) genes description",
             "Gene correlations in CCLE cancer cell lines",
-            "Testis scRNAseq data"),
+            "Testis scRNAseq data",
+            "Gene expression profiles in different human cell types based on scRNAseq data from The Human Protein Atlas"),
         BiocVersion = c(
             "3.17",
             "3.17",
@@ -38,6 +40,7 @@ metadata <-
             "3.17",
             "3.17",
             "3.17",
+            "3.18",
             "3.18"),
         Genome = "hg38",
         SourceType = c(
@@ -52,7 +55,8 @@ metadata <-
             "TXT",
             "TSV",
             "CSV",
-            "FASTQ"),
+            "FASTQ",
+            "TSV"),
         SourceUrl = c(
             "https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz",
             "https://ndownloader.figshare.com/files/34989922, https://ndownloader.figshare.com/files/35020903",
@@ -65,7 +69,8 @@ metadata <-
             "https://portal.gdc.cancer.gov/",
             "https://zenodo.org/record/7537824/files/cancermine_collated.tsv?download=1",
             "https://ndownloader.figshare.com/files/34989922, https://ndownloader.figshare.com/files/35020903",
-            "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120508"),
+            "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120508",
+            "https://www.proteinatlas.org/download/rna_single_cell_type.tsv.zip"),
         SourceVersion = c(
             "8",
             "22Q2",
@@ -78,6 +83,7 @@ metadata <-
             "36.0",
             "49",
             "22Q2",
+            "1",
             "1"),
         Species = "Homo sapiens",
         TaxonomyId = "9606",
@@ -94,7 +100,8 @@ metadata <-
             "The Cancer Genome Atlas",
             "CancerMine",
             "Cancer Cell Line Encyclopedia",
-            "The adult human testis transcriptional cell atlas, Guo et al. 2018"),
+            "The adult human testis transcriptional cell atlas, Guo et al. 2018",
+            "The Human Protein Atlas"),
         Maintainer = "Axelle Loriot <axelle.loriot@uclouvain.be>",
         RDataClass = c(
             "SummarizedExperiment",
@@ -108,6 +115,7 @@ metadata <-
             "RangedSummarizedExperiment",
             "tibble",
             "matrix",
+            "SingleCellExperiment",
             "SingleCellExperiment"),
         DispatchClass = "Rda",
         RDataPath = c(
@@ -117,12 +125,13 @@ metadata <-
             "CTdata/eh_data/DAC_treated_cells.rda",
             "CTdata/eh_data/DAC_treated_cells_multimapping.rda",
             "CTdata/eh_data/TCGA_TPM.rda",
-            "CTdata/eh_data/CT_methylation_in_tissues.rda",
-            "CTdata/eh_data/CT_mean_methylation_in_tissues.rda",
-            "CTdata/eh_data/TCGA_CT_methylation.rda",
-            "CTdata/eh_data/CT_genes.rda",
-            "CTdata/eh_data/CCLE_correlation_matrix.rda",
-            "CTdata/eh_data/testis_sce.rda"),
+            "CTdata/eh_data/v2/CT_methylation_in_tissues.rda",
+            "CTdata/eh_data/v2/CT_mean_methylation_in_tissues.rda",
+            "CTdata/eh_data/v2/TCGA_CT_methylation.rda",
+            "CTdata/eh_data/v2/CT_genes.rda",
+            "CTdata/eh_data/v2/CCLE_correlation_matrix.rda",
+            "CTdata/eh_data/testis_sce.rda",
+            "CTdata/eh_data/scRNAseq_HPA.rda"),
         Tags = c("GeneExpression:NormalTissues",
                  "GeneExpression:CancerData:CellLines",
                  "GeneExpression:NormalTissues:Multimapping",
@@ -134,7 +143,8 @@ metadata <-
                  "MethylationData:CancerTestis:CancerData:TumorSamples",
                  "CancerTestis:MethylationData:GeneExpression:CancerData:NormalTissues:TumorSamples",
                  "CancerTestis:GeneExpression:CancerData:CellLines",
-                 "GeneExpression:scRNAseq:testis")
+                 "GeneExpression:scRNAseq:testis",
+                 "GeneExpression:scRNAseq:normalCellTypes")
     )
 
 ## Add default tags
@@ -142,7 +152,7 @@ metadata$Tags <- CTdata:::makeTags(metadata$Tags)
 
 write.csv(metadata, file = "../extdata/metadata.csv", row.names = FALSE)
 
-pathToPkg <- "/data/cbio/Packages" ## change this accordingly
+pathToPkg <- "~/dev/" ## change this accordingly
 
 ExperimentHubData::makeExperimentHubMetadata(
                        pathToPackage = file.path(pathToPkg, "CTdata"),

@@ -5,7 +5,7 @@
 \alias{CT_genes}
 \title{CT genes description table}
 \format{
-A \code{tibble} object with 308 rows and 37 columns.
+A \code{tibble} object with 298 rows and 36 columns.
 \itemize{
 \item Rows correspond to CT genes
 \item Columns give CT genes characteristics
@@ -48,6 +48,11 @@ normal tissues ("not_analysed" or "testis_specific") (see
 assigned to each gene using \code{GTEX_category} and
 \code{multimapping_analysis} ("testis_specific" or
 "testis_preferential").
+\item Column\code{testis_cell_type} specifies the testis cell-type showing the highest
+mean expression of each gene (based on testis scRNAseq data).
+\item Column \code{Higher_in_somatic_cell_type} specifies if a somatic cell type
+was found to express the gene at a higher level than any germ cell type
+(based on scRNAseq data of different tissues).
 \item Column \code{percent_of_positive_CCLE_cell_lines} gives the percentage
 of CCLE cancer cell lines in which genes are expressed (genes
 were considered as expressed if TPM >= 10).
@@ -104,11 +109,5 @@ gene.
 \item Columns \code{oncogene} and \code{tumor_suppressor} informs if oncogenic
 and tumor-suppressor functions have been associated to genes
 (source: \href{http://bionlp.bcgsc.ca/cancermine/}{Cancermine}).
-\item Column \code{percent_pos_testis_germcells} gives the percent of testis germ cells
-in wich the genes are detected (count > 0) (based on testis scRNAseq data).
-\item Column \code{percent_pos_testis_somatic} gives the percent of testis somatic cells
-in wich the genes are detected (count > 0) (based on testis scRNAseq data).
-\item Column\code{testis_cell_type} specifies the testis cell-type showing the highest
-mean expression of each gene (based on testis scRNAseq data).
 }
 }

@@ -132,6 +132,16 @@ testis_sce()
 ```
 
 
+### Human Protein Atlas data
+
+A `SingleCellExperiment` object containing gene expression in different human 
+cell types based on scRNAseq data obtained from the Human Protein Atlas 
+(https://www.proteinatlas.org)/
+
+```{r}
+scRNAseq_HPA()
+```
+
 ## CT genes determination
 
 ```{r, echo = FALSE}
@@ -143,7 +153,7 @@ n <- nrow(ctgenes)
 With the datasets above, we generated a list of `r n` CT genes (see
 figure below for details).
 
-We uses multimapping because many CT genes belong to gene families
+We used multimapping because many CT genes belong to gene families
 from which members have identical or nearly identical sequences. This
 is likely the reason why these genes are not detected in GTEx
 database, as GTEx processing pipeline specifies that overlapping

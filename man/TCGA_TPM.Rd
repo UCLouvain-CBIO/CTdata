@@ -5,7 +5,7 @@
 \alias{TCGA_TPM}
 \title{Gene expression in TCGA samples}
 \format{
-A \code{SummarizedExperiment} object with 24350 rows and 4087 columns
+A \code{SummarizedExperiment} object with 24350 rows and 4141 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to samples

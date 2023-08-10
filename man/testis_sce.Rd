@@ -5,7 +5,7 @@
 \alias{testis_sce}
 \title{Testis scRNAseq data}
 \format{
-A \code{SingleCellExperiment} object with 27477 rows and 6490 columns
+A \code{SingleCellExperiment} object with 19777 rows and 6490 columns
 \itemize{
 \item Rows correspond to genes (gene names as rownames)
 \item Columns correspond to testis cells

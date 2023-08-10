@@ -7,6 +7,8 @@ library("biomaRt")
 load(file = "../../eh_data/GTEX_data.rda")
 load(file = "../../eh_data/CCLE_data.rda")
 load(file = "../../eh_data/normal_tissues_multimapping_data.rda")
+load(file = "../../eh_data/testis_sce.rda")
+load(file = "../../eh_data/scRNAseq_HPA.rda")
 load(file = "../../eh_data/DAC_treated_cells_multimapping.rda")
 load(file = "../../eh_data/TCGA_TPM.rda")
 
@@ -36,8 +38,31 @@ all_genes <- all_genes %>%
       multimapping_analysis == "testis_specific" ~ "testis_specific",
     GTEX_category == "testis_preferential" ~ "testis_preferential"))
 
+##########################################################################
+## Add the `testis_cell_type` column (based on testis scRNAseq data),
+## specifying the testis cell-type showing the highest mean expression
+## of each gene.
+## Remove genes for which testis_cell_type corresponds to a testis somatic
+## cell type.
+##########################################################################
+all_genes <- all_genes %>%
+  left_join(as_tibble(rowData(testis_sce)) %>%
+              dplyr::select(external_gene_name, testis_cell_type))
+
+##########################################################################
+## Add the `Higher_in_somatic_cell_type` column (based on scRNAseq data
+## of normal tissues from the Human Protein Atlas),
+## specifying if some somatic cell types express the genes at a higher
+## level than the level found in germ cell types, and filtered the CT_genes
+## table accordingly.
+##########################################################################
+all_genes <- all_genes %>%
+  left_join(as_tibble(rowData(scRNAseq_HPA), rownames = "ensembl_gene_id") %>%
+              dplyr::select(ensembl_gene_id, external_gene_name,
+                            Higher_in_somatic_cell_type))
+
 ################################################################################
-## Add info from rowData(CCLE_TPM), summarising the analysis of CCLE
+## Add info from rowData(CCLE_data), summarising the analysis of CCLE
 ## database. In CCLE_category, genes are tagged as "activated" when
 ## at least 20 % of cell lines are negative (TPM <= 0.1)
 ## and at least one cell line is highly positive (TPM >= 10)
@@ -118,6 +143,9 @@ all_genes <- all_genes %>%
 CT_list <- all_genes %>%
   filter(testis_specificity == "testis_specific" |
            testis_specificity == "testis_preferential") %>%
+  filter(!testis_cell_type %in% c( "Macrophage", "Endothelial", "Myoid",
+                                   "Sertoli", "Leydig")) %>%
+  filter(is.na(Higher_in_somatic_cell_type) | Higher_in_somatic_cell_type == FALSE) %>%
   filter(CCLE_category == "activated") %>%
   filter(TCGA_category == "activated" | TCGA_category == "multimapping_issue")
 
@@ -138,20 +166,17 @@ CT_list[CT_list$external_gene_name == "TAF7L", "external_transcript_name"] <- "T
 CT_list[CT_list$external_gene_name == "MBD3L2", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "NKX2-4", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "FOXR2", "external_transcript_name"] <- NA
-CT_list[CT_list$external_gene_name == "LKAAEAR1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "MMP20", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "CCDC196", "external_transcript_name"] <- "CCDC196-203"
 CT_list[CT_list$external_gene_name == "CIB3", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "PSG3", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "UBE2L5", "external_transcript_name"] <- NA
-CT_list[CT_list$external_gene_name == "RTL9", "external_transcript_name"] <- "RTL9-202"
 CT_list[CT_list$external_gene_name == "DMP1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "ADAD1", "external_transcript_name"] <- "ADAD1-204"
 CT_list[CT_list$external_gene_name == "IL5", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "ZNF679", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "RNF148", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "OR8G5", "external_transcript_name"] <- NA
-CT_list[CT_list$external_gene_name == "LALBA", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "UBE2L5", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "VRTN", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "MBD3L5", "external_transcript_name"] <- NA
@@ -159,7 +184,6 @@ CT_list[CT_list$external_gene_name == "SPANXN1", "external_transcript_name"] <- 
 CT_list[CT_list$external_gene_name == "ROR1-AS1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC01344", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "SMYD3-AS1", "external_transcript_name"] <- NA
-CT_list[CT_list$external_gene_name == "MIR3681HG", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "MYCNOS", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC01913", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC01087", "external_transcript_name"] <- NA
@@ -170,7 +194,6 @@ CT_list[CT_list$external_gene_name == "LINC01811", "external_transcript_name"] <
 CT_list[CT_list$external_gene_name == "IGF2BP2-AS1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC02020", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LEF1-AS1", "external_transcript_name"] <- NA
-CT_list[CT_list$external_gene_name == "NEUROG2-AS1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "SNHG27", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC02492", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC02434", "external_transcript_name"] <- NA
@@ -183,7 +206,6 @@ CT_list[CT_list$external_gene_name == "SIM1-AS1", "external_transcript_name"] <-
 CT_list[CT_list$external_gene_name == "LINC00326", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC01010", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "ST7-OT4", "external_transcript_name"] <- NA
-CT_list[CT_list$external_gene_name == "LINC02912", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC02669", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC01517", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC00867", "external_transcript_name"] <- NA
@@ -195,7 +217,6 @@ CT_list[CT_list$external_gene_name == "MRPS35-DT", "external_transcript_name"] <
 CT_list[CT_list$external_gene_name == "LINC02156", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC01198", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC00392", "external_transcript_name"] <- NA
-CT_list[CT_list$external_gene_name == "LINC00452", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC02293", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "G2E3-AS1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC00221", "external_transcript_name"] <- NA
@@ -210,7 +231,6 @@ CT_list[CT_list$external_gene_name == "LINC01925", "external_transcript_name"] <
 CT_list[CT_list$external_gene_name == "LINC01895", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC01029", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC00664", "external_transcript_name"] <- NA
-CT_list[CT_list$external_gene_name == "LINC01531", "external_transcript_name"] <- "LINC01531-202"
 CT_list[CT_list$external_gene_name == "MIR663AHG", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "ZBTB46-AS1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC01203", "external_transcript_name"] <- NA
@@ -219,6 +239,16 @@ CT_list[CT_list$external_gene_name == "FAM197Y7", "external_transcript_name"] <-
 CT_list[CT_list$external_gene_name == "FAM197Y6", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "UMODL1", "external_transcript_name"] <- NA
 CT_list[CT_list$external_gene_name == "LINC00112", "external_transcript_name"] <- NA
+
+# Genes that are not in the list anymore but were verified at one point
+# CT_list[CT_list$external_gene_name == "LKAAEAR1", "external_transcript_name"] <- NA
+# CT_list[CT_list$external_gene_name == "RTL9", "external_transcript_name"] <- "RTL9-202"
+# CT_list[CT_list$external_gene_name == "LALBA", "external_transcript_name"] <- NA
+# CT_list[CT_list$external_gene_name == "NEUROG2-AS1", "external_transcript_name"] <- NA
+# CT_list[CT_list$external_gene_name == "MIR3681HG", "external_transcript_name"] <- NA
+# CT_list[CT_list$external_gene_name == "LINC02912", "external_transcript_name"] <- NA
+# CT_list[CT_list$external_gene_name == "LINC00452", "external_transcript_name"] <- NA
+# CT_list[CT_list$external_gene_name == "LINC01531", "external_transcript_name"] <- "LINC01531-202"
 
 # Testis transcript is not the one found in tumors
 CT_list[CT_list$external_gene_name == "SUN3", "external_transcript_name"] <- NA
