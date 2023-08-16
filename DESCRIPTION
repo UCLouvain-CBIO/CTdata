@@ -48,7 +48,8 @@ Suggests:
     BiocStyle,
     knitr,
     rmarkdown,
-    SummarizedExperiment
+    SummarizedExperiment,
+    SingleCellExperiment
 VignetteBuilder: knitr
 BugReports: https://github.com/UCLouvain-CBIO/CTdata/issues
 Config/testthat/edition: 3

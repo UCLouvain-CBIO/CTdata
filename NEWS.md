@@ -1,5 +1,10 @@
 # CTdata 1.1
 
+## CTdata 1.1.5
+
+- Suggest and load SingleCellExperiment in vignette.
+- Update vignette figure.
+
 ## CTdata 1.1.4
 
 - New data: `scRNAseq_HPA` and `testis_sce`.

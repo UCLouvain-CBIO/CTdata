@@ -123,9 +123,13 @@ TCGA_TPM()
 
 ### Testis scRNAseq data
 
-A `SingleCellExperiment` object containing gene expression from testis single
-cell RNAseq experiment (`The adult human testis transcriptional cell atlas`
-(Guo et al. 2018)):
+A `SingleCellExperiment` object containing gene expression from testis
+single cell RNAseq experiment (*The adult human testis transcriptional
+cell atlas* (Guo et al. 2018)):
+
+```{r, message = FALSE}
+library("SingleCellExperiment")
+```
 
 ```{r}
 testis_sce()
@@ -134,8 +138,8 @@ testis_sce()
 
 ### Human Protein Atlas data
 
-A `SingleCellExperiment` object containing gene expression in different human 
-cell types based on scRNAseq data obtained from the Human Protein Atlas 
+A `SingleCellExperiment` object containing gene expression in different human
+cell types based on scRNAseq data obtained from the Human Protein Atlas
 (https://www.proteinatlas.org)/
 
 ```{r}
