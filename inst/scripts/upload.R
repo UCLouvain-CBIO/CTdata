@@ -27,3 +27,11 @@ dest <- c("CTdata/eh_data/v2/CT_methylation_in_tissues.rda",
          "CTdata/eh_data/scRNAseq_HPA.rda")
 
 storage_multiupload(container, src = src, dest = dest)
+
+## ------------------------------------------
+## 2023-10-11
+
+src <- "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/CT_methylation_in_tissues.rda"
+dest <- "CTdata/eh_data/v3/CT_methylation_in_tissues.rda"
+
+storage_multiupload(container, src = src, dest = dest)
