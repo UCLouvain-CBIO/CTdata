@@ -171,7 +171,7 @@ CT_list_met_normal_tissues_gr <-
                            end.field = "CpG_pos")
 
 CT_methylation_in_tissues <- SummarizedExperiment(
-  assays = CT_met_in_tissues[, -(1:2)],
+  assays = as.matrix(CT_met_in_tissues[, -(1:2)]),
   rowRanges = CT_list_met_normal_tissues_gr)
 
 save(CT_methylation_in_tissues, file = "../../eh_data/CT_methylation_in_tissues.rda",
