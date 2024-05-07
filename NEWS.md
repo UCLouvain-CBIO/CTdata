@@ -2,7 +2,7 @@
 
 ## CTdata 1.5.1
 
-- Nothing yet
+- Changed selection criteria of testis-specific and testis-preferential genes in GTEX 
 
 ## CTdata 1.5.0
 

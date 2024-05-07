@@ -79,7 +79,7 @@ GTEX_data <- GTEX_data %>%
   dplyr::select("ensembl_gene_id", "external_gene_name", all_of(ordered_tissues))
 
 ##########################################################################
-## Evaluate maximum TPM and 75% quantile TPM in somatic tissues
+## Evaluate maximum TPM in somatic tissues
 ## and calculate ratio_testis_somatic
 ## (defined as expression in testis / max_TPM_somatic)
 ##########################################################################
@@ -89,8 +89,6 @@ GTEX_data <- GTEX_data %>%
                 "Ovary", everything()) %>%
   rowwise() %>%
   dplyr::mutate(max_TPM_somatic = max(c_across(c(Adipose:Vagina)))) %>%
-  dplyr::mutate(q75_TPM_somatic = quantile(c_across(c(Adipose:Vagina)),
-                                           0.75)) %>%
   dplyr::mutate(ratio_testis_somatic = Testis / max_TPM_somatic) %>%
   ungroup()
 
@@ -109,15 +107,13 @@ testis_specific <- GTEX_data %>%
   pull(external_gene_name)
 
 ## Tag testis_preferential genes
-## TPM >= 1 in testis
-## TPM in testis is at least 10x higher than in somatic tissues
-## at least 75% of somatic tissues with TPM < 0.5
+## Compare to testis-specific genes, testis-preferentail genes can have
+## an expression level in a somatic tissue > 0.5
 testis_preferential <- GTEX_data %>%
   dplyr::filter(!external_gene_name %in% lowly_expressed) %>%
   dplyr::filter(!external_gene_name %in% testis_specific)  %>%
   dplyr::filter(Testis >= 1) %>%
   dplyr::filter(ratio_testis_somatic >= 10) %>%
-  dplyr::filter(q75_TPM_somatic < 0.5) %>%
   pull(external_gene_name)
 
 ## Add GTEX_category column summarizing the category
@@ -131,8 +127,7 @@ GTEX_data[is.na(GTEX_data$GTEX_category), "GTEX_category"] <- "other"
 
 Gtex_mat <- as.matrix(GTEX_data %>%
                         dplyr::select(-c(ensembl_gene_id, external_gene_name,
-                                         max_TPM_somatic, q75_TPM_somatic,
-                                         ratio_testis_somatic, GTEX_category)))
+                                         max_TPM_somatic, ratio_testis_somatic, GTEX_category)))
 rownames(Gtex_mat) <- GTEX_data$ensembl_gene_id
 rowdata <- as.data.frame(GTEX_data %>%
                            dplyr::select(c(ensembl_gene_id, external_gene_name,
