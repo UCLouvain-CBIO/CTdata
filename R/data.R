@@ -254,7 +254,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 24359 rows and 32 columns
+#' A `SummarizedExperiment` object with 24516 rows and 32 columns
 #'
 #' - Rows correspond to genes (ensembl_gene_id).
 #'
@@ -271,8 +271,12 @@ NULL
 #'   evaluating the DAC treatment effect. For each each cell line, the
 #'   log2FC between treated and control cells is given, as well as the
 #'   p-adjusted value. The column `induced` flags genes significantly
-#'   induced (log2FoldChange >= 2 and padj <= 0.05) in at least one
-#'   cell line.
+#'   induced (log2FoldChange >= 2 and padj <= 0.1) in at least one
+#'   cell line. The threshold is not too stringent as DAC is expected to induce
+#'   low expression levels (demethylation doesn't necessarily occurs in
+#'   all treated cells...).
+#'   When all cells lines already express the gene before DAC treatment, no
+#'   assessment of induction was done.
 #'
 #' @details
 #'

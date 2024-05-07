@@ -74,7 +74,8 @@ means_in_CTL <- enframe(rowMeans(counts(dds[, dds$treatment == "CTL"],
 res_all <- as_tibble(res, rownames = "ensembl_gene_id") %>%
   right_join(as_tibble(rowData(GTEX_data), rownames = "ensembl_gene_id") %>%
                dplyr::select(ensembl_gene_id, external_gene_name)) %>%
-  dplyr::select(ensembl_gene_id, external_gene_name, log2FoldChange, pvalue, padj) %>%
+  dplyr::select(ensembl_gene_id, external_gene_name, log2FoldChange,
+                pvalue, padj) %>%
   mutate(log2FoldChange = round(log2FoldChange, 2)) %>%
   left_join(means_in_CTL) %>%
   mutate(expressed_in_CTL = ifelse(mean_in_CTL > thr, TRUE, FALSE)) %>%
@@ -112,14 +113,16 @@ for(cell_line in unique(coldata$cell)[-1]) {
   res <- as_tibble(res, rownames = "ensembl_gene_id") %>%
     right_join(as_tibble(rowData(GTEX_data), rownames = "ensembl_gene_id") %>%
                  dplyr::select(ensembl_gene_id, external_gene_name)) %>%
-    dplyr::select(ensembl_gene_id, external_gene_name, log2FoldChange, pvalue, padj) %>%
+    dplyr::select(ensembl_gene_id, external_gene_name, log2FoldChange,
+                  pvalue, padj) %>%
     mutate(log2FoldChange = round(log2FoldChange, 2)) %>%
     left_join(means_in_CTL) %>%
     mutate(expressed_in_CTL = ifelse(mean_in_CTL > thr, TRUE, FALSE)) %>%
     mutate(sign = case_when((!expressed_in_CTL & !is.na(log2FoldChange) &
                                log2FoldChange >= logFC_thr &
                                !is.na(padj) & padj <= padj_thr) ~ 1,
-                            (is.na(log2FoldChange) | log2FoldChange < logFC_thr |
+                            (is.na(log2FoldChange) |
+                               log2FoldChange < logFC_thr |
                                is.na(padj) | padj > padj_thr) ~ 0))
 
   names(res) <- c("ensembl_gene_id", "external_gene_name",
