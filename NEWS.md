@@ -2,7 +2,13 @@
 
 ## CTdata 1.5.1
 
-- Changed selection criteria of testis-specific and testis-preferential genes in GTEX 
+- Changed selection criteria of testis-specific and testis-preferential genes 
+in GTEX 
+- Added a slightly more stringent criteria of selection of testis-specific 
+genes when analysing RNAseq data of normal tissues with multumapping 
+- Minor modifications in selection of genes induced by DAC
+- Set TCGA_catgeory in TCGA_TPM to "leaky" when the q75 expression in normal
+peritumoral TCGA samples is higher than 0.5
 
 ## CTdata 1.5.0
 
