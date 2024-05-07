@@ -21,3 +21,5 @@ inst/extdata/*_cells
 inst/extdata/coldata.rda
 inst/extdata/raw_counts.rda
 inst/extdata/raw_counts_with_multimapping.rda
+inst/extdata/normal_tissues_RNAseq_*.rda
+inst/extdata/adrenal_gland_featurecounts.tsv
