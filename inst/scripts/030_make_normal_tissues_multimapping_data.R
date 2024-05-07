@@ -35,7 +35,8 @@ load("../../eh_data/GTEX_data.rda")
 ## [featurecounts](https://rdrr.io/bioc/Rsubread/man/featureCounts.html) was
 ## used to assign reads to genes using Homo_sapiens.GRCh38.94.gtf.
 
-## Two different pipelines were run in order to remove or not multi-mapping reads.
+## Two different pipelines were run in order to remove or not multi-mapping
+## reads.
 ## When multi-mapping was allowed, hisat2 was run with -k 20 parameter (reports
 ## up to 20 alignments per read), and featurecounts was run with -M parameter
 ## (multi-mapping reads are counted).
@@ -139,7 +140,8 @@ genes_testis_specific_in_multimapping <- ratio_multi_not_multi %>%
   mutate(multimapping_analysis = case_when(
     GTEX_category != "lowly_expressed" ~ "not_analysed",
     GTEX_category == "lowly_expressed" & TPM_testis_when_multi >= 1 &
-      ratio >= 5 & ratio_testis_other >= 10 & max_in_somatic <= 1 ~ "testis_specific",
+      ratio >= 5 & ratio_testis_other >= 10 &
+      max_in_somatic <= 1 ~ "testis_specific",
     GTEX_category == "lowly_expressed" &
       (TPM_testis_when_multi < 1 | ratio < 5 | ratio_testis_other < 10) ~
       "not_testis_specific"))
@@ -156,7 +158,8 @@ rowdata <-
   dplyr::select(ensembl_gene_id, external_gene_name,
                 lowly_expressed_in_GTEX, multimapping_analysis)
 
-rowdata$multimapping_analysis[rowdata$multimapping_analysis == "not_analysed"] <- NA
+rowdata$multimapping_analysis[rowdata$multimapping_analysis ==
+                                "not_analysed"] <- NA
 
 rowdata <- column_to_rownames(rowdata, "ensembl_gene_id")
 
