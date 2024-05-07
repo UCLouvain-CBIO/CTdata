@@ -70,6 +70,7 @@ prepare_data <- function(tum) {
   tmp <- enframe(tmp, name = "ensembl_gene_id",
                  value = paste0("percent_pos_", tum))
   rowdata <- left_join(rowdata, tmp)
+
   # Estimate the percent of tumors in which genes are repressed (TPM < TPM_low_thr)
   TPM_low_thr <- 0.1
   binary <- ifelse(assay(tumors_only) <= TPM_low_thr, 1, 0)
@@ -79,6 +80,20 @@ prepare_data <- function(tum) {
   rowdata <- rowdata %>%
     filter(ensembl_gene_id %in% rownames(GTEX_data)) %>%
     left_join(tmp)
+
+  # Estimate the q75 expression in normal peritumoral tissues
+  # (only when at least 20 NT samples =>
+  # exclude SKCM and ESCA where not enough NT samples)
+  # Will be used to filter out genes that are expressed in a high proportion of
+  # peritumoral tissues => not strictly testis-specific
+  NT_only <- data[ , colData(data)$shortLetterCode == 'NT']
+  if (ncol(NT_only) >= 20) {
+    q75_in_NT <-  tibble(ensembl_gene_id = rownames(NT_only),
+                         q75 = rowQuantiles(assay(NT_only), probs = 0.75))
+    names(q75_in_NT)[-1] <- paste0('TPM_q75_in_NT_', tum)
+    rowdata <- rowdata %>%
+      left_join(q75_in_NT)
+  }
 
   rowData(data) <- rowdata
   return(assign(x = paste0(tum, "_TPM"), value = data))
@@ -163,10 +178,12 @@ tmp <- enframe(tmp, name = "ensembl_gene_id", value = "percent_neg_tum")
 rowdata <- left_join(rowdata, tmp)
 
 rowdata$max_TPM_in_TCGA <- rowMax(assay(tumors_only))
+rowdata$max_q75_in_NT <- rowMax(as.matrix(rowdata %>%
+  dplyr::select(starts_with("TPM_q75"))))
 
 rowdata <- rowdata %>%
   mutate(TCGA_category = case_when(
-    percent_neg_tum < 20 ~ "leaky",
+    percent_neg_tum < 20 | max_q75_in_NT > 0.5 ~ "leaky",
     percent_neg_tum >= 20 & percent_pos_tum > 0 ~ "activated",
     percent_neg_tum >= 20 & percent_pos_tum == 0 ~ "not_activated"))
 rowdata <- as.data.frame(rowdata)
