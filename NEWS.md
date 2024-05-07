@@ -19,7 +19,8 @@
 
 ## CTdata 1.1.5
 
-- Assay from CT_methylation_in_tissues() converted from a tibble to a matrix.
+- Assay from `CT_methylation_in_tissues()` converted from a tibble to
+  a matrix.
 - Suggest and load SingleCellExperiment in vignette.
 - Update vignette figure.
 
