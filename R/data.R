@@ -56,7 +56,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SingleCellExperiment` object with 19777 rows and 6490 columns
+#' A `SingleCellExperiment` object with 19604 rows and 6490 columns
 #'
 #' - Rows correspond to genes (gene names as rownames)
 #' - Columns correspond to testis cells
@@ -92,7 +92,7 @@ NULL
 #' @source
 #'
 #' The count matrix `GSE112013_Combined_UMI_table.txt.gz` was downloaded from
-#' GEO (accession: GSE11201). Metadata correspond to `TableS1` from the paper's
+#' GEO (accession: GSE112013). Metadata correspond to `TableS1` from the paper's
 #' supplemental data. The data were converted in a SingleCellExperiment
 #' (see `scripts/13_make_testis_sce.R` for details).
 #'

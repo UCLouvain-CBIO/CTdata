@@ -1,6 +1,5 @@
 ## Code to prepare `testis_sce` dataset goes here
 
-
 library(tidyverse)
 library(SingleCellExperiment)
 library(scater)
@@ -89,7 +88,9 @@ counts_incorrect_gene_names <- counts %>%
 # Change incorrect genes names using official ones, when possible
 counts_incorrect_gene_names <- counts_incorrect_gene_names %>%
   left_join(canonical_transcripts %>%
-              dplyr::select(ensembl_gene_id, external_gene_name, external_synonym), by = c("Gene" = "external_synonym")) %>%
+              dplyr::select(ensembl_gene_id, external_gene_name,
+                            external_synonym),
+            by = c("Gene" = "external_synonym")) %>%
   dplyr::select(Gene, ensembl_gene_id, external_gene_name, everything()) %>%
   filter(!is.na(external_gene_name)) %>%
   filter(!external_gene_name %in% counts_correct_gene_names$Gene) %>%
@@ -103,7 +104,8 @@ mat <- as.matrix(counts[, -1])
 rownames(mat) <- counts$Gene
 coldata <- data.frame(metadata[, -1], row.names = metadata$CellID)
 
-testis_sce <- SingleCellExperiment(assays = list(counts = mat[, rownames(coldata)]),
+testis_sce <- SingleCellExperiment(assays =
+                                     list(counts = mat[, rownames(coldata)]),
                                    colData = coldata)
 testis_sce <- logNormCounts(testis_sce)
 
@@ -128,7 +130,8 @@ n_somatic_cells <- dim(testis_sce[, testis_sce$type %in% somatic_cells])[2]
 
 percent_pos_germcells <- as_tibble(logcounts(testis_sce),
                                    rownames = "external_gene_name") %>%
-  pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
+  pivot_longer(names_to = "CellID", values_to = "logCounts",
+               -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               dplyr::select(CellID, type)) %>%
   filter(type %in% germ_cells) %>%
@@ -140,7 +143,8 @@ percent_pos_germcells <- as_tibble(logcounts(testis_sce),
 
 percent_pos_somatic <- as_tibble(logcounts(testis_sce),
                                  rownames = "external_gene_name") %>%
-  pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
+  pivot_longer(names_to = "CellID", values_to = "logCounts",
+               -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               dplyr::select(CellID, type)) %>%
   filter(type %in% somatic_cells) %>%
@@ -152,7 +156,8 @@ percent_pos_somatic <- as_tibble(logcounts(testis_sce),
 ### test begin
 mean_exp_per_type <-as_tibble(logcounts(testis_sce),
                               rownames = "external_gene_name") %>%
-  pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
+  pivot_longer(names_to = "CellID", values_to = "logCounts",
+               -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               dplyr::select(CellID, type)) %>%
   group_by(external_gene_name, type) %>%
@@ -161,7 +166,8 @@ mean_exp_per_type <-as_tibble(logcounts(testis_sce),
 
 n_pos_cell_per_type <- as_tibble(logcounts(testis_sce),
                                  rownames = "external_gene_name") %>%
-  pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
+  pivot_longer(names_to = "CellID", values_to = "logCounts",
+               -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               dplyr::select(CellID, type)) %>%
   group_by(external_gene_name, type, logCounts > 0) %>%
@@ -171,7 +177,8 @@ n_pos_cell_per_type <- as_tibble(logcounts(testis_sce),
 testis_cell_type <- mean_exp_per_type %>%
   left_join(n_pos_cell_per_type %>%
               dplyr::select(-`logCounts > 0`)) %>%
-  left_join(enframe(table(testis_sce$type), name = "type", value = "n_cells")) %>%
+  left_join(enframe(table(testis_sce$type), name = "type",
+                    value = "n_cells")) %>%
   mutate(n_cells = as.vector(n_cells), percent_pos = n_pos / n_cells * 100) %>%
   filter(percent_pos > 1) %>%
   filter(mean_exp == max(mean_exp)) %>%
@@ -181,9 +188,11 @@ testis_cell_type <- mean_exp_per_type %>%
 
 rowData(testis_sce) <- tibble(external_gene_name = rownames(testis_sce)) %>%
   left_join(percent_pos_germcells %>%
-              dplyr::select(external_gene_name, percent_pos_testis_germcells)) %>%
+              dplyr::select(external_gene_name,
+                            percent_pos_testis_germcells)) %>%
   left_join(percent_pos_somatic %>%
-              dplyr::select(external_gene_name, percent_pos_testis_somatic)) %>%
+              dplyr::select(external_gene_name,
+                            percent_pos_testis_somatic)) %>%
   left_join(testis_cell_type)
 
 save(testis_sce, file = "../../eh_data/testis_sce.rda",
