@@ -18,3 +18,6 @@ inst/extdata/Guo_et_al_TableS1_tmp
 inst/extdata/normal_tissues_RNAseq_raw_counts.rda
 inst/extdata/scRNAseq_HPA.rda
 inst/extdata/*_cells
+inst/extdata/coldata.rda
+inst/extdata/raw_counts.rda
+inst/extdata/raw_counts_with_multimapping.rda
