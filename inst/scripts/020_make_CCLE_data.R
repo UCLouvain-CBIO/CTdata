@@ -31,7 +31,8 @@ coldata <- CCLE_metadata %>%
   filter(primary_disease != "Fibroblast") %>%
   filter(primary_disease != "Engineered") %>%
   filter(primary_disease != "Non-Cancerous") %>%
-  mutate(type = sub(pattern = " Cancer", x = primary_disease, replacement = '')) %>%
+  mutate(type = sub(pattern = " Cancer", x = primary_disease,
+                    replacement = '')) %>%
   mutate(type = sub(pattern = "Colon/", x = type, replacement = '')) %>%
   mutate(type = sub(pattern = "Endometrial/", x = type, replacement = '')) %>%
   mutate(type = gsub(pattern = " ", x = type, replacement = '_')) %>%

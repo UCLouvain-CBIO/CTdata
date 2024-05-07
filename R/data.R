@@ -157,7 +157,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 24327 rows and 1229 columns
+#' A `SummarizedExperiment` object with 24483 rows and 1229 columns
 #'
 #' - Rows correspond to genes (ensembl_gene_id)
 #' - Columns correspond to CCLE cell lines
