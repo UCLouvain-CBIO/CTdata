@@ -71,8 +71,6 @@ TPM_matrix_no_multimapping <- as_tibble(x1, rownames = "Geneid") %>%
 mat_no_multimapping <- as.matrix(TPM_matrix_no_multimapping[, -c(1:2)])
 rownames(mat_no_multimapping) <- TPM_matrix_no_multimapping$ensembl_gene_id
 
-
-
 ################################################################################
 ## Data generated when allowing multi-mapping
 ################################################################################
