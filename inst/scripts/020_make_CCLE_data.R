@@ -5,6 +5,8 @@ library(SummarizedExperiment)
 library(BiocFileCache)
 library(biomaRt)
 
+load("../../eh_data/GTEX_data.rda")
+
 bfc <- BiocFileCache(cache = "../BiocFileCache",
                      ask = FALSE)
 
