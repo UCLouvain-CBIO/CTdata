@@ -1,8 +1,25 @@
+# CTdata 1.5
+
+## CTdata 1.5.1
+
+- Nothing yet
+
+## CTdata 1.5.0
+
+- New devel
+
+
+# CTdata 1.4
+
+## CTdata 1.4.0
+
+- New release Bioc 3.19
+
 # CTdata 1.1
 
 ## CTdata 1.1.5
 
-- Assay from CT_methylation_in_tissues() converted from a tibble to a matrix. 
+- Assay from CT_methylation_in_tissues() converted from a tibble to a matrix.
 - Suggest and load SingleCellExperiment in vignette.
 - Update vignette figure.
 

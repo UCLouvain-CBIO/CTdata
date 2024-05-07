@@ -1,6 +1,6 @@
 Package: CTdata
 Title: Data companion to CTexploreR
-Version: 1.5.0
+Version: 1.5.1
 Authors@R:
     c(person(given = "Axelle",
            family = "Loriot",
