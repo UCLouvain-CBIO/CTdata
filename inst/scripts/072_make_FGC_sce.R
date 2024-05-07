@@ -20,7 +20,6 @@ FGC_sce <- SingleCellExperiment(
 
 ## Normalization.
 FGC_sce <- logNormCounts(FGC_sce)
-colData(FGC_sce)[1:3,]
 levels(FGC_sce$sex) <- c("F", "M")
 
 FGC_sce$type <- paste0(FGC_sce$sex, "_", FGC_sce$celltype)

@@ -10,8 +10,8 @@ proteinatlas <- read_tsv("../extdata/proteinatlas.tsv")
 
 
 # Use the column `RNA single cell type specific nTPM` to flag gene
-# as "not_testis_specific" genes specific of a cell type other than a germ
-# cell or a placental cell and as "testis_specific" genes specific of a germ
+# as "not_testis_specific" genes if specific of a cell type other than a germ
+# cell or a placental cell and as "testis_specific" genes if specific of a germ
 # cell type or a placental cell
 
 cell_type_specificities_list <- strsplit(
@@ -25,11 +25,13 @@ accepted_cell_types <- c("Spermatocytes", "Spermatogonia", "Early spermatids",
                          "Late spermatids", "Oocytes", "Syncytiotrophoblasts",
                          "Cytotrophoblasts", "Extravillous trophoblasts", NA)
 
-somatic_cell_types <- detected_specificities[!detected_specificities %in% accepted_cell_types]
+somatic_cell_types <- detected_specificities[!detected_specificities %in%
+                                               accepted_cell_types]
 
-suspect <- names(grep(somatic_cell_types[1], cell_type_specificities_list, value = T))
+suspect <- names(grep(somatic_cell_types[1], cell_type_specificities_list,
+                      value = TRUE))
 for (tissue in somatic_cell_types[-1]){
-  tmp <- names(grep(tissue, cell_type_specificities_list, value = T))
+  tmp <- names(grep(tissue, cell_type_specificities_list, value = TRUE))
   suspect <- c(suspect, tmp)
 }
 suspect_HPA <- unique(suspect)
@@ -49,6 +51,7 @@ HPA_cell_type_specificities <- tibble(
   dplyr::rename(HPA_RNA_single_cell_type_specific_nTPM =
                   `RNA single cell type specific nTPM`)
 
-save(HPA_cell_type_specificities, file = "../../eh_data/HPA_cell_type_specificities.rda",
+save(HPA_cell_type_specificities,
+     file = "../../eh_data/HPA_cell_type_specificities.rda",
      compress = "xz",
      compression_level = 9)

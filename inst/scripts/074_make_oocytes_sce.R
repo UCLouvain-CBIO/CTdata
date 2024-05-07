@@ -63,7 +63,8 @@ counts_incorrect_gene_names <- table %>%
 # Change incorrect genes names using official ones, when possible
 counts_incorrect_gene_names <- counts_incorrect_gene_names %>%
   left_join(canonical_transcripts %>%
-              dplyr::select(ensembl_gene_id, external_gene_name, external_synonym),
+              dplyr::select(ensembl_gene_id, external_gene_name,
+                            external_synonym),
             by = c("gene" = "external_synonym")) %>%
   dplyr::select(gene, ensembl_gene_id, external_gene_name, everything()) %>%
   filter(!is.na(external_gene_name)) %>%
@@ -78,7 +79,8 @@ mat <- as.matrix(counts[, -1])
 rownames(mat) <- counts$gene
 coldata <- data.frame(metadata[,-1], row.names = metadata$cell)
 
-ovary_sce <- SingleCellExperiment(assays = list(counts = mat[, rownames(coldata)]),
+ovary_sce <- SingleCellExperiment(assays =
+                                    list(counts = mat[, rownames(coldata)]),
                                    colData = coldata)
 ovary_sce <- logNormCounts(ovary_sce)
 
