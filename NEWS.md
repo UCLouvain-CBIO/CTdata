@@ -9,6 +9,10 @@ genes when analysing RNAseq data of normal tissues with multumapping
 - Minor modifications in selection of genes induced by DAC
 - Set TCGA_catgeory in TCGA_TPM to "leaky" when the q75 expression in normal
 peritumoral TCGA samples is higher than 0.5
+- Added HPA_cell_type_specificity (a table giving cell type specificity of each
+genes based on Human protein Atlas scRNAseq data)
+- Added FGC_sce, scRNAseq data of human fetal gonads
+- Added oocytes_sce, scRNAseq data of human oocytes
 
 ## CTdata 1.5.0
 
