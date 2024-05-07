@@ -6,7 +6,7 @@
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 24359 rows and 32 columns
+#' A `SummarizedExperiment` object with 24516 rows and 32 columns
 #'
 #' - Rows correspond to genes (ensembl_gene_id as rownames)
 #' - Columns correspond to tissues
@@ -26,8 +26,7 @@
 #'   10x more in testis than in any somatic
 #'   tissue). "testis-preferential" genes are genes expressed in
 #'   testis but also in a few somatic tissues (expression in testis >=
-#'   1 TPM, quantile 75% of expression in somatic tissues < 0.5 TPM,
-#'   and expressed at least 10x more in testis than in any somatic
+#'   1 TPM, and expressed at least 10x more in testis than in any somatic
 #'   tissue). "lowly_expressed" genes are genes undetectable in GTEX
 #'   database probably due to multi-mapping issues (expression in all
 #'   GTEX tissues < 1 TPM).

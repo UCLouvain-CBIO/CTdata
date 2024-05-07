@@ -76,7 +76,8 @@ GTEX_data <- GTEX_data %>%
 
 ordered_tissues <- sort(colnames(GTEX_data)[-c(1:2)])
 GTEX_data <- GTEX_data %>%
-  dplyr::select("ensembl_gene_id", "external_gene_name", all_of(ordered_tissues))
+  dplyr::select("ensembl_gene_id", "external_gene_name",
+                all_of(ordered_tissues))
 
 ##########################################################################
 ## Evaluate maximum TPM in somatic tissues
@@ -127,7 +128,8 @@ GTEX_data[is.na(GTEX_data$GTEX_category), "GTEX_category"] <- "other"
 
 Gtex_mat <- as.matrix(GTEX_data %>%
                         dplyr::select(-c(ensembl_gene_id, external_gene_name,
-                                         max_TPM_somatic, ratio_testis_somatic, GTEX_category)))
+                                         max_TPM_somatic, ratio_testis_somatic,
+                                         GTEX_category)))
 rownames(Gtex_mat) <- GTEX_data$ensembl_gene_id
 rowdata <- as.data.frame(GTEX_data %>%
                            dplyr::select(c(ensembl_gene_id, external_gene_name,
