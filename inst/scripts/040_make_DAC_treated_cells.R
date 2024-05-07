@@ -40,83 +40,126 @@ dds <- DESeqDataSetFromMatrix(countData = raw_counts,
                               colData = coldata,
                               design = ~ 1)
 dds <- DESeq2::estimateSizeFactors(dds)
+normalised_counts <- counts(dds, normalize = TRUE)
 log1p_transformed <- log1p(counts(dds, normalize = TRUE))
 
 ## DESeq2 analysis
 ## Compare DAC treated cells to control cells separately each cell line
 ## to identify genes induced by DAC in at least one cell line.
+
+padj_thr <- 0.1
+logFC_thr <- 2
+
+## Define an expression threshold above which a gene will be considered as
+## already activated in the cell line => Tag cells in which it makes no sense
+## to test the activation upon DAC treatment
+thr <- 15
+
 cell_line <- unique(coldata$cell)[1]
 coldata_by_cell_line <- coldata[coldata$cell == cell_line, ]
-dds <- DESeqDataSetFromMatrix(countData =
-                                raw_counts[, coldata_by_cell_line$sample],
-                              colData = coldata_by_cell_line,
-                              design = ~ treatment)
+dds <- DESeqDataSetFromMatrix(
+  countData = raw_counts[, coldata_by_cell_line$sample],
+  colData = coldata_by_cell_line,
+  design = ~ treatment)
 dds <- DESeq(dds)
 
 res <- results(dds, name = "treatment_DAC_vs_CTL",
-               independentFiltering = TRUE,
+               independentFiltering = FALSE,
                altHypothesis = "greater")
+
+means_in_CTL <- enframe(rowMeans(counts(dds[, dds$treatment == "CTL"],
+                                        normalize = TRUE)),
+                        name = "ensembl_gene_id", value = "mean_in_CTL")
 
 res_all <- as_tibble(res, rownames = "ensembl_gene_id") %>%
   right_join(as_tibble(rowData(GTEX_data), rownames = "ensembl_gene_id") %>%
                dplyr::select(ensembl_gene_id, external_gene_name)) %>%
-  dplyr::select(ensembl_gene_id, external_gene_name, log2FoldChange, padj) %>%
+  dplyr::select(ensembl_gene_id, external_gene_name, log2FoldChange, pvalue, padj) %>%
   mutate(log2FoldChange = round(log2FoldChange, 2)) %>%
-  mutate(sign = case_when((!is.na(log2FoldChange) & log2FoldChange >= 2 &
-                             !is.na(padj) & padj <= 0.05) ~ 1,
-                          (is.na(log2FoldChange) | log2FoldChange < 2 |
-                             is.na(padj) | padj > 0.05) ~ 0))
+  left_join(means_in_CTL) %>%
+  mutate(expressed_in_CTL = ifelse(mean_in_CTL > thr, TRUE, FALSE)) %>%
+  mutate(sign = case_when((!expressed_in_CTL & !is.na(log2FoldChange) &
+                             log2FoldChange >= logFC_thr &
+                             !is.na(padj) & padj <= padj_thr) ~ 1,
+                          (is.na(log2FoldChange) | log2FoldChange < logFC_thr |
+                             is.na(padj) | padj > padj_thr) ~ 0))
 
 names(res_all) <- c("ensembl_gene_id", "external_gene_name",
                     paste0("logFC_", cell_line),
+                    paste0("pval_", cell_line),
                     paste0("padj_", cell_line),
+                    paste0("mean_CTL_", cell_line),
+                    paste0("expressed_in_CTL_", cell_line),
                     paste0("sign_", cell_line))
 
 for(cell_line in unique(coldata$cell)[-1]) {
 
   coldata_by_cell_line <- coldata[coldata$cell == cell_line, ]
-  dds <- DESeqDataSetFromMatrix(countData =
-                                  raw_counts[, coldata_by_cell_line$sample],
-                                colData = coldata_by_cell_line,
-                                design = ~ treatment)
+  dds <- DESeqDataSetFromMatrix(
+    countData = raw_counts[, coldata_by_cell_line$sample],
+    colData = coldata_by_cell_line,
+    design = ~ treatment)
   dds <- DESeq(dds)
 
   res <- results(dds, name = "treatment_DAC_vs_CTL",
-                 independentFiltering = TRUE,
+                 independentFiltering = FALSE,
                  altHypothesis = "greater")
+
+  means_in_CTL <- enframe(rowMeans(counts(dds[, dds$treatment == "CTL"],
+                                          normalize = TRUE)),
+                          name = "ensembl_gene_id", value = "mean_in_CTL")
+
   res <- as_tibble(res, rownames = "ensembl_gene_id") %>%
     right_join(as_tibble(rowData(GTEX_data), rownames = "ensembl_gene_id") %>%
                  dplyr::select(ensembl_gene_id, external_gene_name)) %>%
-    dplyr::select(ensembl_gene_id, external_gene_name, log2FoldChange, padj) %>%
+    dplyr::select(ensembl_gene_id, external_gene_name, log2FoldChange, pvalue, padj) %>%
     mutate(log2FoldChange = round(log2FoldChange, 2)) %>%
-    mutate(sign = case_when((!is.na(log2FoldChange) & log2FoldChange >= 2 &
-                               !is.na(padj) & padj <= 0.05) ~ 1,
-                            (is.na(log2FoldChange) | log2FoldChange < 2 |
-                               is.na(padj) | padj > 0.05) ~ 0))
+    left_join(means_in_CTL) %>%
+    mutate(expressed_in_CTL = ifelse(mean_in_CTL > thr, TRUE, FALSE)) %>%
+    mutate(sign = case_when((!expressed_in_CTL & !is.na(log2FoldChange) &
+                               log2FoldChange >= logFC_thr &
+                               !is.na(padj) & padj <= padj_thr) ~ 1,
+                            (is.na(log2FoldChange) | log2FoldChange < logFC_thr |
+                               is.na(padj) | padj > padj_thr) ~ 0))
 
   names(res) <- c("ensembl_gene_id", "external_gene_name",
                   paste0("logFC_", cell_line),
+                  paste0("pval_", cell_line),
                   paste0("padj_", cell_line),
+                  paste0("mean_CTL_", cell_line),
+                  paste0("expressed_in_CTL_", cell_line),
                   paste0("sign_", cell_line))
 
   res_all <- left_join(res_all, res)
 }
 
+
+
+## Evaluate the number de cell lines already expressing the genes
+res_all$expressed_in_n_CTLs <- res_all %>%
+  dplyr::select(starts_with("expressed_in_CTL")) %>%
+  rowSums(na.rm = TRUE)
+
 ## Tag genes significantly induced in at least one cell line
 res_all$sign <- res_all %>%
   dplyr::select(starts_with("sign")) %>%
-  rowSums()
+  rowSums(na.rm = TRUE)
 
+## Induction cannot be evaluate if genes are already expressed in more
+## than 7 out of 8 cell lines
 res_all <- res_all %>%
-  mutate(induced = ifelse(sign >= 1, TRUE, FALSE)) %>%
-  dplyr::select(-starts_with("sign"))
+  mutate(induced = case_when(expressed_in_n_CTLs == 8 ~ NA,
+                             expressed_in_n_CTLs < 8 & sign >= 1 ~ TRUE,
+                             expressed_in_n_CTLs < 8 & sign < 1 ~ FALSE)) %>%
+  dplyr::select(-sign)
 
 res_all <- as.data.frame(res_all)
 res_all <- column_to_rownames(res_all, "ensembl_gene_id")
 
 ## Save as a SE
 DAC_treated_cells <- SummarizedExperiment(
-  assays = list(log1p = log1p_transformed[genes_in_gtex, coldata$sample]),
+  assays = list(counts = normalised_counts[genes_in_gtex, coldata$sample],
+                log1p = log1p_transformed[genes_in_gtex, coldata$sample]),
   colData = coldata[, -1],
   rowData = res_all[genes_in_gtex, ])
 
