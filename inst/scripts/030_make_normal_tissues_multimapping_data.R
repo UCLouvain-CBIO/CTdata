@@ -71,6 +71,8 @@ TPM_matrix_no_multimapping <- as_tibble(x1, rownames = "Geneid") %>%
 mat_no_multimapping <- as.matrix(TPM_matrix_no_multimapping[, -c(1:2)])
 rownames(mat_no_multimapping) <- TPM_matrix_no_multimapping$ensembl_gene_id
 
+
+
 ################################################################################
 ## Data generated when allowing multi-mapping
 ################################################################################
@@ -115,7 +117,8 @@ rownames(mat_with_multimapping) <- TPM_matrix_with_multimapping$ensembl_gene_id
 ## detectable in testis (TPM >= 1) when multimapping is allowed, their TPM
 ## value must have increased when multimapping is allowed (ratio > 5), and
 ## these genes must also have a TPM value (obtained by allowing multimapping)
-## at least 10 times higher in testis than in any other somatic tissue.
+## at least 10 times higher in testis than in any other somatic tissue (where
+## the maximum expression always has to be below 1 TPM).
 
 ratio_multi_not_multi <- as_tibble(mat_no_multimapping,
                                    rownames = "ensembl_gene_id") %>%
@@ -138,11 +141,10 @@ genes_testis_specific_in_multimapping <- ratio_multi_not_multi %>%
   mutate(multimapping_analysis = case_when(
     GTEX_category != "lowly_expressed" ~ "not_analysed",
     GTEX_category == "lowly_expressed" & TPM_testis_when_multi >= 1 &
-      ratio >= 5 & ratio_testis_other >= 10 ~ "testis_specific",
+      ratio >= 5 & ratio_testis_other >= 10 & max_in_somatic <= 1 ~ "testis_specific",
     GTEX_category == "lowly_expressed" &
       (TPM_testis_when_multi < 1 | ratio < 5 | ratio_testis_other < 10) ~
       "not_testis_specific"))
-
 rowdata <-
   tibble(ensembl_gene_id = TPM_matrix_with_multimapping$ensembl_gene_id,
          external_gene_name =
@@ -173,5 +175,4 @@ save(normal_tissues_multimapping_data,
      file = "../../eh_data/normal_tissues_multimapping_data.rda",
      compress = "xz",
      compression_level = 9)
-
 
