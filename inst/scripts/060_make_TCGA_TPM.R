@@ -21,11 +21,12 @@ for(tumor_code in c("SKCM", "LUAD", "LUSC", "COAD", "ESCA",
     savepath <- bfcnew(bfc, rname, ext=".RData")
 
     # Query data
-    query_gene_counts_harmonized <- GDCquery(project = paste0("TCGA-", tumor_code),
-                                             data.category = "Transcriptome Profiling",
-                                             data.type = "Gene Expression Quantification",
-                                             workflow.type = "STAR - Counts",
-                                             legacy = FALSE)
+    query_gene_counts_harmonized <-
+      GDCquery(project = paste0("TCGA-", tumor_code),
+               data.category = "Transcriptome Profiling",
+               data.type = "Gene Expression Quantification",
+               workflow.type = "STAR - Counts",
+               legacy = FALSE)
 
     # Download files
     GDCdownload(query_gene_counts_harmonized, method = "api",
@@ -61,7 +62,8 @@ prepare_data <- function(tum) {
   rowData(data) <- rowData(GTEX_data)[rownames(data), "external_gene_name"]
   names(rowData(data)) <- "external_gene_name"
 
-  # Add frequencies of activation (TPM >= TPM_thr) of each gene in all tumor samples.
+  # Add frequencies of activation (TPM >= TPM_thr) of each gene in all tumor
+  # samples.
   tumors_only <- data[ , colData(data)$shortLetterCode != 'NT']
   TPM_thr <- 10
   rowdata <- as_tibble(rowData(tumors_only), rownames = "ensembl_gene_id")
@@ -71,7 +73,8 @@ prepare_data <- function(tum) {
                  value = paste0("percent_pos_", tum))
   rowdata <- left_join(rowdata, tmp)
 
-  # Estimate the percent of tumors in which genes are repressed (TPM < TPM_low_thr)
+  # Estimate the percent of tumors in which genes are repressed
+  # (TPM < TPM_low_thr)
   TPM_low_thr <- 0.1
   binary <- ifelse(assay(tumors_only) <= TPM_low_thr, 1, 0)
   tmp <- rowSums(binary) / ncol(binary) * 100
@@ -170,7 +173,8 @@ tmp <- enframe(tmp, name = "ensembl_gene_id", value = "percent_pos_tum")
 rowdata <- rowdata %>%
   left_join(tmp)
 
-# Estimate the percent of tumors in which genes are repressed (TPM < TPM_low_thr)
+# Estimate the percent of tumors in which genes are repressed
+# (TPM < TPM_low_thr)
 TPM_low_thr <- 0.1
 binary <- ifelse(assay(tumors_only) <= TPM_low_thr, 1, 0)
 tmp <- rowSums(binary) / ncol(binary) * 100
