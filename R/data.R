@@ -233,6 +233,11 @@ NULL
 #' compared to without multimapping (ratio > 5), and their TPM value
 #' is at least 10 times higher in testis than in any other somatic
 #' tissue (where the maximum expression always has to be below 1 TPM).
+#' Genes are considered "testis_preferential" when, with multimapping allowed,
+#' they are detectable in testis (TPM >= 1), their TPM value has increased
+#' compared to without multimapping (ratio > 5), and their TPM value
+#' is at least 10 times higher in testis than in any other somatic
+#' tissue (where the maximum expression is above 1 TPM).
 #'
 #' @source
 #'
