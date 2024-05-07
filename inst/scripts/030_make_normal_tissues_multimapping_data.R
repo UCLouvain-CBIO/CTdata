@@ -142,6 +142,9 @@ genes_testis_specific_in_multimapping <- ratio_multi_not_multi %>%
     GTEX_category == "lowly_expressed" & TPM_testis_when_multi >= 1 &
       ratio >= 5 & ratio_testis_other >= 10 &
       max_in_somatic <= 1 ~ "testis_specific",
+    GTEX_category == "lowly_expressed" & TPM_testis_when_multi >= 1 &
+      ratio >= 5 & ratio_testis_other >= 10 &
+      max_in_somatic > 1 ~ "testis_preferential",
     GTEX_category == "lowly_expressed" &
       (TPM_testis_when_multi < 1 | ratio < 5 | ratio_testis_other < 10) ~
       "not_testis_specific"))
