@@ -7,9 +7,7 @@ inst/extdata/*.fa
 inst/extdata/*.tsv
 inst/extdata/*.xlsx
 inst/extdata/*.cov.gz
-inst/extdata/DAC_coldata.rda
-inst/extdata/DAC_raw_counts_multiM.rda
-inst/extdata/DAC_raw_counts.rda
+inst/extdata/DAC*.rda
 inst/extdata/normal_tissues_RNAseq_raw_counts_multiM.rda
 inst/extdata/normal_tissues_RNAseq_coldata.rda
 inst/extdata/GSE112013_Combined_UMI_table.txt
