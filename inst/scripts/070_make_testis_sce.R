@@ -8,7 +8,7 @@ library(biomaRt)
 
 ## Data from The adult human testis transcriptional cell atlas (Guo et al. 2018)
 ## `GSE112013_Combined_UMI_table.txt.gz` was downloaded from GEO (accession:
-## GSE11201). `TableS1` (cell metadata) comes from the paper's supplemental data.
+## GSE112013). `TableS1` (cell metadata) comes from the paper's supplemental data.
 
 ## ! `TableS1` could only be downoaded as a pdf file!
 ## => Copied the pdf content and pasted it in data/Guo_et_al_TableS1 text file.
@@ -151,7 +151,7 @@ percent_pos_somatic <- as_tibble(logcounts(testis_sce),
          percent_pos_testis_somatic = n / n_germ_cells * 100)
 ### test begin
 mean_exp_per_type <-as_tibble(logcounts(testis_sce),
-          rownames = "external_gene_name") %>%
+                              rownames = "external_gene_name") %>%
   pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               dplyr::select(CellID, type)) %>%
@@ -160,7 +160,7 @@ mean_exp_per_type <-as_tibble(logcounts(testis_sce),
 
 
 n_pos_cell_per_type <- as_tibble(logcounts(testis_sce),
-             rownames = "external_gene_name") %>%
+                                 rownames = "external_gene_name") %>%
   pivot_longer(names_to = "CellID", values_to = "logCounts", -external_gene_name) %>%
   left_join(as_tibble(colData(testis_sce), rownames = "CellID") %>%
               dplyr::select(CellID, type)) %>%
