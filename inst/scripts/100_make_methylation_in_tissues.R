@@ -6,7 +6,7 @@ library(Biostrings)
 library(tidyverse)
 library(liftOver)
 library(AnnotationHub)
-load("../extdata/all_genes.rda")
+load("../extdata/all_genes_prelim.rda")
 
 # Download human genome fasta file
 # download.file("http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
@@ -161,7 +161,7 @@ CpG_methylation_in_tissues <- SummarizedExperiment(
 
 
 ## Keep only regions around each gene TSS
-promoter_regions <- all_genes %>%
+promoter_regions <- all_genes_prelim %>%
   mutate(start = transcription_start_site - 5000) %>%
   mutate(stop = transcription_start_site + 5000) %>%
   mutate(chromosome_name = paste0("chr", chromosome_name)) %>%

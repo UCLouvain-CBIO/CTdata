@@ -4,7 +4,7 @@ library(GenomicRanges)
 library(tidyverse)
 library(SummarizedExperiment)
 
-load("../extdata/all_genes.rda")
+load("../extdata/all_genes_prelim.rda")
 load("../../eh_data/methylation_in_tissues.rda")
 
 ## Promoter region is defined as `nt_up` nucleotides upstream TSS
@@ -18,20 +18,20 @@ prom_mean_met_in_tissues <- tibble(tissue =
                                      c(colnames(methylation_in_tissues),
                                        "CpG_number"))
 
-for (gene in all_genes$external_gene_name) {
-  TSS <- all_genes %>%
+for (gene in all_genes_prelim$external_gene_name) {
+  TSS <- all_genes_prelim %>%
     filter(external_gene_name == gene) %>%
     pull(transcription_start_site)
 
-  chr <- all_genes %>%
+  chr <- all_genes_prelim %>%
     filter(external_gene_name == gene) %>%
     pull(chromosome_name)
 
-  strand <- all_genes %>%
+  strand <- all_genes_prelim %>%
     filter(external_gene_name == gene) %>%
     pull(strand)
 
-  TSS <- all_genes %>%
+  TSS <- all_genes_prelim %>%
     filter(external_gene_name == gene) %>%
     pull(transcription_start_site)
 
@@ -94,7 +94,7 @@ methylation_analysis <- tibble(
 ## CT Genes controlled by methylation should have somatic_methylation == TRUE
 ## and sperm_methylation == FALSE
 methylation_analysis <- methylation_analysis %>%
-  left_join(all_genes %>%
+  left_join(all_genes_prelim %>%
               dplyr::select(external_gene_name, ensembl_gene_id)) %>%
   mutate(ratio_somatic_sperm = somatic_met_level / sperm_met_level) %>%
   left_join(CT_CpG_number) %>%
