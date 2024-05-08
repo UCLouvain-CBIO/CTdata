@@ -14,14 +14,11 @@ nt_down <- 200
 
 ## Calculate mean methylation of each promoter in tissues
 ## and store CpG number by promoter
-i <- 0
 prom_mean_met_in_tissues <- tibble(tissue =
                                      c(colnames(methylation_in_tissues),
                                        "CpG_number"))
 
 for (gene in all_genes$external_gene_name) {
-  i <- i + 1
-  print(i)
   TSS <- all_genes %>%
     filter(external_gene_name == gene) %>%
     pull(transcription_start_site)
@@ -121,7 +118,7 @@ mean_methylation_in_tissues <-
   SummarizedExperiment(assays = mat,
                        rowData = methylation_analysis)
 
-save(mean_methylation_in_tissues, file = "../../eh_data/mean_methylation_in_tissues.rda",
+save(mean_methylation_in_tissues,
+     file = "../../eh_data/mean_methylation_in_tissues.rda",
      compress = "xz",
      compression_level = 9)
-load("../../eh_data/mean_methylation_in_tissues.rda")
