@@ -7,7 +7,7 @@ library("GenomicRanges")
 library("BiocFileCache")
 library("org.Hs.eg.db")
 
-load("../extdata/CT_list.rda")
+load("../extdata/all_genes.rda")
 
 bfc <- BiocFileCache(cache = "../BiocFileCache",
                      ask = FALSE)
@@ -45,8 +45,8 @@ for(tumor_code in c("SKCM", "LUAD", "LUSC", "COAD", "ESCA", "BRCA", "HNSC")) {
 nt_up <- 1000
 nt_down <- 200
 
-CT_promoter_gr <- makeGRangesFromDataFrame(
-  CT_list %>%
+promoter_gr <- makeGRangesFromDataFrame(
+  all_genes %>%
     dplyr::select(ensembl_gene_id, external_gene_name, external_transcript_name,
                   chromosome_name, strand, transcription_start_site) %>%
     mutate(chromosome_name = paste0("chr", chromosome_name)) %>%
@@ -60,66 +60,66 @@ CT_promoter_gr <- makeGRangesFromDataFrame(
   start.field = "start",
   end.field = "stop")
 
-## SKCM_CT_methylation
+## SKCM_methylation
 load(bfc[[bfcquery(bfc, "TCGA_SKCM_methylation")$rid]])
-SKCM_CT_methylation <- subsetByOverlaps(data, CT_promoter_gr)
+SKCM_methylation <- subsetByOverlaps(data, promoter_gr)
 
-## LUAD_CT_methylation
+## LUAD_methylation
 load(bfc[[bfcquery(bfc, "TCGA_LUAD_methylation")$rid]])
-LUAD_CT_methylation <- subsetByOverlaps(data, CT_promoter_gr)
+LUAD_methylation <- subsetByOverlaps(data, promoter_gr)
 
-## LUSC_CT_methylation
+## LUSC_methylation
 load(bfc[[bfcquery(bfc, "TCGA_LUSC_methylation")$rid]])
-LUSC_CT_methylation <- subsetByOverlaps(data, CT_promoter_gr)
+LUSC_methylation <- subsetByOverlaps(data, promoter_gr)
 
-## COAD_CT_methylation
+## COAD_methylation
 load(bfc[[bfcquery(bfc, "TCGA_COAD_methylation")$rid]])
-COAD_CT_methylation <- subsetByOverlaps(data, CT_promoter_gr)
+COAD_methylation <- subsetByOverlaps(data, promoter_gr)
 
-## ESCA_CT_methylation
+## ESCA_methylation
 load(bfc[[bfcquery(bfc, "TCGA_ESCA_methylation")$rid]])
-ESCA_CT_methylation <- subsetByOverlaps(data, CT_promoter_gr)
+ESCA_methylation <- subsetByOverlaps(data, promoter_gr)
 
-## BRCA_CT_methylation
+## BRCA_methylation
 load(bfc[[bfcquery(bfc, "TCGA_BRCA_methylation")$rid]])
-BRCA_CT_methylation <- subsetByOverlaps(data, CT_promoter_gr)
+BRCA_methylation <- subsetByOverlaps(data, promoter_gr)
 
-## HNSC_CT_methylation
+## HNSC_methylation
 load(bfc[[bfcquery(bfc, "TCGA_HNSC_methylation")$rid]])
-HNSC_CT_methylation <- subsetByOverlaps(data, CT_promoter_gr)
+HNSC_methylation <- subsetByOverlaps(data, promoter_gr)
 
-met <- cbind(assay(SKCM_CT_methylation), assay(LUAD_CT_methylation),
-             assay(LUSC_CT_methylation), assay(COAD_CT_methylation),
-             assay(ESCA_CT_methylation), assay(BRCA_CT_methylation),
-             assay(HNSC_CT_methylation))
+met <- cbind(assay(SKCM_methylation), assay(LUAD_methylation),
+             assay(LUSC_methylation), assay(COAD_methylation),
+             assay(ESCA_methylation), assay(BRCA_methylation),
+             assay(HNSC_methylation))
 
-colData(SKCM_CT_methylation)$sample <- substr(colData(SKCM_CT_methylation)$samples, 1, 16)
-colData(SKCM_CT_methylation)$project_id <- "TCGA-SKCM"
-colData(LUAD_CT_methylation)$sample <- substr(colData(LUAD_CT_methylation)$samples, 1, 16)
-colData(LUAD_CT_methylation)$project_id <- "TCGA-LUAD"
-colData(LUSC_CT_methylation)$sample <- substr(colData(LUSC_CT_methylation)$samples, 1, 16)
-colData(LUSC_CT_methylation)$project_id <- "TCGA-LUSC"
-colData(COAD_CT_methylation)$sample <- substr(colData(COAD_CT_methylation)$samples, 1, 16)
-colData(COAD_CT_methylation)$project_id <- "TCGA-COAD"
-colData(ESCA_CT_methylation)$sample <- substr(colData(ESCA_CT_methylation)$samples, 1, 16)
-colData(ESCA_CT_methylation)$project_id <- "TCGA-ESCA"
-colData(BRCA_CT_methylation)$sample <- substr(colData(BRCA_CT_methylation)$samples, 1, 16)
-colData(BRCA_CT_methylation)$project_id <- "TCGA-BRCA"
-colData(HNSC_CT_methylation)$sample <- substr(colData(HNSC_CT_methylation)$samples, 1, 16)
-colData(HNSC_CT_methylation)$project_id <- "TCGA-HNSC"
+colData(SKCM_methylation)$sample <- substr(colData(SKCM_methylation)$samples, 1, 16)
+colData(SKCM_methylation)$project_id <- "TCGA-SKCM"
+colData(LUAD_methylation)$sample <- substr(colData(LUAD_methylation)$samples, 1, 16)
+colData(LUAD_methylation)$project_id <- "TCGA-LUAD"
+colData(LUSC_methylation)$sample <- substr(colData(LUSC_methylation)$samples, 1, 16)
+colData(LUSC_methylation)$project_id <- "TCGA-LUSC"
+colData(COAD_methylation)$sample <- substr(colData(COAD_methylation)$samples, 1, 16)
+colData(COAD_methylation)$project_id <- "TCGA-COAD"
+colData(ESCA_methylation)$sample <- substr(colData(ESCA_methylation)$samples, 1, 16)
+colData(ESCA_methylation)$project_id <- "TCGA-ESCA"
+colData(BRCA_methylation)$sample <- substr(colData(BRCA_methylation)$samples, 1, 16)
+colData(BRCA_methylation)$project_id <- "TCGA-BRCA"
+colData(HNSC_methylation)$sample <- substr(colData(HNSC_methylation)$samples, 1, 16)
+colData(HNSC_methylation)$project_id <- "TCGA-HNSC"
 
-coldata <- rbind(colData(SKCM_CT_methylation),
-                 colData(LUAD_CT_methylation),
-                 colData(LUSC_CT_methylation),
-                 colData(COAD_CT_methylation),
-                 colData(ESCA_CT_methylation),
-                 colData(BRCA_CT_methylation),
-                 colData(HNSC_CT_methylation))
+coldata <- rbind(colData(SKCM_methylation),
+                 colData(LUAD_methylation),
+                 colData(LUSC_methylation),
+                 colData(COAD_methylation),
+                 colData(ESCA_methylation),
+                 colData(BRCA_methylation),
+                 colData(HNSC_methylation))
 
-TCGA_CT_methylation <- SummarizedExperiment(assays = list(methylation = met),
+TCGA_methylation <- SummarizedExperiment(assays = list(methylation = met),
                                             colData = coldata,
-                                            rowRanges = rowRanges(SKCM_CT_methylation))
+                                            rowRanges = rowRanges(SKCM_methylation))
 
-save(TCGA_CT_methylation, file = "../../eh_data/TCGA_CT_methylation.rda",
+save(TCGA_methylation, file = "../../eh_data/TCGA_methylation.rda",
      compress = "xz",
      compression_level = 9)
