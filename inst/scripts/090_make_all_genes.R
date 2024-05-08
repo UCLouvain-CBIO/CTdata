@@ -18,6 +18,7 @@ load(file = "../../eh_data/TCGA_TPM.rda")
 all_genes <- as_tibble(rowData(GTEX_data), rownames = "ensembl_gene_id")
 all_genes$TPM_testis <- assay(GTEX_data)[, "Testis"]
 
+
 ################################################################################
 ## Add multimapping_analysis column from normal_tissues_multimapping_data,
 ## assessing testis-specificity of genes flagged as "lowly_expressed" in
@@ -27,12 +28,14 @@ all_genes <- all_genes %>%
   left_join(as_tibble(rowData(normal_tissues_multimapping_data),
                       rownames = "ensembl_gene_id"))
 
+
 ################################################################################
-## Add HPA_cell_type_specificity (based on data from the Human Protein Atlas)
-## to add cell type specificities and flag genes expressed in a somatic cell type
+## Add HPA_cell_type_specificity (based on data from the Human Protein Atlas) to
+## add cell type specificities and flag genes expressed in a somatic cell type
 ################################################################################
 all_genes <- all_genes %>%
   left_join(HPA_cell_type_specificities)
+
 
 ################################################################################
 ## Add info from rowData(CCLE_data), summarising the analysis of CCLE
@@ -43,6 +46,7 @@ all_genes <- all_genes %>%
 all_genes <- all_genes %>%
   left_join(as_tibble(rowData(CCLE_data), rownames = "ensembl_gene_id"))
 all_genes[is.na(all_genes$CCLE_category), "CCLE_category"] <- "not_in_CCLE"
+
 
 ################################################################################
 ## Add info from rowData(TCGA_TPM), summarizing the analysis of TCGA
@@ -61,6 +65,7 @@ all_genes <- all_genes %>%
 
 all_genes[all_genes$lowly_expressed_in_GTEX == TRUE , "TCGA_category"] <-
   "multimapping_issue"
+
 
 ################################################################################
 ## Add testis_specificity summarizing testis-specificity analysis from
@@ -89,8 +94,8 @@ all_genes <- all_genes %>%
 ## create CT_gene_type column, specifiying if a gene is
 ## - a "Cancer testis gene" (CT_gene): testis-specific genes activated in CCLE
 ## cell lines and TCGA tumor samples.
-## - or a "Cancer testis-preferential gene" (CTP_gene) (testis-preferential genes
-## activated in CCLE cell lines and TCGA tumor samples.
+## - or a "Cancer testis-preferential gene" (CTP_gene) (testis-preferential
+## genes activated in CCLE cell lines and TCGA tumor samples.
 ################################################################################
 all_genes <- all_genes %>%
   mutate(CT_gene_type = case_when(
@@ -109,7 +114,6 @@ all_genes$CT_gene_type[is.na(all_genes$CT_gene_type)] <- "other"
 ## selecting the canonical transcript from ensembl database.
 ## Add the TSS coordinates
 ################################################################################
-
 ensembl <- biomaRt::useDataset("hsapiens_gene_ensembl", useMart("ensembl"))
 attributes_vector <- c("ensembl_gene_id",
                        "external_gene_name",
@@ -128,7 +132,8 @@ transcripts_infos <- as_tibble(biomaRt::getBM(attributes = attributes_vector,
 canonical_transcripts <- transcripts_infos %>%
   filter(transcript_is_canonical == 1) %>%
   filter(chromosome_name %in% c(1:22, "X", "Y", "MT")) %>%
-  filter(transcript_biotype == "protein_coding" | transcript_biotype == "lncRNA")
+  filter(transcript_biotype == "protein_coding" |
+           transcript_biotype == "lncRNA")
 
 all_genes <- all_genes %>%
   left_join(canonical_transcripts %>%
@@ -138,7 +143,8 @@ all_genes <- all_genes %>%
                             transcript_end, transcription_start_site,
                             transcript_length, transcript_biotype))
 
-## Rm the few duplicated external genes (with more than one canonical transcript)
+## Rm the few duplicated external genes (with more than one canonical
+## transcript)
 ## table(all_genes$external_gene_name[duplicated(all_genes$external_gene_name)])
 all_genes <- all_genes %>%
   filter(!duplicated(external_gene_name))
@@ -154,10 +160,6 @@ all_genes <- all_genes %>%
 ## as their expression values in GTEX, TCGA and CCLE might reflect a poorly
 ## defined transcription in these regions and are hence likely unreliable.
 ################################################################################
-#all_genes[all_genes$external_gene_name == "ADAD1", "external_transcript_name"] <- "ADAD1-204"
-#all_genes[all_genes$external_gene_name == "LINC02241", "external_transcript_name"] <- "LINC02241-226"
-#all_genes[all_genes$external_gene_name == "LINC01193", "external_transcript_name"] <- "LINC01193-201"
-#all_genes[all_genes$external_gene_name == "LINC02074", "external_transcript_name"] <- "LINC02074-201"
 all_genes[all_genes$external_gene_name == "MBD3L2", "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "NKX2-4", "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "FOXR2", "CT_gene_type"] <- "other"
@@ -169,63 +171,98 @@ all_genes[all_genes$external_gene_name == "VRTN", "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "MBD3L5", "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "SPANXN1", "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "ROR1-AS1", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01344", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "SMYD3-AS1", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01913", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "KIAA2012-AS1", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01986", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01980", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01811", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "IGF2BP2-AS1", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02020", "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01344",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "SMYD3-AS1",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01913",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "KIAA2012-AS1",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01986",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01980",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01811",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "IGF2BP2-AS1",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02020",
+          "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "SNHG27", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02492", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02434", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02113", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02522", "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02492",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02434",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02113",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02522",
+          "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "SIM1-AS1", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC00326", "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC00326",
+          "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "ST7-OT4", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01517", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC00867", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02742", "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01517",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC00867",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02742",
+          "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "DLG2-AS2", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02378", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "MRPS35-DT", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02156", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC00392", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02293", "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02378",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "MRPS35-DT",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02156",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC00392",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02293",
+          "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "G2E3-AS1", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC00221", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02152", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02184", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01925", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01895", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01029", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "ZBTB46-AS1", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC01203", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "MAGEA4-AS1", "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC00221",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02152",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02184",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01925",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01895",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01029",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "ZBTB46-AS1",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC01203",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "MAGEA4-AS1",
+          "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "FAM197Y7", "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "FAM197Y6", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC00112", "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC00112",
+          "CT_gene_type"] <- "other"
+
 # Testis transcript is not the one found in tumors
 all_genes[all_genes$external_gene_name == "SUN3", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "SLC7A11-AS1", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "ARHGAP29-AS1", "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "SLC7A11-AS1",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "ARHGAP29-AS1",
+          "CT_gene_type"] <- "other"
+
+
 ################################################################################
 ## idem but for CTP_genes
 ################################################################################
-# all_genes[all_genes$external_gene_name == "LIN28B", "external_transcript_name"] <- "LIN28B-202"
-# all_genes[all_genes$external_gene_name == "OR3A2", "external_transcript_name"] <- "OR3A2-205"
-# all_genes[all_genes$external_gene_name == "TAF7L", "external_transcript_name"] <- "TAF7L-203"
-# all_genes[all_genes$external_gene_name == "TDRG1", "external_transcript_name"] <- "TDRG1-201"
-# all_genes[all_genes$external_gene_name == "RTL9", "external_transcript_name"] <- "RTL9-202"
 all_genes[all_genes$external_gene_name == "IL5", "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "MYCNOS", "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "LEF1-AS1", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02367", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC02076", "CT_gene_type"] <- "other"
-all_genes[all_genes$external_gene_name == "LINC00664", "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02367",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC02076",
+          "CT_gene_type"] <- "other"
+all_genes[all_genes$external_gene_name == "LINC00664",
+          "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "UMODL1", "CT_gene_type"] <- "other"
 all_genes[all_genes$external_gene_name == "P2RX3", "CT_gene_type"] <- "other"
 

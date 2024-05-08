@@ -1,6 +1,5 @@
 ## Code to prepare `oocytes_sce` dataset goes here
 
-
 library(tidyverse)
 library(SingleCellExperiment)
 library(scater)
@@ -79,11 +78,11 @@ mat <- as.matrix(counts[, -1])
 rownames(mat) <- counts$gene
 coldata <- data.frame(metadata[,-1], row.names = metadata$cell)
 
-ovary_sce <- SingleCellExperiment(assays =
+oocytes_sce <- SingleCellExperiment(assays =
                                     list(counts = mat[, rownames(coldata)]),
                                    colData = coldata)
-ovary_sce <- logNormCounts(ovary_sce)
+oocytes_sce <- logNormCounts(oocytes_sce)
 
-save(ovary_sce, file = "../../eh_data/ovary_sce.rda",
+save(oocytes_sce, file = "../../eh_data/oocytes_sce.rda",
      compress = "xz",
      compression_level = 9)
