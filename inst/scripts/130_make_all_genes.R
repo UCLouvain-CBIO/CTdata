@@ -1,4 +1,4 @@
-## Code to prepare `CT_genes` dataset goes here
+## Code to prepare `all_genes` dataset goes here
 
 library("tidyverse")
 library("SummarizedExperiment")
@@ -7,6 +7,37 @@ load("../extdata/CT_list.rda")
 load(file = "../../eh_data/TCGA_CT_methylation.rda")
 load(file = "../../eh_data/CT_mean_methylation_in_tissues.rda")
 load(file = "../../eh_data/CT_methylation_in_tissues.rda")
+
+
+################################################################################
+## Add DAC_induced column specifying if genes are induced by
+## 5-Aza-2′-Deoxycytidine
+################################################################################
+induced <- as_tibble(rowData(DAC_treated_cells_multimapping),
+                     rownames = "ensembl_gene_id") %>%
+  filter(induced) %>%
+  pull(external_gene_name)
+
+not_induced <- as_tibble(rowData(DAC_treated_cells_multimapping),
+                         rownames = "ensembl_gene_id") %>%
+  filter(!induced) %>%
+  pull(external_gene_name)
+
+unclear <- as_tibble(rowData(DAC_treated_cells_multimapping),
+                     rownames = "ensembl_gene_id") %>%
+  filter(is.na(induced)) %>%
+  pull(external_gene_name)
+
+all_genes <- all_genes %>%
+  mutate(DAC_induced = case_when(external_gene_name %in% induced ~ TRUE,
+                                 external_gene_name %in% not_induced ~ FALSE,
+                                 external_gene_name %in% unclear ~ NA))
+
+
+
+
+
+
 
 ################################################################################
 ## Add CpG densities and promoter methylation analysis in normal tissues
