@@ -1,4 +1,4 @@
-## Code to prepare `CT_methylation_in_tissues` dataset goes here
+## Code to prepare `methylation_in_tissues` dataset goes here
 
 library(GenomicRanges)
 library(SummarizedExperiment)
@@ -174,9 +174,8 @@ prom_gr <- makeGRangesFromDataFrame(promoter_regions,
                                     end.field = "stop")
 
 
-CT_methylation_in_tissues <- subsetByOverlaps(CpG_methylation_in_tissues, prom_gr)
+methylation_in_tissues <- subsetByOverlaps(CpG_methylation_in_tissues, prom_gr)
 
-
-save(CT_methylation_in_tissues, file = "../../eh_data/CT_methylation_in_tissues.rda",
+save(methylation_in_tissues, file = "../../eh_data/methylation_in_tissues.rda",
      compress = "xz",
      compression_level = 9)
