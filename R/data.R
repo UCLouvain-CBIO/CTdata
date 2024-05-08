@@ -772,5 +772,42 @@ NULL
 #' @docType data
 NULL
 
-
+#' Cell type specificities (from HPA)
+#'
+#' @description
+#'
+#' Cell type specificities based on scRNAseq data from the
+#' Human Protein Atlas (https://www.proteinatlas.org)
+#'
+#' @format
+#'
+#' A `tibble` object with 24516 rows and 4 columns.
+#'
+#' - Rows correspond to genes (ensembl_gene_id)
+#'
+#' - Columns give genes cell type specificities
+#'
+#' @details
+#'
+#' - Column `HPA_category` specifies if the gene is "testis_specific" or
+#' "not_testis_specific" based on the value of the column
+#' `RNA single cell type specific nTPM`. Genes are flagged as "testis_specific"
+#' if the `RNA single cell type specific nTPM` column indicates a germ cell or
+#' a placental specificity. Genes are flagged as "not_testis_specific" genes
+#' if they are expressed in any other somatic cell type. `NA` is set when the
+#' original table from HPA had no values for that gene.
+#'
+#' - Column `RNA single cell type specific nTPM` gives the cell types in which
+#' genes were detected.
+#'
+#'
+#' @source
+#' `proteinatlas.tsv` was downloaded from the Human Protein Atlas
+#' (https://www.proteinatlas.org)
+#' See `scripts/081_make_HPA_cell_type_specificity.R` for details.
+#'
+#' @name HPA_cell_type_specificity
+#'
+#' @docType data
+NULL
 
