@@ -699,6 +699,42 @@ NULL
 #' @docType data
 NULL
 
+#' Fetal gonad scRNAseq
+#'
+#' @description
+#'
+#' Human fetal gonad single cell RNAseq data from
+#' `Single-cell roadmap of human gonadal development`
+## (Garcia-Alonso, Nature 2022)
+#'
+#' @format
+#'
+#' A `SingleCellExperiment` object with 22496 rows and 10850 columns
+#'
+#' - Rows correspond to genes (gene names as rownames)
+#' - Columns correspond to cells
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `type` gives the gender and the cell type.
+#'
+#' - Column `stage` specifies if the cell type is "pre-meiotic" or "meiotic".
+#'
+#' - Column `germcell` is set to TRUE when the cell type is a germ cell.
+#'
+#' @source
+#'
+## ee58527e-e1e4-465d-8dc8-800ee40f14f2.rds file dowloaded from
+## https://cellxgene.cziscience.com/collections/661a402a-2a5a-4c71-9b05-b346c57bc451Data.
+## The data were converted in a SingleCellExperiment
+#' (see `scripts/072_make_FGC_sce.R` for details).
+#'
+#' @name FGC_sce
+#'
+#' @docType data
+NULL
 
 
 
