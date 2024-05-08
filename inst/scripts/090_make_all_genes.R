@@ -80,12 +80,12 @@ all_genes <- all_genes %>%
       (is.na(HPA_category) | HPA_category != "not_testis_specific") ~
       'testis_specific',
     (GTEX_category == "testis_preferential" |
-       multimapping_analysis == "testis_preferential") ~ 'testis_preferential',
+       multimapping_analysis == "testis_preferential") ~ "testis_preferential",
     (GTEX_category == "testis_specific" |
        multimapping_analysis == "testis_specific") &
       (HPA_category == "not_testis_specific" |
          CCLE_category == "leaky" |
-         TCGA_category == "leaky") ~ 'testis_preferential',
+         TCGA_category == "leaky") ~ "testis_preferential",
     GTEX_category == "other" | multimapping_analysis == "not_testis_specific"
     ~ 'not_testis_specific'))
 
@@ -95,7 +95,7 @@ all_genes <- all_genes %>%
 ## - a "Cancer testis gene" (CT_gene): testis-specific genes activated in CCLE
 ## cell lines and TCGA tumor samples.
 ## - or a "Cancer testis-preferential gene" (CTP_gene) (testis-preferential
-## genes activated in CCLE cell lines and TCGA tumor samples.
+## genes activated in CCLE cell lines and TCGA tumor samples).
 ################################################################################
 all_genes <- all_genes %>%
   mutate(CT_gene_type = case_when(
