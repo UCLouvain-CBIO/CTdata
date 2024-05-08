@@ -23,6 +23,8 @@ mean_methylation_in_tissues and TCGA_methylation)
 - Added all_genes containing all the characterisation and analysis for all genes
 - Changed the criteria for regulation by methylation, needing DAC induction and 
 methylation in somatic only
+- Reordered CT_genes and all_genes
+- Changed all documentation
 
 
 

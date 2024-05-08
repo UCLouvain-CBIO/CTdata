@@ -5,7 +5,7 @@
 \alias{DAC_treated_cells_multimapping}
 \title{DE genes treated or not with a demethylating agent}
 \format{
-A \code{SummarizedExperiment} object with 24359 rows and 32 columns
+A \code{SummarizedExperiment} object with 24516 rows and 32 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id).
 \item Columns correspond to samples.
@@ -18,8 +18,12 @@ DAC treatment.
 evaluating the DAC treatment effect. For each each cell line, the
 log2FC between treated and control cells is given, as well as the
 p-adjusted value. The column \code{induced} flags genes significantly
-induced (log2FoldChange >= 2 and padj <= 0.05) in at least one
-cell line.
+induced (log2FoldChange >= 2 and padj <= 0.1) in at least one
+cell line. The threshold is not too stringent as DAC is expected to induce
+low expression levels (demethylation doesn't necessarily occurs in
+all treated cells...).
+When all cells lines already express the gene before DAC treatment, no
+assessment of induction was done.
 }
 }
 \source{

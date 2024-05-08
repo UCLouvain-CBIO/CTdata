@@ -5,7 +5,7 @@
 \alias{TCGA_TPM}
 \title{Gene expression in TCGA samples}
 \format{
-A \code{SummarizedExperiment} object with 24350 rows and 4141 columns
+A \code{SummarizedExperiment} object with 24509 rows and 4141 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to samples
@@ -37,6 +37,7 @@ percentage of tumors that are negative (TPM < 0.1). In column
 percentage of positive tumors is > 0 and when at least 20\% of
 tumors are negative. Genes are labelled as "not_activated" when
 the percentage of positive tumors is 0. Genes are labelled as
-"leaky" when less than 20\% of tumors are negative.
+"leaky" when less than 20\% of tumors are negative or when the maximum q75
+expression in normal peritumoral tissue is higher than 0.5.
 }
 }

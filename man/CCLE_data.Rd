@@ -5,7 +5,7 @@
 \alias{CCLE_data}
 \title{Genes expression data in CCLE}
 \format{
-A \code{SummarizedExperiment} object with 24327 rows and 1229 columns
+A \code{SummarizedExperiment} object with 24483 rows and 1229 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to CCLE cell lines

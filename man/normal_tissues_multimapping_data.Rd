@@ -5,7 +5,7 @@
 \alias{normal_tissues_multimapping_data}
 \title{Gene expression values in normal tissues}
 \format{
-A \code{SummarizedExperiment} object with 24359 rows and 18 columns
+A \code{SummarizedExperiment} object with 24516 rows and 18 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to normal tissues.
@@ -34,5 +34,10 @@ flagged as "lowly_expressed" in GTEX_data. Genes are considered
 detectable in testis (TPM >= 1), their TPM value has increased
 compared to without multimapping (ratio > 5), and their TPM value
 is at least 10 times higher in testis than in any other somatic
-tissue.
+tissue (where the maximum expression always has to be below 1 TPM).
+Genes are considered "testis_preferential" when, with multimapping allowed,
+they are detectable in testis (TPM >= 1), their TPM value has increased
+compared to without multimapping (ratio > 5), and their TPM value
+is at least 10 times higher in testis than in any other somatic
+tissue (where the maximum expression is above 1 TPM).
 }
