@@ -1,10 +1,10 @@
-## Code to prepare `CT_mean_methylation_in_tissues` dataset goes here
+## Code to prepare `mean_methylation_in_tissues` dataset goes here
 
 library(GenomicRanges)
 library(tidyverse)
 library(SummarizedExperiment)
 
-load("../extdata/CT_list.rda")
+load("../extdata/all_genes.rda")
 load("../../eh_data/CT_methylation_in_tissues.rda")
 
 ## Promoter region is defined as `nt_up` nucleotides upstream TSS
@@ -14,25 +14,27 @@ nt_down <- 200
 
 ## Calculate mean methylation of each promoter in tissues
 ## and store CpG number by promoter
+i<-0
 prom_mean_met_in_tissues <- tibble(tissue =
                                      c(colnames(CT_methylation_in_tissues),
                                        "CpG_number"))
 
-for (gene in CT_list$external_gene_name) {
-
-  TSS <- CT_list %>%
+for (gene in all_genes$external_gene_name) {
+  i <- i + 1
+  print(i)
+  TSS <- all_genes %>%
     filter(external_gene_name == gene) %>%
     pull(transcription_start_site)
 
-  chr <- CT_list %>%
+  chr <- all_genes %>%
     filter(external_gene_name == gene) %>%
     pull(chromosome_name)
 
-  strand <- CT_list %>%
+  strand <- all_genes %>%
     filter(external_gene_name == gene) %>%
     pull(strand)
 
-  TSS <- CT_list %>%
+  TSS <- all_genes %>%
     filter(external_gene_name == gene) %>%
     pull(transcription_start_site)
 
@@ -95,7 +97,7 @@ methylation_analysis <- tibble(
 ## CT Genes controlled by methylation should have somatic_methylation == TRUE
 ## and sperm_methylation == FALSE
 methylation_analysis <- methylation_analysis %>%
-  left_join(CT_list %>%
+  left_join(all_genes %>%
               dplyr::select(external_gene_name, ensembl_gene_id)) %>%
   mutate(ratio_somatic_sperm = somatic_met_level / sperm_met_level) %>%
   left_join(CT_CpG_number) %>%
@@ -115,10 +117,11 @@ methylation_analysis <- methylation_analysis %>%
                 CpG_promoter, somatic_met_level, sperm_met_level,
                 somatic_methylation, germline_methylation)
 
-CT_mean_methylation_in_tissues <-
+mean_methylation_in_tissues <-
   SummarizedExperiment(assays = mat,
                        rowData = methylation_analysis)
 
-save(CT_mean_methylation_in_tissues, file = "../../eh_data/CT_mean_methylation_in_tissues.rda",
+save(mean_methylation_in_tissues, file = "../../eh_data/mean_methylation_in_tissues.rda",
      compress = "xz",
      compression_level = 9)
+
