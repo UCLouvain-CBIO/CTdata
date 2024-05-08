@@ -16,3 +16,5 @@ inst/extdata/*_cells
 inst/extdata/normal_tissues_RNAseq_*.rda
 inst/extdata/GSE154762_hO_scChaRM_count_matix.txt.gz
 inst/extdata/ee58527e-e1e4-465d-8dc8-800ee40f14f2.rds
+inst/extdata/CT_list.rda
+inst/extdata/ee58527all_genes.rda
