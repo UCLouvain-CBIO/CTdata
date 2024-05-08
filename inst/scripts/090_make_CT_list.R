@@ -153,6 +153,7 @@ canonical_transcripts <- transcripts_infos %>%
   filter(transcript_is_canonical == 1) %>%
   filter(chromosome_name %in% c(1:22, "X", "Y", "MT")) %>%
   filter(transcript_biotype == "protein_coding" | transcript_biotype == "lncRNA")
+
 all_genes <- all_genes %>%
   left_join(canonical_transcripts %>%
               dplyr::select(ensembl_gene_id,
@@ -160,6 +161,11 @@ all_genes <- all_genes %>%
                             chromosome_name, strand, transcript_start,
                             transcript_end, transcription_start_site,
                             transcript_length, transcript_biotype))
+
+## Rm the few duplicated external genes (with more than one canonical transcript)
+## table(all_genes$external_gene_name[duplicated(all_genes$external_gene_name)])
+all_genes <- all_genes %>%
+  filter(!duplicated(external_gene_name))
 
 
 ################################################################################
