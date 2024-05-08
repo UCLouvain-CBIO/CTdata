@@ -20,11 +20,12 @@ for(tumor_code in c("SKCM", "LUAD", "LUSC", "COAD", "ESCA", "BRCA", "HNSC")) {
     savepath <- bfcnew(bfc, rname, ext=".RData")
 
     # Query data
-    query_gene_counts_harmonized <- GDCquery(project = paste0("TCGA-", tumor_code),
-                                             data.category = "DNA Methylation",
-                                             data.type = "Methylation Beta Value",
-                                             platform = "Illumina Human Methylation 450",
-                                             legacy = FALSE)
+    query_gene_counts_harmonized <-
+      GDCquery(project = paste0("TCGA-", tumor_code),
+               data.category = "DNA Methylation",
+               data.type = "Methylation Beta Value",
+               platform = "Illumina Human Methylation 450",
+               legacy = FALSE)
 
     # Download files
     GDCdownload(query_gene_counts_harmonized, method = "api",
@@ -52,7 +53,8 @@ promoter_gr <- makeGRangesFromDataFrame(
     mutate(chromosome_name = paste0("chr", chromosome_name)) %>%
     mutate(strand = if_else(strand == 1, '+', '-')) %>%
     mutate(start = case_when(strand == '+' ~ transcription_start_site - nt_up,
-                             strand == '-' ~ transcription_start_site - nt_down)) %>%
+                             strand == '-' ~
+                               transcription_start_site - nt_down)) %>%
     mutate(stop = case_when(strand == '+' ~ transcription_start_site + nt_down,
                             strand == '-' ~ transcription_start_site + nt_up)),
   keep.extra.columns = TRUE,
@@ -93,19 +95,26 @@ met <- cbind(assay(SKCM_methylation), assay(LUAD_methylation),
              assay(ESCA_methylation), assay(BRCA_methylation),
              assay(HNSC_methylation))
 
-colData(SKCM_methylation)$sample <- substr(colData(SKCM_methylation)$samples, 1, 16)
+colData(SKCM_methylation)$sample <- substr(colData(SKCM_methylation)$samples,
+                                           1, 16)
 colData(SKCM_methylation)$project_id <- "TCGA-SKCM"
-colData(LUAD_methylation)$sample <- substr(colData(LUAD_methylation)$samples, 1, 16)
+colData(LUAD_methylation)$sample <- substr(colData(LUAD_methylation)$samples,
+                                           1, 16)
 colData(LUAD_methylation)$project_id <- "TCGA-LUAD"
-colData(LUSC_methylation)$sample <- substr(colData(LUSC_methylation)$samples, 1, 16)
+colData(LUSC_methylation)$sample <- substr(colData(LUSC_methylation)$samples,
+                                           1, 16)
 colData(LUSC_methylation)$project_id <- "TCGA-LUSC"
-colData(COAD_methylation)$sample <- substr(colData(COAD_methylation)$samples, 1, 16)
+colData(COAD_methylation)$sample <- substr(colData(COAD_methylation)$samples,
+                                           1, 16)
 colData(COAD_methylation)$project_id <- "TCGA-COAD"
-colData(ESCA_methylation)$sample <- substr(colData(ESCA_methylation)$samples, 1, 16)
+colData(ESCA_methylation)$sample <- substr(colData(ESCA_methylation)$samples,
+                                           1, 16)
 colData(ESCA_methylation)$project_id <- "TCGA-ESCA"
-colData(BRCA_methylation)$sample <- substr(colData(BRCA_methylation)$samples, 1, 16)
+colData(BRCA_methylation)$sample <- substr(colData(BRCA_methylation)$samples,
+                                           1, 16)
 colData(BRCA_methylation)$project_id <- "TCGA-BRCA"
-colData(HNSC_methylation)$sample <- substr(colData(HNSC_methylation)$samples, 1, 16)
+colData(HNSC_methylation)$sample <- substr(colData(HNSC_methylation)$samples,
+                                           1, 16)
 colData(HNSC_methylation)$project_id <- "TCGA-HNSC"
 
 coldata <- rbind(colData(SKCM_methylation),
@@ -116,9 +125,10 @@ coldata <- rbind(colData(SKCM_methylation),
                  colData(BRCA_methylation),
                  colData(HNSC_methylation))
 
-TCGA_methylation <- SummarizedExperiment(assays = list(methylation = met),
-                                            colData = coldata,
-                                            rowRanges = rowRanges(SKCM_methylation))
+TCGA_methylation <-
+  SummarizedExperiment(assays = list(methylation = met),
+                       colData = coldata,
+                       rowRanges = rowRanges(SKCM_methylation))
 
 save(TCGA_methylation, file = "../../eh_data/TCGA_methylation.rda",
      compress = "xz",
