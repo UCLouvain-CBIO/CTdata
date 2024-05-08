@@ -13,6 +13,18 @@ peritumoral TCGA samples is higher than 0.5
 genes based on Human protein Atlas scRNAseq data)
 - Added FGC_sce, scRNAseq data of human fetal gonads
 - Added oocytes_sce, scRNAseq data of human oocytes
+- Changed preliminary CT_list into all_genes_prelim list to add the 
+characterisation to all genes and not only CT in the package
+- Changed criteria for testis specificity, including HPA/TCGA/CCLE category in 
+the definition
+- Added CT_gene_type column to differentiate CT genes and CT preferential genes
+- Included all genes in methylation objects (methylation_in_tissues,
+mean_methylation_in_tissues and TCGA_methylation)
+- Added all_genes containing all the characterisation and analysis for all genes
+- Changed the criteria for regulation by methylation, needing DAC induction and 
+methylation in somatic only
+
+
 
 ## CTdata 1.5.0
 
