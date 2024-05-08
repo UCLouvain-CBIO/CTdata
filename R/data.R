@@ -351,18 +351,18 @@ NULL
 #' @docType data
 NULL
 
-#' Methylation of CpGs within CT promoters
+#' Methylation of CpGs within all genes promoters
 #'
 #' @description
 #'
-#' Methylation values of CpGs located within Cancer-Testis (CT)
+#' Methylation values of CpGs located within all genes
 #' promoters in a set of normal tissues.
 #'
 #' @format
 #'
-#' A `RangedSummarizedExperiment` object with 51725 rows and 14 columns
+#' A `RangedSummarizedExperiment` object with 4281897 rows and 14 columns
 #'
-#' - Rows correspond to CpGs (located within CT genes promoters)
+#' - Rows correspond to CpGs (located within all genes promoters)
 #'
 #' - Columns correspond to normal tissues
 #'
@@ -373,27 +373,27 @@ NULL
 #' @source
 #'
 #' WGBS methylation data was downloaded from Encode and from GEO
-#' databases (see `scripts/make_CT_methylation_in_tissues.R` for
+#' databases (see `scripts/make_methylation_in_tissues.R` for
 #' details).
 #'
-#' @name CT_methylation_in_tissues
+#' @name methylation_in_tissues
 #'
 #' @docType data
 NULL
 
 
-#' CT genes' promoters mean methylation
+#' All genes' promoters mean methylation
 #'
 #' @description
 #'
-#' Mean methylation values of all CpGs located within Cancer-Testis
-#' (CT) promoters in a set of normal tissues
+#' Mean methylation values of all CpGs located within all genes
+#' promoters in a set of normal tissues
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 298 rows and 14 columns
+#' A `SummarizedExperiment` object with 24502 rows and 14 columns
 #'
-#' - Rows correspond to CT genes
+#' - Rows correspond to all genes (gene names as rownames)
 #'
 #' - Mean methylation levels in normal tissues are stored in columns
 #'
@@ -432,9 +432,9 @@ NULL
 #' databases. Mean methylation levels are evaluated using methylation
 #' values of CpGs located in promoter region (defined as 1000 nt
 #' upstream TSS and 200 nt downstream TSS) (see
-#' `scripts/make_CT_mean_methylation_in_tissues.R` for details).
+#' `scripts/make_mean_methylation_in_tissues.R` for details).
 #'
-#' @name CT_mean_methylation_in_tissues
+#' @name mean_methylation_in_tissues
 #'
 #' @docType data
 NULL
@@ -489,7 +489,7 @@ NULL
 #' @docType data
 NULL
 
-#' Methylation of CT promoters in TCGA samples
+#' Methylation of all genes promoters in TCGA samples
 #'
 #' @description
 #'
@@ -498,7 +498,7 @@ NULL
 #'
 #' @format
 #'
-#' A `RangedSummarizedExperiment` object with 666 rows and 3423
+#' A `RangedSummarizedExperiment` object with 79445 rows and 3423
 #' columns
 #'
 #' - Rows correspond to Infinium 450k probes
@@ -516,9 +516,9 @@ NULL
 #' SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC methylation data were
 #' downloaded with TCGAbiolinks and subsetted to select probes located
 #' in CT genes promoter regions (see
-#' `scripts/make_TCGA_CT_methylation.R` for details).
+#' `scripts/make_TCGA_methylation.R` for details).
 #'
-#' @name TCGA_CT_methylation
+#' @name TCGA_methylation
 #'
 #' @docType data
 NULL
@@ -748,7 +748,8 @@ NULL
 #'
 #' A `SingleCellExperiment` object with 21504 rows and 899 columns
 #'
-#' - Rows correspond to genes
+#' - Rows correspond to genes(gene names as rownames)
+#'
 #' - Columns correspond to cells
 #'
 #' @details
@@ -791,14 +792,15 @@ NULL
 #'
 #' - Column `HPA_category` specifies if the gene is "testis_specific" or
 #' "not_testis_specific" based on the value of the column
-#' `RNA single cell type specific nTPM`. Genes are flagged as "testis_specific"
-#' if the `RNA single cell type specific nTPM` column indicates a germ cell or
-#' a placental specificity. Genes are flagged as "not_testis_specific" genes
-#' if they are expressed in any other somatic cell type. `NA` is set when the
-#' original table from HPA had no values for that gene.
+#' `HPA_RNA_single_cell_type_specific_nTPM`. Genes are flagged as
+#' "testis_specific" if the `HPA_RNA_single_cell_type_specific_nTPM` column
+#' indicates a germ cell or a placental specificity. Genes are flagged as
+#' "not_testis_specific" genes if they are expressed in any other somatic cell
+#' type. `NA` is set when the original table from HPA had no values for that
+#' gene.
 #'
-#' - Column `RNA single cell type specific nTPM` gives the cell types in which
-#' genes were detected.
+#' - Column `HPA_RNA_single_cell_type_specific_nTPM` gives the cell types in
+#' which genes were detected.
 #'
 #'
 #' @source
