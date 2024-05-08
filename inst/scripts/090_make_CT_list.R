@@ -1,4 +1,4 @@
-## Code to prepare `CT_list` dataset goes here
+## Code to prepare `all_genes` dataset goes here
 
 library("tidyverse")
 library("SummarizedExperiment")
@@ -102,30 +102,6 @@ all_genes <- all_genes %>%
     ~ "CTP_gene"))
 
 all_genes$CT_gene_type[is.na(all_genes$CT_gene_type)] <- "other"
-
-################################################################################
-## Add DAC_induced column specifying if genes are induced by
-## 5-Aza-2′-Deoxycytidine
-################################################################################
-induced <- as_tibble(rowData(DAC_treated_cells_multimapping),
-                     rownames = "ensembl_gene_id") %>%
-  filter(induced) %>%
-  pull(external_gene_name)
-
-not_induced <- as_tibble(rowData(DAC_treated_cells_multimapping),
-                         rownames = "ensembl_gene_id") %>%
-  filter(!induced) %>%
-  pull(external_gene_name)
-
-unclear <- as_tibble(rowData(DAC_treated_cells_multimapping),
-                     rownames = "ensembl_gene_id") %>%
-  filter(is.na(induced)) %>%
-  pull(external_gene_name)
-
-all_genes <- all_genes %>%
-  mutate(DAC_induced = case_when(external_gene_name %in% induced ~ TRUE,
-                                 external_gene_name %in% not_induced ~ FALSE,
-                                 external_gene_name %in% unclear ~ NA))
 
 
 ################################################################################
@@ -287,14 +263,4 @@ save(all_genes, file = "../extdata/all_genes.rda",
      compress = "xz",
      compression_level = 9)
 
-################################################################################
-## create CT_list keeping testis-specific genes activated in CCLE cell lines
-## and TCGA tumors.
-################################################################################
 
-CT_list <- all_genes %>%
-  filter(CT_gene_type != "other")
-
-save(CT_list, file = "../extdata/CT_list.rda",
-     compress = "xz",
-     compression_level = 9)
