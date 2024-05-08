@@ -1,13 +1,13 @@
-## Code to prepare `all_genes` dataset goes here
+## Code to prepare `all_genes and CT_genes` dataset goes here
 
 library("tidyverse")
 library("SummarizedExperiment")
 
-load("../extdata/CT_list.rda")
-load(file = "../../eh_data/TCGA_CT_methylation.rda")
-load(file = "../../eh_data/CT_mean_methylation_in_tissues.rda")
-load(file = "../../eh_data/CT_methylation_in_tissues.rda")
-
+load("../extdata/all_genes_prelim.rda")
+load(file = "../../eh_data/TCGA_methylation.rda")
+load(file = "../../eh_data/mean_methylation_in_tissues.rda")
+load(file = "../../eh_data/methylation_in_tissues.rda")
+load(file = "../../eh_data/DAC_treated_cells_multimapping.rda")
 
 ################################################################################
 ## Add DAC_induced column specifying if genes are induced by
@@ -28,22 +28,17 @@ unclear <- as_tibble(rowData(DAC_treated_cells_multimapping),
   filter(is.na(induced)) %>%
   pull(external_gene_name)
 
-all_genes <- all_genes %>%
+all_genes <- all_genes_prelim %>%
   mutate(DAC_induced = case_when(external_gene_name %in% induced ~ TRUE,
                                  external_gene_name %in% not_induced ~ FALSE,
                                  external_gene_name %in% unclear ~ NA))
 
 
-
-
-
-
-
 ################################################################################
 ## Add CpG densities and promoter methylation analysis in normal tissues
 ################################################################################
-CT_genes <- CT_list %>%
-  left_join(as_tibble(rowData(CT_mean_methylation_in_tissues)))
+all_genes <- all_genes %>%
+  left_join(as_tibble(rowData(mean_methylation_in_tissues)))
 
 ################################################################################
 ## Based on DAC induction and on methylation levels in normal tissues
@@ -53,22 +48,19 @@ CT_genes <- CT_list %>%
 ## 5-Aza-2′-Deoxycytidine.
 ################################################################################
 
-CT_genes <- CT_genes %>%
+all_genes <- all_genes %>%
   mutate(regulated_by_methylation =
-           case_when(DAC_induced == FALSE ~ FALSE,
-                     DAC_induced == TRUE & is.na(germline_methylation) ~ TRUE,
-                     DAC_induced == TRUE &
-                       somatic_methylation == TRUE &
-                       germline_methylation == FALSE ~ TRUE,
-                     DAC_induced == TRUE &
-                       (somatic_methylation == FALSE |
-                          germline_methylation == TRUE) ~ FALSE))
+           case_when((somatic_methylation | is.na(somatic_methylation)) &
+                       DAC_induced ~ TRUE,
+                     !somatic_methylation ~ FALSE,
+                     !DAC_induced ~ FALSE,
+                     is.na(DAC_induced) ~ NA))
 
 ################################################################################
 ## Add X_linked information
 ################################################################################
 
-CT_genes <- CT_genes %>%
+all_genes <- all_genes %>%
   mutate(X_linked = ifelse(chromosome_name == "X", TRUE, FALSE))
 
 ################################################################################
@@ -87,30 +79,28 @@ oncogenes <- cancermine %>%
 TS <- cancermine %>%
   filter(role == "Tumor_Suppressor") %>%
   pull(gene_normalized)
-CT_genes <- CT_genes %>%
-  mutate(oncogene = case_when(external_gene_name %in% oncogenes ~ "oncogene")) %>%
-  mutate(tumor_suppressor = case_when(external_gene_name %in% TS ~ "tumor_suppressor"))
+all_genes <- all_genes %>%
+  mutate(oncogene = case_when(external_gene_name %in% oncogenes ~
+                                "oncogene")) %>%
+  mutate(tumor_suppressor = case_when(external_gene_name %in% TS ~
+                                        "tumor_suppressor"))
 
 ################################################################################
 # Reorder the final table
 ################################################################################
-CT_genes <- CT_genes %>%
+all_genes <- all_genes %>%
   dplyr::rename(chr = chromosome_name) %>%
-  dplyr::select("ensembl_gene_id", "external_gene_name", "family",
-                "chr", "strand", "transcription_start_site", "X_linked",
-                "TPM_testis", "max_TPM_somatic",
-                "GTEX_category", "lowly_expressed_in_GTEX",
-                "multimapping_analysis", "testis_specificity",
-                "testis_cell_type", "Higher_in_somatic_cell_type",
-                "percent_of_positive_CCLE_cell_lines",
-                "percent_of_negative_CCLE_cell_lines", "max_TPM_in_CCLE",
-                "CCLE_category", "percent_pos_tum", "percent_neg_tum",
-                "max_TPM_in_TCGA", "TCGA_category", "DAC_induced",
-                "somatic_met_level", "sperm_met_level", "somatic_methylation",
-                "germline_methylation", "regulated_by_methylation", "CpG_density",
-                "CpG_promoter", "external_transcript_name",
-                "ensembl_transcript_id", "transcript_biotype", "oncogene",
-                "tumor_suppressor")
+  dplyr::select("ensembl_gene_id", "external_gene_name", "CT_gene_type",
+                "testis_specificity", "regulated_by_methylation", "X_linked",
+                everything())
+
+save(all_genes, file = "../../eh_data/all_genes.rda",
+     compress = "xz",
+     compression_level = 9)
+
+CT_genes <- all_genes %>%
+  filter(CT_gene_type != "other") %>%
+  arrange(desc(CT_gene_type))
 
 save(CT_genes, file = "../../eh_data/CT_genes.rda",
      compress = "xz",
