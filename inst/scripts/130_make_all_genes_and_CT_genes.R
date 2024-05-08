@@ -1,4 +1,4 @@
-## Code to prepare `all_genes and CT_genes` dataset goes here
+## Code to prepare `all_genes` and `CT_genes` dataset goes here
 
 library("tidyverse")
 library("SummarizedExperiment")
@@ -92,7 +92,8 @@ all_genes <- all_genes %>%
   dplyr::rename(chr = chromosome_name) %>%
   dplyr::select("ensembl_gene_id", "external_gene_name", "CT_gene_type",
                 "testis_specificity", "regulated_by_methylation", "X_linked",
-                everything())
+                "chr", "strand", "transcript_start", "transcript_end",
+                "transcription_start_site", everything())
 
 save(all_genes, file = "../../eh_data/all_genes.rda",
      compress = "xz",

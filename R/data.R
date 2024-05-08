@@ -531,7 +531,7 @@ NULL
 #'
 #' @format
 #'
-#' A `tibble` object with 298 rows and 36 columns.
+#' A `tibble` object with 238 rows and 41 columns.
 #'
 #' - Rows correspond to CT genes
 #'
@@ -544,23 +544,38 @@ NULL
 #'
 #' CT_genes characteristics column:
 #'
-#' - Column `family` gives the gene family name.
+#' - Column `CT_gene_type` indicates if the gene is a CT specific gene
+#'  ("CT_gene" : testis_specific in `testis_specificity`) and activated in
+#'  "TCGA_category" and "CCLE_category) or CT preferential gene ("CTP_gene" :
+#'  testis_preferential in `testis_specificity`) and activated in"TCGA_category"
+#'   and "CCLE_category").
 #'
-#' - Columns `chr`, `strand` and `transcription_start_site` give the
-#'   genegenomic location.
+#' - Column `testis_specificity` gives the testis-specificity of genes
+#'   assigned to each gene using `GTEX_category` and `multimapping_analysis`
+#'   ("testis_specific" or "testis_preferential"). Genes were assigned
+#'   "testis-preferential" if testis-specific in these categories but not testis
+#'   specific in `HPA_category` or leaky in `CCLE_category` or `TCGA_category`.
+#'
+#' - Column `regulated_by_methylation` indicates if the gene is
+#'   regulated by methylation (`TRUE`) based on DAC induction (has to
+#'   be TRUE) and on promoter methylation level in normal somatic tissues
+#'   (when available, has to be methylated in somatic tissues).
 #'
 #' - Column `X_linked` indicates if the gene is on the chromosome X
 #'   (TRUE) or not (FALSE).
 #'
-#' - Column `TPM_testis` gives the gene expression level in testis
-#'   (using GTEx database).
-#'
-#' - Column `max_TPM_somatic` gives the maximum expression level found
-#'   in a somatic tissue (using GTEx database).
+#' - Columns `chr`, `strand` and `transcription_start_site` give the
+#'   genomic location.
 #'
 #' - Column `GTEX_category` gives the category ("testis_specific",
 #'   "testis_preferential" or "lowly_expressed") assigned to each gene
 #'   using GTEx database (see `?GTEX_data` for details).
+#'
+#' - Column `max_TPM_somatic` gives the maximum expression level found
+#'   in a somatic tissue (using GTEx database).
+#'
+#' - Column `TPM_testis` gives the gene expression level in testis
+#'   (using GTEx database).
 #'
 #' - Column `lowly_expressed_in_GTEX` indicates if the gene is lowly
 #'   expressed in GTEX database and thus needed to be analysed with
@@ -570,19 +585,16 @@ NULL
 #'   "lowly_expressed" in GTEX_data) was found to be testis-specific
 #'   when multi-mapped reads were counted for gene expression in
 #'   normal tissues ("not_analysed" or "testis_specific") (see
-#'   ?normal_tissues_multimapping_data for details).
+#'   `?normal_tissues_multimapping_data` for details).
 #'
-#' - Column `testis_specificity` gives the testis-specificity of genes
-#'   assigned to each gene using `GTEX_category` and
-#'   `multimapping_analysis` ("testis_specific" or
-#'   "testis_preferential").
+#' - Column`HPA_category` specifies if the gene is "testis_specific" or
+#'   "not_testis_specific" based on the value of the column
+#'   `HPA_RNA_single_cell_type_specific_nTPM`(see `?HPA_cell_type_specificity`
+#'   for details).
 #'
-#' - Column`testis_cell_type` specifies the testis cell-type showing the highest
-#'  mean expression of each gene (based on testis scRNAseq data).
-#'
-#' - Column `Higher_in_somatic_cell_type` specifies if a somatic cell type
-#'  was found to express the gene at a higher level than any germ cell type
-#'  (based on scRNAseq data of different tissues).
+#' - Column `HPA_RNA_single_cell_type_specific_nTPM` specifies the cell types in
+#'   which genes were detected in the HPA single cell data (see
+#'   `?HPA_cell_type_specificity` for details).
 #'
 #' - Column `percent_of_positive_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are expressed (genes
@@ -610,6 +622,9 @@ NULL
 #' - Column `max_TPM_in_TCGA` gives the highest expression level of
 #'   genes in TCGA cancer sample.
 #'
+#' - Column `max_q75_in_NT` gives the maximum q75 expression in normal
+#'   peritumoral tissues from TCGA.
+#'
 #' - Column `TCGA_category` gives the category assigned to each gene
 #'   using TCGA data. "activated" category corresponds to genes
 #'   expressed in at least one tumor (TPM >= 10) and repressed in at
@@ -617,9 +632,24 @@ NULL
 #'   that need multi-mapping to be allowed in order to be analysed
 #'   properly.
 #'
+#' - Columns `external_transcript_name`, `ensembl_transcript_id`, and
+#'   `transcript_biotype` give the references and informations about
+#'   the most biologically relevant transcript associated to each
+#'   gene.
+#'
+#' - Column `family` gives the gene family name.
+#'
 #' - Column `DAC_induced` summarises the results (`TRUE` or `FALSE`)
 #'   of a differential expression evaluating gene induction upon DAC
 #'   treatment in a series of cell lines.
+#'
+#' - Column named `CpG_density`, gives the density of CpG within each
+#'   promoter (number of CpG / promoter length * 100).
+#'
+#' - Column `CpG_promoter` classifies the promoters according to their
+#'   CpG densities: "low" (CpG_density < 2), "intermediate"
+#'   (CpG_density >= 2 & CpG_density < 4), and "high" (CpG_density >=
+#'   4).
 #'
 #' - Column `somatic_met_level` that gives the mean methylation level
 #'   of each promoter in somatic tissues.
@@ -635,11 +665,140 @@ NULL
 #'   (`FALSE` if somatic_met_level is at least twice higher than
 #'   `germline_met_level`).
 #'
+#' - Columns `oncogene` and `tumor_suppressor` informs if oncogenic
+#'   and tumor-suppressor functions have been associated to genes
+#'   (source: [Cancermine](http://bionlp.bcgsc.ca/cancermine/)).
+#'
+#' @source
+#'
+#' See `scripts/make_all_genes_prelim.R` and
+#' `scripts/make_all_genes_and_CT_genes.R`for details on how this list of
+#' curated CT genes was created.
+#'
+#' @name CT_genes
+#'
+#' @docType data
+NULL
+
+#' All genes genes description table
+#'
+#' @description
+#'
+#' All genes description, according to the analysis done for CT genes
+#'
+#' @format
+#'
+#' A `tibble` object with 24502 rows and 41 columns.
+#'
+#' - Rows correspond to genes
+#'
+#' - Columns give genes characteristics
+#'
+#' @details
+#'
+#' When the promoter is mentionned, it has been determined as 1000 nt
+#' upstream TSS and 200 nt downstream TSS.
+#'
+#' CT_genes characteristics column:
+#'
+#' - Column `CT_gene_type` indicates if the gene is a CT specific gene
+#'  ("CT_gene" : testis_specific in `testis_specificity`) and activated in
+#'  "TCGA_category" and "CCLE_category) or CT preferential gene ("CTP_gene" :
+#'  testis_preferential in `testis_specificity`) and activated in"TCGA_category"
+#'   and "CCLE_category"). If none, gene is labelled "other"
+#'
+#' - Column `testis_specificity` gives the testis-specificity of genes
+#'   assigned to each gene using `GTEX_category` and `multimapping_analysis`
+#'   ("testis_specific" or "testis_preferential"). Genes were assigned
+#'   "testis-preferential" if testis-specific in these categories but not testis
+#'   specific in `HPA_category` or leaky in `CCLE_category` or `TCGA_category`.
+#'
 #' - Column `regulated_by_methylation` indicates if the gene is
 #'   regulated by methylation (`TRUE`) based on DAC induction (has to
-#'   be TRUE) and on promoter methylation levels in normal tissues
-#'   (when available, has to be methylated in somatic and unmethylated
-#'   in germline).
+#'   be TRUE) and on promoter methylation level in normal somatic tissues
+#'   (when available, has to be methylated in somatic tissues).
+#'
+#' - Column `X_linked` indicates if the gene is on the chromosome X
+#'   (TRUE) or not (FALSE).
+#'
+#' - Columns `chr`, `strand` and `transcription_start_site` give the
+#'   genomic location.
+#'
+#' - Column `GTEX_category` gives the category ("testis_specific",
+#'   "testis_preferential" or "lowly_expressed") assigned to each gene
+#'   using GTEx database (see `?GTEX_data` for details).
+#'
+#' - Column `max_TPM_somatic` gives the maximum expression level found
+#'   in a somatic tissue (using GTEx database).
+#'
+#' - Column `TPM_testis` gives the gene expression level in testis
+#'   (using GTEx database).
+#'
+#' - Column `lowly_expressed_in_GTEX` indicates if the gene is lowly
+#'   expressed in GTEX database and thus needed to be analysed with
+#'   multimapping allowed.
+#'
+#' - Column `multimapping_analysis` informs if the gene (flagged as
+#'   "lowly_expressed" in GTEX_data) was found to be testis-specific
+#'   when multi-mapped reads were counted for gene expression in
+#'   normal tissues ("not_analysed" or "testis_specific") (see
+#'   `?normal_tissues_multimapping_data` for details).
+#'
+#' - Column`HPA_category` specifies if the gene is "testis_specific" or
+#'   "not_testis_specific" based on the value of the column
+#'   `HPA_RNA_single_cell_type_specific_nTPM`(see `?HPA_cell_type_specificity`
+#'   for details).
+#'
+#' - Column `HPA_RNA_single_cell_type_specific_nTPM` specifies the cell types in
+#'   which genes were detected in the HPA single cell data (see
+#'   `?HPA_cell_type_specificity` for details).
+#'
+#' - Column `percent_of_positive_CCLE_cell_lines` gives the percentage
+#'   of CCLE cancer cell lines in which genes are expressed (genes
+#'   were considered as expressed if TPM >= 10).
+#'
+#' - Column `percent_of_negative_CCLE_cell_lines` gives the percentage
+#'   of CCLE cancer cell lines in which genes are repressed (TPM <=
+#'   0.1).
+#'
+#' - Column `max_TPM_in_CCLE` gives the highest expression level of
+#'   genes in CCLE cell lines.
+#'
+#' - Column `CCLE_category` gives the category assigned to each gene
+#'   using CCLE data. "Activated" category corresponds to genes
+#'   expressed in at least one cell line (TPM >= 10) and repressed in
+#'   at least 20% of cell lines.
+#'
+#' - Column `percent_pos_tum` gives the percentage of TCGA cancer
+#'   samples in which genes are expressed (genes were considered as
+#'   expressed if TPM >= 10).
+#'
+#' - Column `percent_neg_tum` gives the percentage of TCGA cancer samples in
+#'   which genes are repressed (TPM <= 0.1).
+#'
+#' - Column `max_TPM_in_TCGA` gives the highest expression level of
+#'   genes in TCGA cancer sample.
+#'
+#' - Column `max_q75_in_NT` gives the maximum q75 expression in normal
+#'   peritumoral tissues from TCGA.
+#'
+#' - Column `TCGA_category` gives the category assigned to each gene
+#'   using TCGA data. "activated" category corresponds to genes
+#'   expressed in at least one tumor (TPM >= 10) and repressed in at
+#'   least 20% of samples.  "multimapping_issue" corresponds to genes
+#'   that need multi-mapping to be allowed in order to be analysed
+#'   properly.
+#'
+#' - Columns `external_transcript_name`, `ensembl_transcript_id`, and
+#'   `transcript_biotype` give the references and informations about
+#'   the most biologically relevant transcript associated to each
+#'   gene.
+#'
+#' - Column `family` gives the gene family name.
+#'
+#' - Column `DAC_induced` summarises the results (`TRUE` or `FALSE`)
+#'   of a differential expression evaluating gene induction upon DAC
+#'   treatment in a series of cell lines.
 #'
 #' - Column named `CpG_density`, gives the density of CpG within each
 #'   promoter (number of CpG / promoter length * 100).
@@ -649,10 +808,19 @@ NULL
 #'   (CpG_density >= 2 & CpG_density < 4), and "high" (CpG_density >=
 #'   4).
 #'
-#' - Columns `external_transcript_name`, `ensembl_transcript_id`, and
-#'   `transcript_biotype` give the references and informations about
-#'   the most biologically relevant transcript associated to each
-#'   gene.
+#' - Column `somatic_met_level` that gives the mean methylation level
+#'   of each promoter in somatic tissues.
+#'
+#' - Column `sperm_met_level` that gives the methylation level of each
+#'   promoter in sperm.
+#'
+#' - Column `somatic_methylation` indicates if the promoter's mean
+#'   methylation level in somatic tissues is higher than 50%.
+#'
+#' - Column `germline_methylation`indicates if the promoter is
+#'   methylated in germline, based on the ratio with somatic tissues
+#'   (`FALSE` if somatic_met_level is at least twice higher than
+#'   `germline_met_level`).
 #'
 #' - Columns `oncogene` and `tumor_suppressor` informs if oncogenic
 #'   and tumor-suppressor functions have been associated to genes
@@ -660,10 +828,11 @@ NULL
 #'
 #' @source
 #'
-#' See `scripts/make_CT_genes.R` for details on how this list of
-#' curated CT genes was created.
+#' See `scripts/make_all_genes_prelim.R` and
+#' `scripts/make_all_genes_and_CT_genes.R` for details on how this list of genes
+#'  was created.
 #'
-#' @name CT_genes
+#' @name all_genes
 #'
 #' @docType data
 NULL
@@ -677,7 +846,7 @@ NULL
 #'
 #' @format
 #'
-#' A `matrix` object with 298 rows and 24327 columns.
+#' A `matrix` object with 238 rows and 24483 columns.
 #'
 #' - Rows correspond to CT genes
 #'

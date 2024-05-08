@@ -15,6 +15,7 @@ CCLE_correlation_matrix <- cor(x, method = "pearson")
 
 CCLE_correlation_matrix <- CCLE_correlation_matrix[CT_genes$ensembl_gene_id, ]
 
-save(CCLE_correlation_matrix, file = "../../eh_data/CCLE_correlation_matrix.rda",
+save(CCLE_correlation_matrix,
+     file = "../../eh_data/CCLE_correlation_matrix.rda",
      compress = "xz",
      compression_level = 9)
