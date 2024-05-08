@@ -8,8 +8,6 @@ load(file = "../../eh_data/GTEX_data.rda")
 load(file = "../../eh_data/CCLE_data.rda")
 load(file = "../../eh_data/normal_tissues_multimapping_data.rda")
 load(file = "../../eh_data/HPA_cell_type_specificities.rda")
-load(file = "../../eh_data/testis_sce.rda")
-load(file = "../../eh_data/scRNAseq_HPA.rda")
 load(file = "../../eh_data/DAC_treated_cells_multimapping.rda")
 load(file = "../../eh_data/TCGA_TPM.rda")
 
