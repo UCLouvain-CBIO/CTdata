@@ -5,7 +5,7 @@ library(tidyverse)
 library(SummarizedExperiment)
 
 load("../extdata/all_genes.rda")
-load("../../eh_data/CT_methylation_in_tissues.rda")
+load("../../eh_data/methylation_in_tissues.rda")
 
 ## Promoter region is defined as `nt_up` nucleotides upstream TSS
 ## and `nt_down` nucleotides downstream TSS
@@ -14,9 +14,9 @@ nt_down <- 200
 
 ## Calculate mean methylation of each promoter in tissues
 ## and store CpG number by promoter
-i<-0
+i <- 0
 prom_mean_met_in_tissues <- tibble(tissue =
-                                     c(colnames(CT_methylation_in_tissues),
+                                     c(colnames(methylation_in_tissues),
                                        "CpG_number"))
 
 for (gene in all_genes$external_gene_name) {
@@ -54,7 +54,7 @@ for (gene in all_genes$external_gene_name) {
     promoter_gr$TSS <- TSS
   }
 
-  promoter_methylation <- subsetByOverlaps(CT_methylation_in_tissues,
+  promoter_methylation <- subsetByOverlaps(methylation_in_tissues,
                                            promoter_gr)
   tmp <- enframe(colMeans(assay(promoter_methylation), na.rm = TRUE),
                  name = "tissue", value = gene)
@@ -124,4 +124,4 @@ mean_methylation_in_tissues <-
 save(mean_methylation_in_tissues, file = "../../eh_data/mean_methylation_in_tissues.rda",
      compress = "xz",
      compression_level = 9)
-
+load("../../eh_data/mean_methylation_in_tissues.rda")
