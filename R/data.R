@@ -705,7 +705,7 @@ NULL
 #'
 #' Human fetal gonad single cell RNAseq data from
 #' `Single-cell roadmap of human gonadal development`
-## (Garcia-Alonso, Nature 2022)
+#' (Garcia-Alonso, Nature 2022)
 #'
 #' @format
 #'
@@ -726,12 +726,48 @@ NULL
 #'
 #' @source
 #'
-## ee58527e-e1e4-465d-8dc8-800ee40f14f2.rds file dowloaded from
-## https://cellxgene.cziscience.com/collections/661a402a-2a5a-4c71-9b05-b346c57bc451Data.
-## The data were converted in a SingleCellExperiment
+#' ee58527e-e1e4-465d-8dc8-800ee40f14f2.rds file dowloaded from
+#' https://cellxgene.cziscience.com/collections/661a402a-2a5a-4c71-9b05-b346c57bc451Data.
+#' The data were converted in a SingleCellExperiment
 #' (see `scripts/072_make_FGC_sce.R` for details).
 #'
 #' @name FGC_sce
+#'
+#' @docType data
+NULL
+
+#' Oocytes scRNAseq
+#'
+#' @description
+#'
+#' Human oocytes single cell RNAseq data from
+#' `Decoding dynamic epigenetic landscapes in human oocytes using single-cell
+#' multi-omics sequencing` (Yan et al. Cell Stem Cell 2021)
+#'
+#' @format
+#'
+#' A `SingleCellExperiment` object with 21504 rows and 899 columns
+#'
+#' - Rows correspond to genes
+#' - Columns correspond to cells
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `type` gives the cell type.
+#'
+#' - Column `stage` specifies if the cell type is "pre-meiotic" or "meiotic".
+#'
+#' - Column `germcell` is set to TRUE when the cell type is a germ cell.
+#'
+#' @source
+#'
+#' GSE154762_hO_scChaRM_count_matix.txt.gz` was downloaded from GEO
+#' (accession: GSE154762). The data were converted in a SingleCellExperiment
+#' (see `scripts/074_make_oocytes_sce.R` for details).
+#'
+#' @name oocytes_sce
 #'
 #' @docType data
 NULL
