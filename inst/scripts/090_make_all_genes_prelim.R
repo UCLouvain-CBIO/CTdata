@@ -78,13 +78,13 @@ all_genes_prelim <- all_genes_prelim %>%
   mutate(testis_specificity = case_when(
     (GTEX_category == "testis_specific" |
        multimapping_analysis == "testis_specific") &
-      (is.na(HPA_category) | HPA_category != "not_testis_specific") ~
+      (is.na(not_detected_in_somatic_HPA) | not_detected_in_somatic_HPA) ~
       'testis_specific',
     (GTEX_category == "testis_preferential" |
        multimapping_analysis == "testis_preferential") ~ "testis_preferential",
     (GTEX_category == "testis_specific" |
        multimapping_analysis == "testis_specific") &
-      (HPA_category == "not_testis_specific" |
+      (!not_detected_in_somatic_HPA |
          CCLE_category == "leaky" |
          TCGA_category == "leaky") ~ "testis_preferential",
     GTEX_category == "other" | multimapping_analysis == "not_testis_specific"

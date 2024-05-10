@@ -39,17 +39,20 @@ suspect_HPA <- unique(suspect)
 HPA_cell_type_specificities <- tibble(
   ensembl_gene_id = rownames(GTEX_data),
   external_gene_name = rowData(GTEX_data)$external_gene_name) %>%
-  mutate(HPA_category = case_when(
+  mutate(not_detected_in_somatic_HPA = case_when(
     !external_gene_name %in% proteinatlas$Gene ~ NA,
-    external_gene_name %in% suspect_HPA ~ "not_testis_specific",
+    external_gene_name %in% suspect_HPA ~ FALSE,
     external_gene_name %in% proteinatlas$Gene &
-      !external_gene_name %in% suspect_HPA ~ "testis_specific")) %>%
+      !external_gene_name %in% suspect_HPA ~ TRUE)) %>%
   left_join(
     proteinatlas %>%
       dplyr::rename(ensembl_gene_id = Ensembl) %>%
       dplyr::select(ensembl_gene_id, `RNA single cell type specific nTPM`)) %>%
   dplyr::rename(HPA_RNA_single_cell_type_specific_nTPM =
-                  `RNA single cell type specific nTPM`)
+                  `RNA single cell type specific nTPM`) %>%
+  dplyr::select(ensembl_gene_id, external_gene_name,
+                HPA_RNA_single_cell_type_specific_nTPM,
+                not_detected_in_somatic_HPA)
 
 save(HPA_cell_type_specificities,
      file = "../../eh_data/HPA_cell_type_specificities.rda",

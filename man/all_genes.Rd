@@ -58,13 +58,13 @@ multimapping allowed.
 when multi-mapped reads were counted for gene expression in
 normal tissues ("not_analysed" or "testis_specific") (see
 \code{?normal_tissues_multimapping_data} for details).
-\item Column\code{HPA_category} specifies if the gene is "testis_specific" or
-"not_testis_specific" based on the value of the column
-\code{HPA_RNA_single_cell_type_specific_nTPM}(see \code{?HPA_cell_type_specificity}
-for details).
 \item Column \code{HPA_RNA_single_cell_type_specific_nTPM} specifies the cell types in
 which genes were detected in the HPA single cell data (see
 \code{?HPA_cell_type_specificity} for details).
+\item Column\code{not_detected_in_somatic_HPA} specifies if the gene is detected or
+not in a somatic cell type based on the value of the column
+\code{HPA_RNA_single_cell_type_specific_nTPM}(see \code{?HPA_cell_type_specificity}
+for details).
 \item Column \code{percent_of_positive_CCLE_cell_lines} gives the percentage
 of CCLE cancer cell lines in which genes are expressed (genes
 were considered as expressed if TPM >= 10).

@@ -360,7 +360,7 @@ NULL
 #'
 #' @format
 #'
-#' A `RangedSummarizedExperiment` object with 4281897 rows and 14 columns
+#' A `RangedSummarizedExperiment` object with 4280327 rows and 14 columns
 #'
 #' - Rows correspond to CpGs (located within all genes promoters)
 #'
@@ -587,14 +587,14 @@ NULL
 #'   normal tissues ("not_analysed" or "testis_specific") (see
 #'   `?normal_tissues_multimapping_data` for details).
 #'
-#' - Column`HPA_category` specifies if the gene is "testis_specific" or
-#'   "not_testis_specific" based on the value of the column
-#'   `HPA_RNA_single_cell_type_specific_nTPM`(see `?HPA_cell_type_specificity`
-#'   for details).
-#'
 #' - Column `HPA_RNA_single_cell_type_specific_nTPM` specifies the cell types in
 #'   which genes were detected in the HPA single cell data (see
 #'   `?HPA_cell_type_specificity` for details).
+#'
+#' - Column`not_detected_in_somatic_HPA` specifies if the gene is detected or
+#'   not in a somatic cell type based on the value of the column
+#'   `HPA_RNA_single_cell_type_specific_nTPM`(see `?HPA_cell_type_specificity`
+#'   for details).
 #'
 #' - Column `percent_of_positive_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are expressed (genes
@@ -744,14 +744,14 @@ NULL
 #'   normal tissues ("not_analysed" or "testis_specific") (see
 #'   `?normal_tissues_multimapping_data` for details).
 #'
-#' - Column`HPA_category` specifies if the gene is "testis_specific" or
-#'   "not_testis_specific" based on the value of the column
-#'   `HPA_RNA_single_cell_type_specific_nTPM`(see `?HPA_cell_type_specificity`
-#'   for details).
-#'
 #' - Column `HPA_RNA_single_cell_type_specific_nTPM` specifies the cell types in
 #'   which genes were detected in the HPA single cell data (see
 #'   `?HPA_cell_type_specificity` for details).
+#'
+#' - Column`not_detected_in_somatic_HPA` specifies if the gene is detected or
+#'   not in a somatic cell type based on the value of the column
+#'   `HPA_RNA_single_cell_type_specific_nTPM`(see `?HPA_cell_type_specificity`
+#'   for details).
 #'
 #' - Column `percent_of_positive_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are expressed (genes
@@ -959,17 +959,18 @@ NULL
 #'
 #' @details
 #'
-#' - Column `HPA_category` specifies if the gene is "testis_specific" or
-#' "not_testis_specific" based on the value of the column
-#' `HPA_RNA_single_cell_type_specific_nTPM`. Genes are flagged as
-#' "testis_specific" if the `HPA_RNA_single_cell_type_specific_nTPM` column
-#' indicates a germ cell or a placental specificity. Genes are flagged as
-#' "not_testis_specific" genes if they are expressed in any other somatic cell
-#' type. `NA` is set when the original table from HPA had no values for that
-#' gene.
 #'
 #' - Column `HPA_RNA_single_cell_type_specific_nTPM` gives the cell types in
 #' which genes were detected.
+#'
+#' - Column `not_detected_in_somatic_HPA` specifies if the gene is detected or
+#' not in a somatic cell type based on the value of the column
+#' `HPA_RNA_single_cell_type_specific_nTPM`. Genes are flagged as
+#' `TRUE` if the `HPA_RNA_single_cell_type_specific_nTPM` column
+#' indicates a germ cell or a placental specificity. Genes are flagged as
+#' `FALSE` if they are expressed in any other somatic cell
+#' type. `NA` is set when the original table from HPA had no values for that
+#' gene.
 #'
 #'
 #' @source
