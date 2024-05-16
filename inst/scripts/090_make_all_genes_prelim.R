@@ -112,9 +112,6 @@ all_genes_prelim <- all_genes_prelim %>%
 all_genes_prelim$testis_specificity[
   is.na(all_genes_prelim$testis_specificity)] <- "not_testis_specific"
 
-table(all_genes_prelim$testis_specificity)
-
-
 ################################################################################
 ## create CT_gene_type column, specifiying if a gene is
 ## - a "Cancer testis gene" (CT_gene): testis-specific genes activated in CCLE
