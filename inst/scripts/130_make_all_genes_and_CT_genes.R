@@ -4,9 +4,7 @@ library("tidyverse")
 library("SummarizedExperiment")
 
 load("../extdata/all_genes_prelim.rda")
-load(file = "../../eh_data/TCGA_methylation.rda")
 load(file = "../../eh_data/mean_methylation_in_tissues.rda")
-load(file = "../../eh_data/methylation_in_tissues.rda")
 load(file = "../../eh_data/DAC_treated_cells_multimapping.rda")
 
 ################################################################################
@@ -106,6 +104,5 @@ CT_genes <- all_genes %>%
 save(CT_genes, file = "../../eh_data/CT_genes.rda",
      compress = "xz",
      compression_level = 9)
-
 
 
