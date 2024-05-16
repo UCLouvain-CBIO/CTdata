@@ -964,19 +964,25 @@ NULL
 #' @details
 #'
 #'
-#' - Column `HPA_RNA_single_cell_type_specific_nTPM` gives the cell types in
-#' which genes were detected.
+#' - Column `HPA_scRNAseq_celltype_specific_nTPM` gives the cell types in
+#' which genes were detected (corresponds to column
+#' `RNA single cell type specific nTPM` of proteinatlas.tsv file.
 #'
-#' - Column `not_detected_in_somatic_HPA` specifies if the gene is detected or
-#' not in a somatic cell type based on the value of the column
-#' `HPA_RNA_single_cell_type_specific_nTPM`. Genes are flagged as
-#' `TRUE` if the `HPA_RNA_single_cell_type_specific_nTPM` column
-#' indicates a germ cell or a placental specificity. Genes are flagged as
-#' `FALSE` if they are expressed in any other somatic cell
-#' type. `NA` is set when the original table from HPA had no values for that
-#' gene.
+#' - Column `max_HPA_germcell` specifies if the maximum expression value in a
+#' germ cell type
 #'
+#' - Column `max_HPA_somatic` specifies if the maximum expression value in a
+#' somatic cell type
 #'
+##' - Column `not_detected_in_somatic_HPA` specifies if the gene is detected or
+#' not in a somatic cell type. Genes are flagged as
+#' `TRUE` if the `max_HPA_somatic` value is equal to 0, and `FALSE` if
+#' `max_HPA_somatic` value is > 0. `NA` is set when the original table from HPA
+#' had no values for that gene.
+#'
+#' - Column `HPA_ratio_germ_som` gives the ratio between `max_HPA_germcell` and
+#' `max_HPA_somatic` columns.
+
 #' @source
 #' `proteinatlas.tsv` was downloaded from the Human Protein Atlas
 #' (https://www.proteinatlas.org)
