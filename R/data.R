@@ -179,7 +179,7 @@ NULL
 #'
 #' - A column `percent_of_negative_CCLE_cell_lines` that gives the
 #'   percent of CCLE cell lines (all cell lines combined) in which
-#'   genes are completely repressed (TPM < 0.1)
+#'   genes are repressed (TPM < 0.5)
 #'
 #' - A column `max_TPM_in_CCLE` that gives the maximal expression (in
 #'   TPM) found in all cell lines.
@@ -187,11 +187,11 @@ NULL
 #' - A column `CCLE_category` gives the category ("activated",
 #'   "not_activated", "leaky") assigned to each gene.  "activated"
 #'   category corresponds to genes highly expressed (TPM >= 10) in at
-#'   least one cell line and repressed (TPM <= 0.1) in at least 20% of
+#'   least one cell line and repressed (TPM <= 0.5) in at least 20% of
 #'   cell lines.  "not_activated" category corresponds to genes
-#'   repressed (TPM <= 0.1) in at least 20% of cell lines and never
+#'   repressed (TPM <= 0.5) in at least 20% of cell lines but never
 #'   expressed (TPM >= 10) in any cell line.  "leaky" category
-#'   corresponds to genes repressed (TPM <= 0.1) in less than 20% of
+#'   corresponds to genes repressed (TPM <= 0.5) in less than 20% of
 #'   cell lines.
 #'
 #' @source
