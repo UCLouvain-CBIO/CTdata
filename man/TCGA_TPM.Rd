@@ -32,12 +32,11 @@ number load} from Jang et al., Nature Commun 2019 that were added
 (see \code{inst/scripts/make_TCGA_TPM.R} for details).
 \item The rowData contains genes information and, for each gene, the
 percentage of tumors that are positive (TPM >= 10), and the
-percentage of tumors that are negative (TPM < 0.1). In column
+percentage of tumors that are negative (TPM < 0.5). In column
 \code{TCGA_category}, genes are labelled as "activated" when the
 percentage of positive tumors is > 0 and when at least 20\% of
 tumors are negative. Genes are labelled as "not_activated" when
 the percentage of positive tumors is 0. Genes are labelled as
-"leaky" when less than 20\% of tumors are negative or when the maximum q75
-expression in normal peritumoral tissue is higher than 0.5.
+"leaky" when less than 20\% of tumors are negative.
 }
 }

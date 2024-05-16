@@ -46,8 +46,12 @@ genomic location.
 \item Column \code{GTEX_category} gives the category ("testis_specific",
 "testis_preferential" or "lowly_expressed") assigned to each gene
 using GTEx database (see \code{?GTEX_data} for details).
+\item Column \code{q75_TPM_somatic} gives the q75 expression level found
+in a somatic tissue (using GTEx database).
 \item Column \code{max_TPM_somatic} gives the maximum expression level found
 in a somatic tissue (using GTEx database).
+\item Column \code{ratio_testis_somatic} gives the ratio between expression in testis
+and the highest expression found in a somatic tissue (using GTEx database).
 \item Column \code{TPM_testis} gives the gene expression level in testis
 (using GTEx database).
 \item Column \code{lowly_expressed_in_GTEX} indicates if the gene is lowly
@@ -61,10 +65,14 @@ normal tissues ("not_analysed" or "testis_specific") (see
 \item Column \code{HPA_RNA_single_cell_type_specific_nTPM} specifies the cell types in
 which genes were detected in the HPA single cell data (see
 \code{?HPA_cell_type_specificity} for details).
-\item Column\code{not_detected_in_somatic_HPA} specifies if the gene is detected or
-not in a somatic cell type based on the value of the column
-\code{HPA_RNA_single_cell_type_specific_nTPM}(see \code{?HPA_cell_type_specificity}
-for details).
+\item Column \code{max_HPA_germcell} specifies if the maximum expression value in a
+germ cell type. (see  \code{?HPA_cell_type_specificity} for details).
+\item Column \code{max_HPA_somatic} specifies if the maximum expression value in a
+somatic cell type. (see  \code{?HPA_cell_type_specificity} for details).
+\item Column \code{not_detected_in_somatic_HPA} specifies if the gene is detected or
+not in a somatic cell type. (see  \code{?HPA_cell_type_specificity} for details).
+\item Column \code{HPA_ratio_germ_som} gives the ratio between \code{max_HPA_germcell} and
+\code{max_HPA_somatic} columns.
 \item Column \code{percent_of_positive_CCLE_cell_lines} gives the percentage
 of CCLE cancer cell lines in which genes are expressed (genes
 were considered as expressed if TPM >= 10).
