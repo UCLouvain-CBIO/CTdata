@@ -101,12 +101,12 @@ all_genes_prelim <- all_genes_prelim %>%
     (GTEX_category == "testis_specific" |
        multimapping_analysis == "testis_specific") &
       !not_detected_in_somatic_HPA &
-      HPA_ratio_germ_som < 10 &
+      HPA_ratio_germ_som >= 10 &
       CCLE_category != "leaky" &
       TCGA_category != "leaky" ~ 'testis_preferential',
     (GTEX_category == "testis_preferential" |
        multimapping_analysis == "testis_preferential") &
-      (is.na(HPA_ratio_germ_som) | HPA_ratio_germ_som < 10) &
+      (is.na(HPA_ratio_germ_som) | HPA_ratio_germ_som >= 10) &
       CCLE_category != "leaky" &
       TCGA_category != "leaky"  ~ "testis_preferential"))
 
