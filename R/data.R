@@ -595,10 +595,18 @@ NULL
 #'   which genes were detected in the HPA single cell data (see
 #'   `?HPA_cell_type_specificity` for details).
 #'
-#' - Column`not_detected_in_somatic_HPA` specifies if the gene is detected or
-#'   not in a somatic cell type based on the value of the column
-#'   `HPA_RNA_single_cell_type_specific_nTPM`(see `?HPA_cell_type_specificity`
-#'   for details).
+#' - Column `max_HPA_germcell` specifies if the maximum expression value in a
+#' germ cell type. (see  `?HPA_cell_type_specificity` for details).
+#'
+#' - Column `max_HPA_somatic` specifies if the maximum expression value in a
+#' somatic cell type. (see  `?HPA_cell_type_specificity` for details).
+#'
+##' - Column `not_detected_in_somatic_HPA` specifies if the gene is detected or
+#' not in a somatic cell type. (see  `?HPA_cell_type_specificity` for details).
+#'
+#' - Column `HPA_ratio_germ_som` gives the ratio between `max_HPA_germcell` and
+#' `max_HPA_somatic` columns.
+
 #'
 #' - Column `percent_of_positive_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are expressed (genes
@@ -748,7 +756,7 @@ NULL
 #'   normal tissues ("not_analysed" or "testis_specific") (see
 #'   `?normal_tissues_multimapping_data` for details).
 #'
-#' - Column `HPA_RNA_single_cell_type_specific_nTPM` specifies the cell types in
+#' - Column `HPA_scRNAseq_celltype_specific_nTPM` specifies the cell types in
 #'   which genes were detected in the HPA single cell data (see
 #'   `?HPA_cell_type_specificity` for details).
 #'
