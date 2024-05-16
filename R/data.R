@@ -26,8 +26,8 @@
 #'   10x more in testis than in any somatic
 #'   tissue). "testis-preferential" genes are genes expressed in
 #'   testis but also in a few somatic tissues (expression in testis >=
-#'   1 TPM allowed but only in a minority of somatic tissues
-#'   (q75_TPM_somatic < 25%) and expressed at least 10x more in testis than in
+#'   1 TPM, and allowed in a minority of somatic tissues
+#'   (q75_TPM_somatic < 0.5) and expressed at least 10x more in testis than in
 #'   any somatic tissue). "lowly_expressed" genes are genes undetectable in GTEX
 #'   database probably due to multi-mapping issues (expression in all
 #'   GTEX tissues < 1 TPM).

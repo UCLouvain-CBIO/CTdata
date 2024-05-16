@@ -22,15 +22,19 @@ Human Protein Atlas (https://www.proteinatlas.org)
 }
 \details{
 \itemize{
-\item Column \code{HPA_RNA_single_cell_type_specific_nTPM} gives the cell types in
-which genes were detected.
+\item Column \code{HPA_scRNAseq_celltype_specific_nTPM} gives the cell types in
+which genes were detected (corresponds to column
+\verb{RNA single cell type specific nTPM} of proteinatlas.tsv file.
+\item Column \code{max_HPA_germcell} specifies if the maximum expression value in a
+germ cell type
+\item Column \code{max_HPA_somatic} specifies if the maximum expression value in a
+somatic cell type
 \item Column \code{not_detected_in_somatic_HPA} specifies if the gene is detected or
-not in a somatic cell type based on the value of the column
-\code{HPA_RNA_single_cell_type_specific_nTPM}. Genes are flagged as
-\code{TRUE} if the \code{HPA_RNA_single_cell_type_specific_nTPM} column
-indicates a germ cell or a placental specificity. Genes are flagged as
-\code{FALSE} if they are expressed in any other somatic cell
-type. \code{NA} is set when the original table from HPA had no values for that
-gene.
+not in a somatic cell type. Genes are flagged as
+\code{TRUE} if the \code{max_HPA_somatic} value is equal to 0, and \code{FALSE} if
+\code{max_HPA_somatic} value is > 0. \code{NA} is set when the original table from HPA
+had no values for that gene.
+\item Column \code{HPA_ratio_germ_som} gives the ratio between \code{max_HPA_germcell} and
+\code{max_HPA_somatic} columns.
 }
 }

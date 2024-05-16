@@ -94,18 +94,19 @@ all_genes_prelim <- all_genes_prelim %>%
       (is.na(not_detected_in_somatic_HPA) | not_detected_in_somatic_HPA) &
       CCLE_category != "leaky" &
       TCGA_category != "leaky" &
-      (TCGA_category == "multimapping_issue" | max_q75_in_NT < 0.5) ~ 'testis_specific',
+      (TCGA_category == "multimapping_issue" |
+         max_q75_in_NT < 0.5) ~ 'testis_specific',
     # Downgrade TS to TP based on HPA (if detected in somatic cell type but only
     # if it is detected at a level lower than 10 times than in a germ cell type)
     (GTEX_category == "testis_specific" |
        multimapping_analysis == "testis_specific") &
-      (!not_detected_in_somatic_HPA) &
-      HPA_ratio_germ_som < 10 &
+      !not_detected_in_somatic_HPA &
+      HPA_ratio_germ_som >= 10 &
       CCLE_category != "leaky" &
       TCGA_category != "leaky" ~ 'testis_preferential',
     (GTEX_category == "testis_preferential" |
        multimapping_analysis == "testis_preferential") &
-      (is.na(HPA_ratio_germ_som) | HPA_ratio_germ_som < 10) &
+      (is.na(HPA_ratio_germ_som) | HPA_ratio_germ_som >= 10) &
       CCLE_category != "leaky" &
       TCGA_category != "leaky"  ~ "testis_preferential"))
 
