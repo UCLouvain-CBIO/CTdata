@@ -52,7 +52,7 @@ all_genes_prelim[is.na(all_genes_prelim$CCLE_category),
 ################################################################################
 ## Add info from rowData(TCGA_TPM), summarizing the analysis of TCGA
 ## tumor samples. In TCGA_category, genes are tagged as "activated" when
-## at least 20 % of tumors are negative (TPM <= 0.1)
+## at least 20 % of tumors are negative (TPM <= 0.5)
 ## and at least one tumor is highly positive (TPM >= 10). Genes that were
 ## flagged as testis-specific in `multimapping analysis` are flagged as
 ## "mulimapping_issue" in TCGA_category, as most of them  are not detected
@@ -67,28 +67,52 @@ all_genes_prelim <- all_genes_prelim %>%
 all_genes_prelim[all_genes_prelim$lowly_expressed_in_GTEX == TRUE ,
                  "TCGA_category"] <- "multimapping_issue"
 
-
 ################################################################################
 ## Add testis_specificity summarizing testis-specificity analysis from
 ## GTEX, multimapping, HPA_cell_type_specificities, CCLE and TCGA categories
-## (being leaky in CCLE and TCGA indicating a low expression in normal somatic
-## tissues)
+## Testis-specific genes must be:
+## - classified as "testis-specific" in GTEX or multimappig analysis
+## - must not be detected in any somatic cell type (in HPA scRNAseq analysis)
+## - can not be classified as "leaky" in CLLE and TCGA categories
+## - can not be detected (TPM > 0.5) in more than 75% of normal peritumoral
+## tissues from a TCGA tumor type
+## Testis_preferential genes must be:
+## - classified as "testis_preferential" in GTEX or multimappig analysis
+## - or initially classified as "testis-specific" in GTEX or multimappig
+## analysis but downgraded to "testis_preferential because they were detected
+## in a somatic cell type (in HPA scRNAseq analysis)
+## - can be detected in some somatic cell type but the level has to be at
+## least 10 times lower than the level detected in a germ cell type
+## (in HPA scRNAseq analysis)
+## - must not be classified as "leaky" in CLLE and TCGA categories
 ################################################################################
+
 all_genes_prelim <- all_genes_prelim %>%
   mutate(testis_specificity = case_when(
     (GTEX_category == "testis_specific" |
        multimapping_analysis == "testis_specific") &
-      (is.na(not_detected_in_somatic_HPA) | not_detected_in_somatic_HPA) ~
-      'testis_specific',
-    (GTEX_category == "testis_preferential" |
-       multimapping_analysis == "testis_preferential") ~ "testis_preferential",
+      (is.na(not_detected_in_somatic_HPA) | not_detected_in_somatic_HPA) &
+      CCLE_category != "leaky" &
+      TCGA_category != "leaky" &
+      (TCGA_category == "multimapping_issue" | max_q75_in_NT < 0.5) ~ 'testis_specific',
+    # Downgrade TS to TP based on HPA (if detected in somatic cell type but only
+    # if it is detected at a level lower than 10 times than in a germ cell type)
     (GTEX_category == "testis_specific" |
        multimapping_analysis == "testis_specific") &
-      (!not_detected_in_somatic_HPA |
-         CCLE_category == "leaky" |
-         TCGA_category == "leaky") ~ "testis_preferential",
-    GTEX_category == "other" | multimapping_analysis == "not_testis_specific"
-    ~ 'not_testis_specific'))
+      (!not_detected_in_somatic_HPA) &
+      HPA_ratio_germ_som < 10 &
+      CCLE_category != "leaky" &
+      TCGA_category != "leaky" ~ 'testis_preferential',
+    (GTEX_category == "testis_preferential" |
+       multimapping_analysis == "testis_preferential") &
+      (is.na(HPA_ratio_germ_som) | HPA_ratio_germ_som < 10) &
+      CCLE_category != "leaky" &
+      TCGA_category != "leaky"  ~ "testis_preferential"))
+
+all_genes_prelim$testis_specificity[
+  is.na(all_genes_prelim$testis_specificity)] <- "not_testis_specific"
+
+table(all_genes_prelim$testis_specificity)
 
 
 ################################################################################
