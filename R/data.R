@@ -575,8 +575,14 @@ NULL
 #'   "testis_preferential" or "lowly_expressed") assigned to each gene
 #'   using GTEx database (see `?GTEX_data` for details).
 #'
+#'  - Column `q75_TPM_somatic` gives the q75 expression level found
+#'   in a somatic tissue (using GTEx database).
+#'
 #' - Column `max_TPM_somatic` gives the maximum expression level found
 #'   in a somatic tissue (using GTEx database).
+#'
+#' - Column `ratio_testis_somatic` gives the ratio between expression in testis
+#'   and the highest expression found in a somatic tissue (using GTEx database).
 #'
 #' - Column `TPM_testis` gives the gene expression level in testis
 #'   (using GTEx database).
