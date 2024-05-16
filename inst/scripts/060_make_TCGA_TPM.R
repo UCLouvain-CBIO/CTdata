@@ -119,12 +119,13 @@ HNSC <- prepare_data(tum = "HNSC")
 #     rownames(SKCM) == rownames(HNSC))
 
 coldata_common_variables <-
-  colnames(colData(SKCM))[colnames(colData(SKCM)) %in% colnames(colData(LUAD)) &
-                            colnames(colData(SKCM)) %in% colnames(colData(LUSC)) &
-                            colnames(colData(SKCM)) %in% colnames(colData(COAD)) &
-                            colnames(colData(SKCM)) %in% colnames(colData(ESCA)) &
-                            colnames(colData(SKCM)) %in% colnames(colData(BRCA)) &
-                            colnames(colData(SKCM)) %in% colnames(colData(HNSC))]
+  colnames(colData(SKCM))[
+    colnames(colData(SKCM)) %in% colnames(colData(LUAD)) &
+      colnames(colData(SKCM)) %in% colnames(colData(LUSC)) &
+      colnames(colData(SKCM)) %in% colnames(colData(COAD)) &
+      colnames(colData(SKCM)) %in% colnames(colData(ESCA)) &
+      colnames(colData(SKCM)) %in% colnames(colData(BRCA)) &
+      colnames(colData(SKCM)) %in% colnames(colData(HNSC))]
 
 TPM <- cbind(assay(SKCM), assay(LUAD), assay(LUSC), assay(COAD),
              assay(ESCA), assay(BRCA), assay(HNSC))
@@ -175,7 +176,7 @@ rowdata <- rowdata %>%
 
 # Estimate the percent of tumors in which genes are repressed
 # (TPM < TPM_low_thr)
-TPM_low_thr <- 0.1
+TPM_low_thr <- 0.5
 binary <- ifelse(assay(tumors_only) <= TPM_low_thr, 1, 0)
 tmp <- rowSums(binary) / ncol(binary) * 100
 tmp <- enframe(tmp, name = "ensembl_gene_id", value = "percent_neg_tum")
@@ -187,7 +188,7 @@ rowdata$max_q75_in_NT <- rowMax(as.matrix(rowdata %>%
 
 rowdata <- rowdata %>%
   mutate(TCGA_category = case_when(
-    percent_neg_tum < 20 | max_q75_in_NT > 0.5 ~ "leaky",
+    percent_neg_tum < 20 ~ "leaky",
     percent_neg_tum >= 20 & percent_pos_tum > 0 ~ "activated",
     percent_neg_tum >= 20 & percent_pos_tum == 0 ~ "not_activated"))
 rowdata <- as.data.frame(rowdata)
