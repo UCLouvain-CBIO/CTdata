@@ -50,7 +50,8 @@ max_germ <- tibble(cell_type = cells,
   filter(cell_type %in% germ_cell_types) %>%
   head(1) %>%
   pull(nTPM)
-HPA_nTPM <- tibble(external_gene_name = names(HPA_single_cell_specificities_list[1]),
+HPA_nTPM <- tibble(external_gene_name =
+                     names(HPA_single_cell_specificities_list[1]),
        max_HPA_somatic = ifelse(length(max_som) > 0, max_som, 0),
        max_HPA_germcell = ifelse(length(max_germ) > 0, max_germ, 0))
 
@@ -70,7 +71,8 @@ for (i in seq_along(HPA_single_cell_specificities_list)[-1]) {
     filter(cell_type %in% germ_cell_types) %>%
     head(1) %>%
     pull(nTPM)
-  tmp <- tibble(external_gene_name = names(HPA_single_cell_specificities_list[i]),
+  tmp <- tibble(external_gene_name =
+                  names(HPA_single_cell_specificities_list[i]),
                 max_HPA_somatic = ifelse(length(max_som) > 0, max_som, 0),
                 max_HPA_germcell = ifelse(length(max_germ) > 0, max_germ, 0))
   HPA_nTPM <- rbind(HPA_nTPM, tmp)
@@ -84,7 +86,8 @@ HPA_cell_type_specificities <- tibble(
   left_join(
     proteinatlas %>%
       dplyr::rename(ensembl_gene_id = Ensembl) %>%
-      dplyr::rename(HPA_scRNAseq_celltype_specific_nTPM = `RNA single cell type specific nTPM`) %>%
+      dplyr::rename(HPA_scRNAseq_celltype_specific_nTPM =
+                      `RNA single cell type specific nTPM`) %>%
       dplyr::select(ensembl_gene_id, HPA_scRNAseq_celltype_specific_nTPM)) %>%
   left_join(HPA_nTPM) %>%
   mutate(not_detected_in_somatic_HPA = case_when(
