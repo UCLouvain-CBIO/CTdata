@@ -133,13 +133,15 @@ GTEX_data[is.na(GTEX_data$GTEX_category), "GTEX_category"] <- "other"
 
 Gtex_mat <- as.matrix(GTEX_data %>%
                         dplyr::select(-c(ensembl_gene_id, external_gene_name,
-                                         max_TPM_somatic, ratio_testis_somatic,
+                                         max_TPM_somatic, q75_TPM_somatic,
+                                         ratio_testis_somatic,
                                          GTEX_category)))
 rownames(Gtex_mat) <- GTEX_data$ensembl_gene_id
 rowdata <- as.data.frame(GTEX_data %>%
                            dplyr::select(c(ensembl_gene_id, external_gene_name,
-                                           GTEX_category,
-                                           max_TPM_somatic )))
+                                           GTEX_category, q75_TPM_somatic,
+                                           max_TPM_somatic,
+                                           ratio_testis_somatic)))
 rowdata <- column_to_rownames(rowdata, "ensembl_gene_id")
 GTEX_data <- SummarizedExperiment(assays = list(TPM = Gtex_mat),
                                   rowData = rowdata)
