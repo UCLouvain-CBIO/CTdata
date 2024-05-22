@@ -45,7 +45,7 @@ FGC_sce$type <- factor(FGC_sce$type, levels =
 
 FGC_sce$stage <- "pre-meiotic"
 FGC_sce[, FGC_sce$type %in%
-      c("F_oogonia", "F_oocyte")]$stage <- "meiotic"
+      c("F_oocyte")]$stage <- "meiotic"
 FGC_sce$germcell <- TRUE
 
 ## Change FGC_sce rownames (from ensembl_id to gene names,
@@ -68,7 +68,8 @@ canonical_transcripts <- transcripts_infos %>%
   dplyr::filter(transcript_biotype == "protein_coding" |
                   transcript_biotype == "lncRNA")
 
-FGC_sce <- FGC_sce[rownames(FGC_sce) %in% canonical_transcripts$ensembl_gene_id, ]
+FGC_sce <- FGC_sce[rownames(FGC_sce) %in%
+                     canonical_transcripts$ensembl_gene_id, ]
 ensembl_gene <- as.data.frame(canonical_transcripts[,1:2]) %>% unique()
 rownames(ensembl_gene) <- ensembl_gene$ensembl_gene_id
 rownames(FGC_sce) <- ensembl_gene[rownames(FGC_sce),]$external_gene_name
