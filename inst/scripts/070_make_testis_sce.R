@@ -79,6 +79,10 @@ canonical_transcripts <- transcripts_infos %>%
   dplyr::filter(transcript_biotype == "protein_coding" |
                   transcript_biotype == "lncRNA")
 
+
+# ! Convert genes with "orf" in their names to "ORF" !
+counts$Gene <- toupper(counts$Gene)
+
 counts_correct_gene_names <- counts %>%
   filter(Gene %in% canonical_transcripts$external_gene_name)
 
