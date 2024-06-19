@@ -79,10 +79,6 @@ canonical_transcripts <- transcripts_infos %>%
   dplyr::filter(transcript_biotype == "protein_coding" |
                   transcript_biotype == "lncRNA")
 
-
-# ! Convert genes with "orf" in their names to "ORF" !
-counts$Gene <- toupper(counts$Gene)
-
 counts_correct_gene_names <- counts %>%
   filter(Gene %in% canonical_transcripts$external_gene_name)
 
@@ -90,7 +86,7 @@ counts_incorrect_gene_names <- counts %>%
   filter(!Gene %in% canonical_transcripts$external_gene_name)
 
 # Change incorrect genes names using official ones, when possible
-counts_incorrect_gene_names <- counts_incorrect_gene_names %>%
+counts_incorrect_gene_names_rescued <- counts_incorrect_gene_names %>%
   left_join(canonical_transcripts %>%
               dplyr::select(ensembl_gene_id, external_gene_name,
                             external_synonym),
@@ -102,7 +98,28 @@ counts_incorrect_gene_names <- counts_incorrect_gene_names %>%
   dplyr::select(-Gene, -ensembl_gene_id) %>%
   dplyr::rename(Gene = external_gene_name)
 
-counts <- rbind(counts_correct_gene_names, counts_incorrect_gene_names)
+# Some synonymes have "ORF" instead of "orf" in their names!
+# ! Convert genes with "orf" in their names to "ORF" !
+# Example: problem with MAJIN gene, called C11orf85 in testis dataset
+# and C11ORF85 in canonical_transcripts$external_synonym
+counts_incorrect_gene_names_rescued_bis <- counts_incorrect_gene_names %>%
+  left_join(canonical_transcripts %>%
+              dplyr::select(ensembl_gene_id, external_gene_name,
+                            external_synonym) %>%
+              mutate(Gene = gsub("ORF", x = external_synonym, replace = "orf"))) %>%
+  dplyr::select(Gene, ensembl_gene_id, external_gene_name, , everything()) %>%
+  filter(!is.na(external_gene_name)) %>%
+  filter(!external_gene_name %in% counts_correct_gene_names$Gene) %>%
+  filter(!duplicated(external_gene_name)) %>%
+  dplyr::select(-Gene, -ensembl_gene_id) %>%
+  dplyr::rename(Gene = external_gene_name) %>%
+  dplyr::select(-external_synonym)
+
+counts <- rbind(counts_correct_gene_names,
+                counts_incorrect_gene_names_rescued,
+                counts_incorrect_gene_names_rescued_bis)
+
+
 
 mat <- as.matrix(counts[, -1])
 rownames(mat) <- counts$Gene

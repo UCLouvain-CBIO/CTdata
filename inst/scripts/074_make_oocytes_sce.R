@@ -53,6 +53,8 @@ canonical_transcripts <- transcripts_infos %>%
   dplyr::filter(transcript_biotype == "protein_coding" |
                   transcript_biotype == "lncRNA")
 
+
+
 counts_correct_gene_names <- table %>%
   filter(gene %in% canonical_transcripts$external_gene_name)
 
@@ -60,7 +62,7 @@ counts_incorrect_gene_names <- table %>%
   filter(!gene %in% canonical_transcripts$external_gene_name)
 
 # Change incorrect genes names using official ones, when possible
-counts_incorrect_gene_names <- counts_incorrect_gene_names %>%
+counts_incorrect_gene_names_rescued <- counts_incorrect_gene_names %>%
   left_join(canonical_transcripts %>%
               dplyr::select(ensembl_gene_id, external_gene_name,
                             external_synonym),
@@ -71,6 +73,27 @@ counts_incorrect_gene_names <- counts_incorrect_gene_names %>%
   filter(!duplicated(external_gene_name)) %>%
   dplyr::select(-gene, -ensembl_gene_id) %>%
   dplyr::rename(gene = external_gene_name)
+
+# Some synonymes have "ORF" instead of "orf" in their names!
+# ! Convert genes with "orf" in their names to "ORF" !
+# Example: problem with MAJIN gene, called C11orf85 in testis dataset
+# and C11ORF85 in canonical_transcripts$external_synonym
+counts_incorrect_gene_names_rescued_bis <- counts_incorrect_gene_names %>%
+  left_join(canonical_transcripts %>%
+              dplyr::select(ensembl_gene_id, external_gene_name,
+                            external_synonym) %>%
+              mutate(gene = gsub("ORF", x = external_synonym, replace = "orf"))) %>%
+  dplyr::select(gene, ensembl_gene_id, external_gene_name, , everything()) %>%
+  filter(!is.na(external_gene_name)) %>%
+  filter(!external_gene_name %in% counts_correct_gene_names$gene) %>%
+  filter(!duplicated(external_gene_name)) %>%
+  dplyr::select(-gene, -ensembl_gene_id) %>%
+  dplyr::rename(gene = external_gene_name) %>%
+  dplyr::select(-external_synonym)
+
+counts <- rbind(counts_correct_gene_names,
+                counts_incorrect_gene_names_rescued,
+                counts_incorrect_gene_names_rescued_bis)
 
 counts <- rbind(counts_correct_gene_names, counts_incorrect_gene_names)
 
