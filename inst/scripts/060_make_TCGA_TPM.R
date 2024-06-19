@@ -65,7 +65,7 @@ prepare_data <- function(tum) {
   # Add frequencies of activation (TPM >= TPM_thr) of each gene in all tumor
   # samples.
   tumors_only <- data[ , colData(data)$shortLetterCode != 'NT']
-  TPM_thr <- 10
+  TPM_thr <- 1
   rowdata <- as_tibble(rowData(tumors_only), rownames = "ensembl_gene_id")
   binary <- ifelse(assay(tumors_only) >= TPM_thr, 1, 0)
   tmp <- rowSums(binary) / ncol(binary) * 100
@@ -75,7 +75,7 @@ prepare_data <- function(tum) {
 
   # Estimate the percent of tumors in which genes are repressed
   # (TPM < TPM_low_thr)
-  TPM_low_thr <- 0.1
+  TPM_low_thr <- 0.5
   binary <- ifelse(assay(tumors_only) <= TPM_low_thr, 1, 0)
   tmp <- rowSums(binary) / ncol(binary) * 100
   tmp <- enframe(tmp, name = "ensembl_gene_id",
@@ -98,7 +98,13 @@ prepare_data <- function(tum) {
       left_join(q75_in_NT)
   }
 
-  rowData(data) <- rowdata
+  # Max expression (TPM) in a tumor
+  max_TPM <- tibble(ensembl_gene_id = rownames(tumors_only),
+                    max_TPM = rowMax(assay(tumors_only)))
+  names(max_TPM) <- c("ensembl_gene_id", paste0("max_TPM_in_", tum))
+
+  rowData(data) <- rowdata %>%
+    left_join(max_TPM)
   return(assign(x = paste0(tum, "_TPM"), value = data))
 }
 
@@ -167,7 +173,7 @@ TCGA_TPM <- SummarizedExperiment(assays = list(TPM = TPM),
 # Add frequencies of activation (TPM >= TPM_thr) of each gene in all types of
 # tumor samples.
 tumors_only <- TCGA_TPM[, colData(TCGA_TPM)$shortLetterCode != 'NT']
-TPM_thr <- 10
+TPM_thr <- 1
 binary <- ifelse(assay(tumors_only) >= TPM_thr, 1, 0)
 tmp <- rowSums(binary) / ncol(binary) * 100
 tmp <- enframe(tmp, name = "ensembl_gene_id", value = "percent_pos_tum")
@@ -184,13 +190,16 @@ rowdata <- left_join(rowdata, tmp)
 
 rowdata$max_TPM_in_TCGA <- rowMax(assay(tumors_only))
 rowdata$max_q75_in_NT <- rowMax(as.matrix(rowdata %>%
-  dplyr::select(starts_with("TPM_q75"))))
+                                            dplyr::select(starts_with("TPM_q75"))))
 
 rowdata <- rowdata %>%
   mutate(TCGA_category = case_when(
     percent_neg_tum < 20 ~ "leaky",
-    percent_neg_tum >= 20 & percent_pos_tum > 0 ~ "activated",
-    percent_neg_tum >= 20 & percent_pos_tum == 0 ~ "not_activated"))
+    percent_neg_tum >= 20 & percent_pos_tum >= 1  & max_TPM_in_TCGA >= 5 ~ "activated",
+    percent_neg_tum >= 20 & percent_pos_tum < 1 ~ "not_activated",
+    percent_neg_tum >= 20 & percent_pos_tum >= 1 & max_TPM_in_TCGA < 5 ~ "lowly_activated"))
+
+
 rowdata <- as.data.frame(rowdata)
 rowdata <- column_to_rownames(rowdata, "ensembl_gene_id")
 
@@ -199,4 +208,3 @@ rowData(TCGA_TPM) <- rowdata
 save(TCGA_TPM, file = "../../eh_data/TCGA_TPM.rda",
      compress = "xz",
      compression_level = 9)
-
