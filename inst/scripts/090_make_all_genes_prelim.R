@@ -40,8 +40,10 @@ all_genes_prelim <- all_genes_prelim %>%
 ################################################################################
 ## Add info from rowData(CCLE_data), summarising the analysis of CCLE
 ## database. In CCLE_category, genes are tagged as "activated" when
-## at least 20 % of cell lines are negative (TPM <= 0.1)
-## and at least one cell line is highly positive (TPM >= 10)
+## at least 20 % of cell lines are negative (TPM <= 0.5)
+## and at least 1% of cell line is highly positive (TPM >= 1)
+## and and expressed at TPM > 5 in at least one cell line
+## (to avoid leaky genes)
 ################################################################################
 all_genes_prelim <- all_genes_prelim %>%
   left_join(as_tibble(rowData(CCLE_data), rownames = "ensembl_gene_id"))
@@ -52,11 +54,12 @@ all_genes_prelim[is.na(all_genes_prelim$CCLE_category),
 ################################################################################
 ## Add info from rowData(TCGA_TPM), summarizing the analysis of TCGA
 ## tumor samples. In TCGA_category, genes are tagged as "activated" when
-## at least 20 % of tumors are negative (TPM <= 0.5)
-## and at least one tumor is highly positive (TPM >= 10). Genes that were
-## flagged as testis-specific in `multimapping analysis` are flagged as
-## "mulimapping_issue" in TCGA_category, as most of them  are not detected
-## in TCGA database (we cannot filter on their expression in TCGA dataset).
+## at least 20 % of tumors are negative (TPM <= 0.5), at least 1% of tumors
+## are positive (TPM >= 1) and expressed at TPM > 5 in at least one tumor
+## (to avoid leaky genes). Genes that were flagged as testis-specific in
+## `multimapping analysis` are flagged as "mulimapping_issue" in TCGA_category,
+## as most of them  are not detected in TCGA database
+## (we cannot filter on their expression in TCGA dataset).
 ################################################################################
 all_genes_prelim <- all_genes_prelim %>%
   left_join(as_tibble(rowData(TCGA_TPM), rownames = "ensembl_gene_id") %>%
@@ -178,140 +181,186 @@ all_genes_prelim <- all_genes_prelim %>%
 ## The aim was initially to identify precisely the transcription start site of
 ## each gene, but unexpectedly we observed that for some genes, the reads were
 ## not properly aligned on exons, but were instead spread across a wide genomic
-## region spanning the genes. These genes were removed from the CT_gene category
+## region spanning the genes. These genes, flagged as "unclear" in IGV_backbone
+## column, were removed from the CT_gene category
 ## as their expression values in GTEX, TCGA and CCLE might reflect a poorly
 ## defined transcription in these regions and are hence likely unreliable.
 ################################################################################
-all_genes_prelim[all_genes_prelim$external_gene_name == "MBD3L2",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "NKX2-4",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "FOXR2",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "PSG3",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "DMP1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "ZNF679",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "OR8G5",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "VRTN",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "MBD3L5",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "SPANXN1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "ROR1-AS1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01344",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "SMYD3-AS1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01913",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "KIAA2012-AS1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01986",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01980",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01811",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "IGF2BP2-AS1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02020",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "SNHG27",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02492",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02434",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02113",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02522",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "SIM1-AS1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00326",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "ST7-OT4",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01517",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00867",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02742",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "DLG2-AS2",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02378",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "MRPS35-DT",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02156",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00392",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02293",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "G2E3-AS1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00221",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02152",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02184",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01925",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01895",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01029",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "ZBTB46-AS1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01203",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "MAGEA4-AS1",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "FAM197Y7",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "FAM197Y6",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00112",
-                 "CT_gene_type"] <- "other"
 
-# Testis transcript is not the one found in tumors
-all_genes_prelim[all_genes_prelim$external_gene_name == "SUN3",
-                 "CT_gene_type"] <- "other"
-all_genes_prelim[all_genes_prelim$external_gene_name == "SLC7A11-AS1",
-                 "CT_gene_type"] <- "other"
+all_genes_prelim$IGV_backbone <- NA
+all_genes_prelim[all_genes_prelim$external_gene_name == "MBD3L2",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "NKX2-4",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "FOXR2",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "PSG3",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "DMP1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "ZNF679",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "OR8G5",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "VRTN",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "MBD3L5",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "SPANXN1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "ROR1-AS1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01344",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "SMYD3-AS1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01913",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "KIAA2012-AS1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01980",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01811",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "IGF2BP2-AS1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02020",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "SNHG27",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02492",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02434",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02113",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02522",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "SIM1-AS1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00326",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "ST7-OT4",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01517",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00867",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02742",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "DLG2-AS2",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02378",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "MRPS35-DT",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02156",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00392",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02293",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "G2E3-AS1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00221",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02152",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02184",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01925",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01895",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01029",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "ZBTB46-AS1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01203",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "FAM197Y7",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "FAM197Y6",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00112",
+                 "IGV_backbone"] <- "unclear"
 all_genes_prelim[all_genes_prelim$external_gene_name == "ARHGAP29-AS1",
-                 "CT_gene_type"] <- "other"
+                 "IGV_backbone"] <- "unclear"
+
+
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01804",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "DLX2-DT",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02050",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01208",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01019",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02211",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02109",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02531",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "FIBCD1-AS1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02646",
+                 "IGV_backbone"] <- "unclear"
+
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02700",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02327",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01583",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "TP53TG3D",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "SMIM47",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "KRTAP20-4",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC01665",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "XKR3",
+                 "IGV_backbone"] <- "unclear"
+
+
+
 
 
 ################################################################################
 ## idem but for CTP_genes
 ################################################################################
 all_genes_prelim[all_genes_prelim$external_gene_name == "IL5",
-                 "CT_gene_type"] <- "other"
+                 "IGV_backbone"] <- "unclear"
 all_genes_prelim[all_genes_prelim$external_gene_name == "MYCNOS",
-                 "CT_gene_type"] <- "other"
+                 "IGV_backbone"] <- "unclear"
 all_genes_prelim[all_genes_prelim$external_gene_name == "LEF1-AS1",
-                 "CT_gene_type"] <- "other"
+                 "IGV_backbone"] <- "unclear"
 all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02367",
-                 "CT_gene_type"] <- "other"
+                 "IGV_backbone"] <- "unclear"
 all_genes_prelim[all_genes_prelim$external_gene_name == "LINC02076",
-                 "CT_gene_type"] <- "other"
+                 "IGV_backbone"] <- "unclear"
 all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00664",
-                 "CT_gene_type"] <- "other"
+                 "IGV_backbone"] <- "unclear"
 all_genes_prelim[all_genes_prelim$external_gene_name == "UMODL1",
-                 "CT_gene_type"] <- "other"
+                 "IGV_backbone"] <- "unclear"
 all_genes_prelim[all_genes_prelim$external_gene_name == "P2RX3",
-                 "CT_gene_type"] <- "other"
+                 "IGV_backbone"] <- "unclear"
 
+all_genes_prelim[all_genes_prelim$external_gene_name == "GS1-24F4.2",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "USP2-AS1",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00943",
+                 "IGV_backbone"] <- "unclear"
+all_genes_prelim[all_genes_prelim$external_gene_name == "LKAAEAR1",
+                 "IGV_backbone"] <- "unclear"
+
+
+all_genes_prelim <- all_genes_prelim[is.na(all_genes_prelim$IGV_backbone),]
 
 ################################################################################
 ## Add gene family column
@@ -319,32 +368,30 @@ all_genes_prelim[all_genes_prelim$external_gene_name == "P2RX3",
 
 all_genes_prelim$family <- NA
 all_genes_prelim[grep(pattern = "MAGE", x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "MAGE"
+                      value = FALSE), "family"] <- "MAGE"
 all_genes_prelim[grep(pattern = "CT45A",
                       x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "CT45A"
+                      value = FALSE), "family"] <- "CT45A"
 all_genes_prelim[grep(pattern = "CTAG", x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "CTAG"
+                      value = FALSE), "family"] <- "CTAG"
 all_genes_prelim[grep(pattern = "GAGE", x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "GAGE"
+                      value = FALSE), "family"] <- "GAGE"
 all_genes_prelim[grep(pattern = "XAGE", x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "GAGE"
+                      value = FALSE), "family"] <- "GAGE"
 all_genes_prelim[grep(pattern = "PAGE", x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "PAGE"
+                      value = FALSE), "family"] <- "PAGE"
 all_genes_prelim[grep(pattern = "SPANX",
                       x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "SPANX"
+                      value = FALSE), "family"] <- "SPANX"
 all_genes_prelim[grep(pattern = "SSX", x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "SSX"
+                      value = FALSE), "family"] <- "SSX"
 all_genes_prelim[grep(pattern = "VCX", x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "VCX"
+                      value = FALSE), "family"] <- "VCX"
 all_genes_prelim[grep(pattern = "TSPY", x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "TSPY"
+                      value = FALSE), "family"] <- "TSPY"
 all_genes_prelim[grep(pattern = "RBMY", x = all_genes_prelim$external_gene_name,
-             value = FALSE), "family"] <- "RBMY"
+                      value = FALSE), "family"] <- "RBMY"
 
 save(all_genes_prelim, file = "../extdata/all_genes_prelim.rda",
      compress = "xz",
      compression_level = 9)
-
-
