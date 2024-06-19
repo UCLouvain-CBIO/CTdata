@@ -189,15 +189,17 @@ tmp <- enframe(tmp, name = "ensembl_gene_id", value = "percent_neg_tum")
 rowdata <- left_join(rowdata, tmp)
 
 rowdata$max_TPM_in_TCGA <- rowMax(assay(tumors_only))
-rowdata$max_q75_in_NT <- rowMax(as.matrix(rowdata %>%
-                                            dplyr::select(starts_with("TPM_q75"))))
+rowdata$max_q75_in_NT <- rowMax(as.matrix(
+  rowdata %>% dplyr::select(starts_with("TPM_q75"))))
 
 rowdata <- rowdata %>%
   mutate(TCGA_category = case_when(
     percent_neg_tum < 20 ~ "leaky",
-    percent_neg_tum >= 20 & percent_pos_tum >= 1  & max_TPM_in_TCGA >= 5 ~ "activated",
+    percent_neg_tum >= 20 & percent_pos_tum >= 1  &
+      max_TPM_in_TCGA >= 5 ~ "activated",
     percent_neg_tum >= 20 & percent_pos_tum < 1 ~ "not_activated",
-    percent_neg_tum >= 20 & percent_pos_tum >= 1 & max_TPM_in_TCGA < 5 ~ "lowly_activated"))
+    percent_neg_tum >= 20 & percent_pos_tum >= 1 &
+      max_TPM_in_TCGA < 5 ~ "lowly_activated"))
 
 
 rowdata <- as.data.frame(rowdata)
