@@ -2,6 +2,9 @@
 
 ## CTdata 1.5.1
 
+- Used more stringent threshold to define genes activated in CCLE cell lines ang
+in TCGA tumors (TPM > 1 in at least 1% of tumors and cancer cell lines, 
+and TPM > 5 in at least one tumor and cancer cell line)
 - Changed selection criteria of testis-specific and testis-preferential genes 
 in GTEX 
 - Added a slightly more stringent criteria of selection of testis-specific 
