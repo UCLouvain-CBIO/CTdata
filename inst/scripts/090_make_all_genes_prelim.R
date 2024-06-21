@@ -359,8 +359,9 @@ all_genes_prelim[all_genes_prelim$external_gene_name == "LINC00943",
 all_genes_prelim[all_genes_prelim$external_gene_name == "LKAAEAR1",
                  "IGV_backbone"] <- "unclear"
 
-
-all_genes_prelim <- all_genes_prelim[is.na(all_genes_prelim$IGV_backbone),]
+all_genes_prelim[!is.na(all_genes_prelim$IGV_backbone) &
+                   all_genes_prelim$IGV_backbone == "unclear",
+                 "CT_gene_type"] <- "other"
 
 ################################################################################
 ## Add gene family column

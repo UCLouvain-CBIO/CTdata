@@ -104,5 +104,3 @@ CT_genes <- all_genes %>%
 save(CT_genes, file = "../../eh_data/CT_genes.rda",
      compress = "xz",
      compression_level = 9)
-
-
