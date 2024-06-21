@@ -71,10 +71,9 @@ rownames(TPM_mat) <- TPM$ensembl_gene_id
 ## Values are in log2(TPM + 1), convert to TPM
 TPM_mat <- 2^(TPM_mat) - 1
 
-# Estimate frequencies of activation of each gene
-# in all selected cell lines.
+# Estimate frequencies of cell lines expressing each gene
 # Gene are considered as "activated" if TPM >= TPM_thr
-TPM_thr <- 10
+TPM_thr <- 1
 activation_frequencies <- tibble(ensembl_gene_id = rownames(TPM_mat)) %>%
   left_join(as_tibble(rowData(GTEX_data), rownames = "ensembl_gene_id") %>%
               dplyr::select(ensembl_gene_id, external_gene_name))
@@ -106,9 +105,13 @@ rowdata <- left_join(activation_frequencies, repression_frequencies) %>%
            case_when(is.na(percent_of_positive_CCLE_cell_lines) ~ "not_in_CCLE",
                      percent_of_negative_CCLE_cell_lines < 20 ~ "leaky",
                      percent_of_negative_CCLE_cell_lines >= 20 &
-                       percent_of_positive_CCLE_cell_lines > 0 ~ "activated",
+                       percent_of_positive_CCLE_cell_lines >= 1 &
+                       max_TPM_in_CCLE >= 5 ~ "activated",
                      percent_of_negative_CCLE_cell_lines >= 20 &
-                       percent_of_positive_CCLE_cell_lines == 0 ~ "not_activated")) %>%
+                       percent_of_positive_CCLE_cell_lines < 1 ~ "not_activated",
+                     percent_of_negative_CCLE_cell_lines >= 20 &
+                       percent_of_positive_CCLE_cell_lines >= 1 &
+                       max_TPM_in_CCLE < 5 ~ "lowly_activated")) %>%
   column_to_rownames("ensembl_gene_id")
 
 CCLE_data <- SummarizedExperiment(assays = list(TPM = TPM_mat),
@@ -118,5 +121,3 @@ CCLE_data <- SummarizedExperiment(assays = list(TPM = TPM_mat),
 save(CCLE_data, file = "../../eh_data/CCLE_data.rda",
      compress = "xz",
      compression_level = 9)
-
-
