@@ -60,9 +60,7 @@ BiocManager::install("UCLouvain-CBIO/CTdata")
 
 For details about each data, see their respective manual pages.
 
-## Global datasets
-
-### GTEX data
+## GTEX data
 
 A `SummarizedExperiment` object with gene expression data in normal
 tissues from GTEx database:
@@ -75,7 +73,7 @@ library("SummarizedExperiment")
 GTEX_data()
 ```
 
-### CCLE data
+## CCLE data
 
 A `SummarizedExperiment` object with gene expression data in cancer
 cell lines from CCLE:
@@ -85,7 +83,7 @@ CCLE_data()
 ```
 
 
-### Normal tissue gene expression
+## Normal tissue gene expression
 
 A `SummarizedExperiment` object with gene expression values in normal
 tissues with or without allowing multimapping:
@@ -94,7 +92,7 @@ tissues with or without allowing multimapping:
 normal_tissues_multimapping_data()
 ```
 
-### Demethylated gene expression
+## Demethylated gene expression
 
 A `SummarizedExperiment` object containing genes differential
 expression analysis (with RNAseq expression values) in cell lines
@@ -110,7 +108,7 @@ As above, with multimapping:
 DAC_treated_cells_multimapping()
 ```
 
-### TCGA data
+## TCGA data
 
 A `SummarizedExperiment` with gene expression data in TCGA samples
 (tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
@@ -121,7 +119,7 @@ TCGA_TPM()
 ```
 
 
-### Testis scRNAseq data
+## Testis scRNAseq data
 
 A `SingleCellExperiment` object containing gene expression from testis
 single cell RNAseq experiment (*The adult human testis transcriptional
@@ -135,26 +133,114 @@ library("SingleCellExperiment")
 testis_sce()
 ```
 
+## Fetal germ cell scRNAseq data
 
-### Human Protein Atlas data
+A `SingleCellExperiment` object containing gene expression from fetal germ cells
+single cell RNAseq experiment (*Single-cell roadmap of human gonadal development
+*(Garcia-Alonso et al. 2022)):
+
+```{r}
+FGC_sce()
+```
+
+## Oocytes scRNAseq data
+
+A `SingleCellExperiment` object containing gene expression from oocyres
+single cell RNAseq experiment (Yan et al. 2021):
+
+```{r}
+oocytes_sce()
+```
+
+
+## Human Protein Atlas scRNAseq data
 
 A `SingleCellExperiment` object containing gene expression in different human
 cell types based on scRNAseq data obtained from the Human Protein Atlas
-(https://www.proteinatlas.org)/
+(https://www.proteinatlas.org)
 
 ```{r}
 scRNAseq_HPA()
 ```
 
+## Human Protein Atlas cell type specificity data
+
+A `tibble` object containing cell type specificities based on scRNAseq data 
+from the Human Protein Atlas (https://www.proteinatlas.org)
+
+```{r}
+HPA_cell_type_specificities()
+```
+
+## Metylation in normal tissue
+
+A `RangedSummarizedExperiment` containing methylation of CpGs located
+within gene promoters in normal tissues:
+
+```{r}
+methylation_in_tissues()
+```
+
+(`CT_methylation_in_tissues` before before v 1.5)
+
+
+A `SummarizedExperiment` with all genes' promoters mean
+methylation in normal tissues:
+
+```{r}
+mean_methylation_in_tissues()
+```
+
+(`CT_mean_methylation_in_tissues` before before v 1.5)
+
+## TCGA data
+
+A `SummarizedExperiment` with gene expression data in TCGA samples
+(tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
+and HNSC):
+
+
+```{r}
+TCGA_CT_methylation()
+```
+
+## CCLE data
+
+A `matrix` with gene expression correlations in CCLE cancer cell lines:
+
+```{r}
+dim(CCLE_correlation_matrix())
+CCLE_correlation_matrix()[1:10, 1:5]
+```
+
+
 ## CT genes determination
+
+### All genes
+
+```{r, echo = FALSE}
+all_genes <- all_genes()
+n <- nrow(all_genes)
+```
+
+The entire analysis can be found in `all_genes`, a tibble like `CT_genes` 
+containing all `r n` genes characterisation. 
+
+A `tibble` with all genes and their characteristics:
+
+```{r}
+all_genes()
+```
+
+
+###  CT genes 
 
 ```{r, echo = FALSE}
 ctgenes <- CT_genes()
 n <- nrow(ctgenes)
 ```
 
-
-With the datasets above, we generated a list of `r n` CT genes (see
+With the datasets above, we generated a list of `r n` CT and CTP genes (see
 figure below for details).
 
 We used multimapping because many CT genes belong to gene families
@@ -166,50 +252,9 @@ CT genes can thus only be detected in RNAseq data in which
 multimapping reads are not discarded.
 
 ```{r, echo=FALSE, fig.align='center', out.width = '100%'}
-knitr::include_graphics("CT_selection.svg")
+knitr::include_graphics("Figure_CT.png")
 ```
 
-
-## CT datasets
-
-### Metylation in normal tissue
-
-A `RangedSummarizedExperiment` containing methylation of CpGs located
-within CT promoters in normal tissues:
-
-```{r}
-CT_methylation_in_tissues()
-```
-
-A `SummarizedExperiment` with Cancer-Testis genes' promoters mean
-methylation in normal tissues:
-
-```{r}
-CT_mean_methylation_in_tissues()
-```
-
-### TCGA data
-
-A `SummarizedExperiment` with gene expression data in TCGA samples
-(tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
-and HNSC):
-
-
-```{r}
-TCGA_CT_methylation()
-```
-
-### CCLE data
-
-A `matrix` with gene expression correlations in CCLE cancer cell lines:
-
-```{r}
-dim(CCLE_correlation_matrix())
-CCLE_correlation_matrix()[1:10, 1:5]
-```
-
-
-### CT genes
 
 A `tibble` with Cancer-Testis (CT) genes and their characteristics:
 
