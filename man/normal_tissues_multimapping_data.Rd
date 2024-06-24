@@ -5,7 +5,7 @@
 \alias{normal_tissues_multimapping_data}
 \title{Gene expression values in normal tissues}
 \format{
-A \code{SummarizedExperiment} object with 24516 rows and 18 columns
+A \code{SummarizedExperiment} object with 24504 rows and 18 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to normal tissues.

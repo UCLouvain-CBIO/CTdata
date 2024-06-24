@@ -5,7 +5,7 @@
 \alias{all_genes}
 \title{All genes genes description table}
 \format{
-A \code{tibble} object with 24502 rows and 41 columns.
+A \code{tibble} object with 24488 rows and 47 columns.
 \itemize{
 \item Rows correspond to genes
 \item Columns give genes characteristics
@@ -29,7 +29,7 @@ CT_genes characteristics column:
 ("CT_gene" : testis_specific in \code{testis_specificity}) and activated in
 "TCGA_category" and "CCLE_category) or CT preferential gene ("CTP_gene" :
 testis_preferential in \code{testis_specificity}) and activated in"TCGA_category"
-and "CCLE_category"). If none, gene is labelled "other"
+and "CCLE_category").
 \item Column \code{testis_specificity} gives the testis-specificity of genes
 assigned to each gene using \code{GTEX_category} and \code{multimapping_analysis}
 ("testis_specific" or "testis_preferential"). Genes were assigned
@@ -46,8 +46,12 @@ genomic location.
 \item Column \code{GTEX_category} gives the category ("testis_specific",
 "testis_preferential" or "lowly_expressed") assigned to each gene
 using GTEx database (see \code{?GTEX_data} for details).
+\item Column \code{q75_TPM_somatic} gives the q75 expression level found
+in a somatic tissue (using GTEx database).
 \item Column \code{max_TPM_somatic} gives the maximum expression level found
 in a somatic tissue (using GTEx database).
+\item Column \code{ratio_testis_somatic} gives the ratio between expression in testis
+and the highest expression found in a somatic tissue (using GTEx database).
 \item Column \code{TPM_testis} gives the gene expression level in testis
 (using GTEx database).
 \item Column \code{lowly_expressed_in_GTEX} indicates if the gene is lowly
@@ -58,37 +62,41 @@ multimapping allowed.
 when multi-mapped reads were counted for gene expression in
 normal tissues ("not_analysed" or "testis_specific") (see
 \code{?normal_tissues_multimapping_data} for details).
-\item Column \code{HPA_scRNAseq_celltype_specific_nTPM} specifies the cell types in
+\item Column \code{HPA_RNA_single_cell_type_specific_nTPM} specifies the cell types in
 which genes were detected in the HPA single cell data (see
 \code{?HPA_cell_type_specificity} for details).
-\item Column\code{not_detected_in_somatic_HPA} specifies if the gene is detected or
-not in a somatic cell type based on the value of the column
-\code{HPA_RNA_single_cell_type_specific_nTPM}(see \code{?HPA_cell_type_specificity}
-for details).
+\item Column \code{max_HPA_germcell} specifies if the maximum expression value in a
+germ cell type. (see  \code{?HPA_cell_type_specificity} for details).
+\item Column \code{max_HPA_somatic} specifies if the maximum expression value in a
+somatic cell type. (see  \code{?HPA_cell_type_specificity} for details).
+\item Column \code{not_detected_in_somatic_HPA} specifies if the gene is detected or
+not in a somatic cell type. (see  \code{?HPA_cell_type_specificity} for details).
+\item Column \code{HPA_ratio_germ_som} gives the ratio between \code{max_HPA_germcell} and
+\code{max_HPA_somatic} columns.
 \item Column \code{percent_of_positive_CCLE_cell_lines} gives the percentage
 of CCLE cancer cell lines in which genes are expressed (genes
-were considered as expressed if TPM >= 10).
+were considered as expressed if TPM >= 1).
 \item Column \code{percent_of_negative_CCLE_cell_lines} gives the percentage
 of CCLE cancer cell lines in which genes are repressed (TPM <=
-0.1).
+0.5).
 \item Column \code{max_TPM_in_CCLE} gives the highest expression level of
 genes in CCLE cell lines.
 \item Column \code{CCLE_category} gives the category assigned to each gene
 using CCLE data. "Activated" category corresponds to genes
-expressed in at least one cell line (TPM >= 10) and repressed in
+expressed in at least 1\% of cell lines (TPM >= 1) and repressed in
 at least 20\% of cell lines.
 \item Column \code{percent_pos_tum} gives the percentage of TCGA cancer
 samples in which genes are expressed (genes were considered as
-expressed if TPM >= 10).
+expressed if TPM >= 1).
 \item Column \code{percent_neg_tum} gives the percentage of TCGA cancer samples in
-which genes are repressed (TPM <= 0.1).
+which genes are repressed (TPM <= 0.5).
 \item Column \code{max_TPM_in_TCGA} gives the highest expression level of
 genes in TCGA cancer sample.
 \item Column \code{max_q75_in_NT} gives the maximum q75 expression in normal
 peritumoral tissues from TCGA.
 \item Column \code{TCGA_category} gives the category assigned to each gene
 using TCGA data. "activated" category corresponds to genes
-expressed in at least one tumor (TPM >= 10) and repressed in at
+expressed in at least 1\% of tumors (TPM >= 1) and repressed in at
 least 20\% of samples.  "multimapping_issue" corresponds to genes
 that need multi-mapping to be allowed in order to be analysed
 properly.
@@ -96,6 +104,9 @@ properly.
 \code{transcript_biotype} give the references and informations about
 the most biologically relevant transcript associated to each
 gene.
+\item Column \code{IGV_backbone} indicates if a gene has been removed from CT genes
+as RNA-Seq reads were not properly aligned on exons, but were instead
+spread across a wide genomic region spanning the genes.
 \item Column \code{family} gives the gene family name.
 \item Column \code{DAC_induced} summarises the results (\code{TRUE} or \code{FALSE})
 of a differential expression evaluating gene induction upon DAC

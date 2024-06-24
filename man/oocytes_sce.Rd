@@ -5,14 +5,14 @@
 \alias{oocytes_sce}
 \title{Oocytes scRNAseq}
 \format{
-A \code{SingleCellExperiment} object with 21504 rows and 899 columns
+A \code{SingleCellExperiment} object with 26500 rows and 899 columns
 \itemize{
 \item Rows correspond to genes(gene names as rownames)
 \item Columns correspond to cells
 }
 }
 \source{
-GSE154762_hO_scChaRM_count_matix.txt.gz\verb{was downloaded from GEO (accession: GSE154762). The data were converted in a SingleCellExperiment (see}scripts/074_make_oocytes_sce.R` for details).
+GSE154762_hO_scChaRM_count_matix.txt.gz\verb{was downloaded from GEO (accession: GSE154762). The data were converted in a SingleCellExperiment (see}scripts/make_oocytes_sce.R` for details).
 }
 \description{
 Human oocytes single cell RNAseq data from

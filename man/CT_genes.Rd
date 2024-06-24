@@ -5,7 +5,7 @@
 \alias{CT_genes}
 \title{CT genes description table}
 \format{
-A \code{tibble} object with 238 rows and 41 columns.
+A \code{tibble} object with 280 rows and 47 columns.
 \itemize{
 \item Rows correspond to CT genes
 \item Columns give CT genes characteristics
@@ -75,28 +75,28 @@ not in a somatic cell type. (see  \code{?HPA_cell_type_specificity} for details)
 \code{max_HPA_somatic} columns.
 \item Column \code{percent_of_positive_CCLE_cell_lines} gives the percentage
 of CCLE cancer cell lines in which genes are expressed (genes
-were considered as expressed if TPM >= 10).
+were considered as expressed if TPM >= 1).
 \item Column \code{percent_of_negative_CCLE_cell_lines} gives the percentage
 of CCLE cancer cell lines in which genes are repressed (TPM <=
-0.1).
+0.5).
 \item Column \code{max_TPM_in_CCLE} gives the highest expression level of
 genes in CCLE cell lines.
 \item Column \code{CCLE_category} gives the category assigned to each gene
 using CCLE data. "Activated" category corresponds to genes
-expressed in at least one cell line (TPM >= 10) and repressed in
+expressed in at least 1\% of cell lines (TPM >= 1) and repressed in
 at least 20\% of cell lines.
 \item Column \code{percent_pos_tum} gives the percentage of TCGA cancer
 samples in which genes are expressed (genes were considered as
-expressed if TPM >= 10).
+expressed if TPM >= 1).
 \item Column \code{percent_neg_tum} gives the percentage of TCGA cancer samples in
-which genes are repressed (TPM <= 0.1).
+which genes are repressed (TPM <= 0.5).
 \item Column \code{max_TPM_in_TCGA} gives the highest expression level of
 genes in TCGA cancer sample.
 \item Column \code{max_q75_in_NT} gives the maximum q75 expression in normal
 peritumoral tissues from TCGA.
 \item Column \code{TCGA_category} gives the category assigned to each gene
 using TCGA data. "activated" category corresponds to genes
-expressed in at least one tumor (TPM >= 10) and repressed in at
+expressed in at least 1\% of tumors (TPM >= 1) and repressed in at
 least 20\% of samples.  "multimapping_issue" corresponds to genes
 that need multi-mapping to be allowed in order to be analysed
 properly.
@@ -104,6 +104,9 @@ properly.
 \code{transcript_biotype} give the references and informations about
 the most biologically relevant transcript associated to each
 gene.
+\item Column \code{IGV_backbone} indicates if a gene has been removed from CT genes
+as RNA-Seq reads were not properly aligned on exons, but were instead
+spread across a wide genomic region spanning the genes.
 \item Column \code{family} gives the gene family name.
 \item Column \code{DAC_induced} summarises the results (\code{TRUE} or \code{FALSE})
 of a differential expression evaluating gene induction upon DAC

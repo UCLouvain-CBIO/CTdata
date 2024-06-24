@@ -5,7 +5,7 @@
 \alias{TCGA_TPM}
 \title{Gene expression in TCGA samples}
 \format{
-A \code{SummarizedExperiment} object with 24509 rows and 4141 columns
+A \code{SummarizedExperiment} object with 24497 rows and 4141 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to samples
@@ -31,12 +31,15 @@ promotes immune evasion of tumours with high mutation and copy
 number load} from Jang et al., Nature Commun 2019 that were added
 (see \code{inst/scripts/make_TCGA_TPM.R} for details).
 \item The rowData contains genes information and, for each gene, the
-percentage of tumors that are positive (TPM >= 10), and the
+percentage of tumors that are positive (TPM >= 1), and the
 percentage of tumors that are negative (TPM < 0.5). In column
 \code{TCGA_category}, genes are labelled as "activated" when the
-percentage of positive tumors is > 0 and when at least 20\% of
-tumors are negative. Genes are labelled as "not_activated" when
-the percentage of positive tumors is 0. Genes are labelled as
-"leaky" when less than 20\% of tumors are negative.
+percentage of positive tumors is > 1, with a maximal expression higher than
+5 TPM, and when at least 20\% of tumors are negative. Genes are labelled as
+"not_activated" when the percentage of positive tumors is lower than 1.
+Genes are labelled as "leaky" when less than 20\% of tumors are negative.
+Genes are labelled as "lowly_expressed" when repressed (TPM <= 0.5)
+in at least 20\%, expressed (TPM >= 1) in more than 1 \% of cell lines, with
+a maximum expression lower than 5 TPM.
 }
 }

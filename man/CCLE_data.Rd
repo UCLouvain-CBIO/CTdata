@@ -5,7 +5,7 @@
 \alias{CCLE_data}
 \title{Genes expression data in CCLE}
 \format{
-A \code{SummarizedExperiment} object with 24483 rows and 1229 columns
+A \code{SummarizedExperiment} object with 24473 rows and 1229 columns
 \itemize{
 \item Rows correspond to genes (ensembl_gene_id)
 \item Columns correspond to CCLE cell lines
@@ -25,7 +25,7 @@ The rowData contains
 \itemize{
 \item A column \code{percent_of_positive_CCLE_cell_lines} that gives the
 percentage of CCLE cell lines (all cell lines combined)
-expressing the gene at a highly level (TPM >= 10).
+expressing the gene (TPM >= 1).
 \item A column \code{percent_of_negative_CCLE_cell_lines} that gives the
 percent of CCLE cell lines (all cell lines combined) in which
 genes are repressed (TPM < 0.5)
@@ -33,12 +33,15 @@ genes are repressed (TPM < 0.5)
 TPM) found in all cell lines.
 \item A column \code{CCLE_category} gives the category ("activated",
 "not_activated", "leaky") assigned to each gene.  "activated"
-category corresponds to genes highly expressed (TPM >= 10) in at
-least one cell line and repressed (TPM <= 0.5) in at least 20\% of
-cell lines.  "not_activated" category corresponds to genes
-repressed (TPM <= 0.5) in at least 20\% of cell lines but never
-expressed (TPM >= 10) in any cell line.  "leaky" category
+category corresponds to genes expressed (TPM >= 1) in at
+least 1\% of cell lines, repressed (TPM <= 0.5) in at least 20\% of
+cell lines with a maximal expression higher than 5 TPM.
+"not_activated" category corresponds to genes
+repressed (TPM <= 0.5) in at least 20\% of cell lines but
+expressed (TPM >= 1) less than 1\%.  "leaky" category
 corresponds to genes repressed (TPM <= 0.5) in less than 20\% of
-cell lines.
+cell lines. "lowly_expressed" corresponds to genes repressed (TPM <= 0.5)
+in at least 20\%, expressed (TPM >= 1) in more than 1 \% of cell lines, with
+a maximum expression lower than 5 TPM.
 }
 }

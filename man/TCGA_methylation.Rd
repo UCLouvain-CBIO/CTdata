@@ -22,6 +22,6 @@ in CT genes promoter regions (see
 \code{scripts/make_TCGA_methylation.R} for details).
 }
 \description{
-Methylation values of probes located within Cancer-Testis (CT)
+Methylation values of probes located within all genes
 promoters in samples from TCGA (tumor and peritumoral samples)
 }

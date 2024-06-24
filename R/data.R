@@ -6,7 +6,7 @@
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 24516 rows and 32 columns
+#' A `SummarizedExperiment` object with 24504 rows and 32 columns
 #'
 #' - Rows correspond to genes (ensembl_gene_id as rownames)
 #' - Columns correspond to tissues
@@ -61,7 +61,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SingleCellExperiment` object with 19604 rows and 6490 columns
+#' A `SingleCellExperiment` object with 20891 rows and 6490 columns
 #'
 #' - Rows correspond to genes (gene names as rownames)
 #' - Columns correspond to testis cells
@@ -162,7 +162,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 24483 rows and 1229 columns
+#' A `SummarizedExperiment` object with 24473 rows and 1229 columns
 #'
 #' - Rows correspond to genes (ensembl_gene_id)
 #' - Columns correspond to CCLE cell lines
@@ -175,7 +175,7 @@ NULL
 #'
 #' - A column `percent_of_positive_CCLE_cell_lines` that gives the
 #'   percentage of CCLE cell lines (all cell lines combined)
-#'   expressing the gene at a highly level (TPM >= 10).
+#'   expressing the gene (TPM >= 1).
 #'
 #' - A column `percent_of_negative_CCLE_cell_lines` that gives the
 #'   percent of CCLE cell lines (all cell lines combined) in which
@@ -186,13 +186,17 @@ NULL
 #'
 #' - A column `CCLE_category` gives the category ("activated",
 #'   "not_activated", "leaky") assigned to each gene.  "activated"
-#'   category corresponds to genes highly expressed (TPM >= 10) in at
-#'   least one cell line and repressed (TPM <= 0.5) in at least 20% of
-#'   cell lines.  "not_activated" category corresponds to genes
-#'   repressed (TPM <= 0.5) in at least 20% of cell lines but never
-#'   expressed (TPM >= 10) in any cell line.  "leaky" category
+#'   category corresponds to genes expressed (TPM >= 1) in at
+#'   least 1% of cell lines, repressed (TPM <= 0.5) in at least 20% of
+#'   cell lines with a maximal expression higher than 5 TPM.
+#'   "not_activated" category corresponds to genes
+#'   repressed (TPM <= 0.5) in at least 20% of cell lines but
+#'   expressed (TPM >= 1) less than 1%.  "leaky" category
 #'   corresponds to genes repressed (TPM <= 0.5) in less than 20% of
-#'   cell lines.
+#'   cell lines. "lowly_expressed" corresponds to genes repressed (TPM <= 0.5)
+#'   in at least 20%, expressed (TPM >= 1) in more than 1 % of cell lines, with
+#'   a maximum expression lower than 5 TPM.
+#'
 #'
 #' @source
 #'
@@ -216,7 +220,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 24516 rows and 18 columns
+#' A `SummarizedExperiment` object with 24504 rows and 18 columns
 #'
 #' - Rows correspond to genes (ensembl_gene_id)
 #'
@@ -453,7 +457,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SummarizedExperiment` object with 24509 rows and 4141 columns
+#' A `SummarizedExperiment` object with 24497 rows and 4141 columns
 #'
 #' - Rows correspond to genes (ensembl_gene_id)
 #'
@@ -474,13 +478,16 @@ NULL
 #'   (see `inst/scripts/make_TCGA_TPM.R` for details).
 #'
 #' - The rowData contains genes information and, for each gene, the
-#'   percentage of tumors that are positive (TPM >= 10), and the
+#'   percentage of tumors that are positive (TPM >= 1), and the
 #'   percentage of tumors that are negative (TPM < 0.5). In column
 #'   `TCGA_category`, genes are labelled as "activated" when the
-#'   percentage of positive tumors is > 0 and when at least 20% of
-#'   tumors are negative. Genes are labelled as "not_activated" when
-#'   the percentage of positive tumors is 0. Genes are labelled as
-#'   "leaky" when less than 20% of tumors are negative.
+#'   percentage of positive tumors is > 1, with a maximal expression higher than
+#'   5 TPM, and when at least 20% of tumors are negative. Genes are labelled as
+#'   "not_activated" when the percentage of positive tumors is lower than 1.
+#'   Genes are labelled as "leaky" when less than 20% of tumors are negative.
+#'   Genes are labelled as "lowly_expressed" when repressed (TPM <= 0.5)
+#'   in at least 20%, expressed (TPM >= 1) in more than 1 % of cell lines, with
+#'   a maximum expression lower than 5 TPM.
 #'
 #' @source
 #'
@@ -497,7 +504,7 @@ NULL
 #'
 #' @description
 #'
-#' Methylation values of probes located within Cancer-Testis (CT)
+#' Methylation values of probes located within all genes
 #' promoters in samples from TCGA (tumor and peritumoral samples)
 #'
 #' @format
@@ -535,7 +542,7 @@ NULL
 #'
 #' @format
 #'
-#' A `tibble` object with 238 rows and 41 columns.
+#' A `tibble` object with 280 rows and 47 columns.
 #'
 #' - Rows correspond to CT genes
 #'
@@ -616,26 +623,26 @@ NULL
 #'
 #' - Column `percent_of_positive_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are expressed (genes
-#'   were considered as expressed if TPM >= 10).
+#'   were considered as expressed if TPM >= 1).
 #'
 #' - Column `percent_of_negative_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are repressed (TPM <=
-#'   0.1).
+#'   0.5).
 #'
 #' - Column `max_TPM_in_CCLE` gives the highest expression level of
 #'   genes in CCLE cell lines.
 #'
 #' - Column `CCLE_category` gives the category assigned to each gene
 #'   using CCLE data. "Activated" category corresponds to genes
-#'   expressed in at least one cell line (TPM >= 10) and repressed in
+#'   expressed in at least 1% of cell lines (TPM >= 1) and repressed in
 #'   at least 20% of cell lines.
 #'
 #' - Column `percent_pos_tum` gives the percentage of TCGA cancer
 #'   samples in which genes are expressed (genes were considered as
-#'   expressed if TPM >= 10).
+#'   expressed if TPM >= 1).
 #'
 #' - Column `percent_neg_tum` gives the percentage of TCGA cancer samples in
-#'   which genes are repressed (TPM <= 0.1).
+#'   which genes are repressed (TPM <= 0.5).
 #'
 #' - Column `max_TPM_in_TCGA` gives the highest expression level of
 #'   genes in TCGA cancer sample.
@@ -645,7 +652,7 @@ NULL
 #'
 #' - Column `TCGA_category` gives the category assigned to each gene
 #'   using TCGA data. "activated" category corresponds to genes
-#'   expressed in at least one tumor (TPM >= 10) and repressed in at
+#'   expressed in at least 1% of tumors (TPM >= 1) and repressed in at
 #'   least 20% of samples.  "multimapping_issue" corresponds to genes
 #'   that need multi-mapping to be allowed in order to be analysed
 #'   properly.
@@ -654,6 +661,10 @@ NULL
 #'   `transcript_biotype` give the references and informations about
 #'   the most biologically relevant transcript associated to each
 #'   gene.
+#'
+#' - Column `IGV_backbone` indicates if a gene has been removed from CT genes
+#'   as RNA-Seq reads were not properly aligned on exons, but were instead
+#'   spread across a wide genomic region spanning the genes.
 #'
 #' - Column `family` gives the gene family name.
 #'
@@ -706,7 +717,7 @@ NULL
 #'
 #' @format
 #'
-#' A `tibble` object with 24502 rows and 41 columns.
+#' A `tibble` object with 24488 rows and 47 columns.
 #'
 #' - Rows correspond to genes
 #'
@@ -723,7 +734,7 @@ NULL
 #'  ("CT_gene" : testis_specific in `testis_specificity`) and activated in
 #'  "TCGA_category" and "CCLE_category) or CT preferential gene ("CTP_gene" :
 #'  testis_preferential in `testis_specificity`) and activated in"TCGA_category"
-#'   and "CCLE_category"). If none, gene is labelled "other"
+#'   and "CCLE_category").
 #'
 #' - Column `testis_specificity` gives the testis-specificity of genes
 #'   assigned to each gene using `GTEX_category` and `multimapping_analysis`
@@ -746,8 +757,14 @@ NULL
 #'   "testis_preferential" or "lowly_expressed") assigned to each gene
 #'   using GTEx database (see `?GTEX_data` for details).
 #'
+#'  - Column `q75_TPM_somatic` gives the q75 expression level found
+#'   in a somatic tissue (using GTEx database).
+#'
 #' - Column `max_TPM_somatic` gives the maximum expression level found
 #'   in a somatic tissue (using GTEx database).
+#'
+#' - Column `ratio_testis_somatic` gives the ratio between expression in testis
+#'   and the highest expression found in a somatic tissue (using GTEx database).
 #'
 #' - Column `TPM_testis` gives the gene expression level in testis
 #'   (using GTEx database).
@@ -762,37 +779,45 @@ NULL
 #'   normal tissues ("not_analysed" or "testis_specific") (see
 #'   `?normal_tissues_multimapping_data` for details).
 #'
-#' - Column `HPA_scRNAseq_celltype_specific_nTPM` specifies the cell types in
+#' - Column `HPA_RNA_single_cell_type_specific_nTPM` specifies the cell types in
 #'   which genes were detected in the HPA single cell data (see
 #'   `?HPA_cell_type_specificity` for details).
 #'
-#' - Column`not_detected_in_somatic_HPA` specifies if the gene is detected or
-#'   not in a somatic cell type based on the value of the column
-#'   `HPA_RNA_single_cell_type_specific_nTPM`(see `?HPA_cell_type_specificity`
-#'   for details).
+#' - Column `max_HPA_germcell` specifies if the maximum expression value in a
+#' germ cell type. (see  `?HPA_cell_type_specificity` for details).
+#'
+#' - Column `max_HPA_somatic` specifies if the maximum expression value in a
+#' somatic cell type. (see  `?HPA_cell_type_specificity` for details).
+#'
+##' - Column `not_detected_in_somatic_HPA` specifies if the gene is detected or
+#' not in a somatic cell type. (see  `?HPA_cell_type_specificity` for details).
+#'
+#' - Column `HPA_ratio_germ_som` gives the ratio between `max_HPA_germcell` and
+#' `max_HPA_somatic` columns.
+
 #'
 #' - Column `percent_of_positive_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are expressed (genes
-#'   were considered as expressed if TPM >= 10).
+#'   were considered as expressed if TPM >= 1).
 #'
 #' - Column `percent_of_negative_CCLE_cell_lines` gives the percentage
 #'   of CCLE cancer cell lines in which genes are repressed (TPM <=
-#'   0.1).
+#'   0.5).
 #'
 #' - Column `max_TPM_in_CCLE` gives the highest expression level of
 #'   genes in CCLE cell lines.
 #'
 #' - Column `CCLE_category` gives the category assigned to each gene
 #'   using CCLE data. "Activated" category corresponds to genes
-#'   expressed in at least one cell line (TPM >= 10) and repressed in
+#'   expressed in at least 1% of cell lines (TPM >= 1) and repressed in
 #'   at least 20% of cell lines.
 #'
 #' - Column `percent_pos_tum` gives the percentage of TCGA cancer
 #'   samples in which genes are expressed (genes were considered as
-#'   expressed if TPM >= 10).
+#'   expressed if TPM >= 1).
 #'
 #' - Column `percent_neg_tum` gives the percentage of TCGA cancer samples in
-#'   which genes are repressed (TPM <= 0.1).
+#'   which genes are repressed (TPM <= 0.5).
 #'
 #' - Column `max_TPM_in_TCGA` gives the highest expression level of
 #'   genes in TCGA cancer sample.
@@ -802,7 +827,7 @@ NULL
 #'
 #' - Column `TCGA_category` gives the category assigned to each gene
 #'   using TCGA data. "activated" category corresponds to genes
-#'   expressed in at least one tumor (TPM >= 10) and repressed in at
+#'   expressed in at least 1% of tumors (TPM >= 1) and repressed in at
 #'   least 20% of samples.  "multimapping_issue" corresponds to genes
 #'   that need multi-mapping to be allowed in order to be analysed
 #'   properly.
@@ -811,6 +836,10 @@ NULL
 #'   `transcript_biotype` give the references and informations about
 #'   the most biologically relevant transcript associated to each
 #'   gene.
+#'
+#' - Column `IGV_backbone` indicates if a gene has been removed from CT genes
+#'   as RNA-Seq reads were not properly aligned on exons, but were instead
+#'   spread across a wide genomic region spanning the genes.
 #'
 #' - Column `family` gives the gene family name.
 #'
@@ -843,7 +872,6 @@ NULL
 #' - Columns `oncogene` and `tumor_suppressor` informs if oncogenic
 #'   and tumor-suppressor functions have been associated to genes
 #'   (source: [Cancermine](http://bionlp.bcgsc.ca/cancermine/)).
-#'
 #' @source
 #'
 #' See `scripts/make_all_genes_prelim.R` and
@@ -896,7 +924,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SingleCellExperiment` object with 22496 rows and 10850 columns
+#' A `SingleCellExperiment` object with 22489 rows and 10850 columns
 #'
 #' - Rows correspond to genes (gene names as rownames)
 #' - Columns correspond to cells
@@ -916,7 +944,7 @@ NULL
 #' ee58527e-e1e4-465d-8dc8-800ee40f14f2.rds file dowloaded from
 #' https://cellxgene.cziscience.com/collections/661a402a-2a5a-4c71-9b05-b346c57bc451Data.
 #' The data were converted in a SingleCellExperiment
-#' (see `scripts/072_make_FGC_sce.R` for details).
+#' (see `scripts/make_FGC_sce.R` for details).
 #'
 #' @name FGC_sce
 #'
@@ -933,7 +961,7 @@ NULL
 #'
 #' @format
 #'
-#' A `SingleCellExperiment` object with 21504 rows and 899 columns
+#' A `SingleCellExperiment` object with 26500 rows and 899 columns
 #'
 #' - Rows correspond to genes(gene names as rownames)
 #'
@@ -953,7 +981,7 @@ NULL
 #'
 #' GSE154762_hO_scChaRM_count_matix.txt.gz` was downloaded from GEO
 #' (accession: GSE154762). The data were converted in a SingleCellExperiment
-#' (see `scripts/074_make_oocytes_sce.R` for details).
+#' (see `scripts/make_oocytes_sce.R` for details).
 #'
 #' @name oocytes_sce
 #'
@@ -969,7 +997,7 @@ NULL
 #'
 #' @format
 #'
-#' A `tibble` object with 24516 rows and 4 columns.
+#' A `tibble` object with 24504 rows and 7 columns.
 #'
 #' - Rows correspond to genes (ensembl_gene_id)
 #'
@@ -1000,9 +1028,9 @@ NULL
 #' @source
 #' `proteinatlas.tsv` was downloaded from the Human Protein Atlas
 #' (https://www.proteinatlas.org)
-#' See `scripts/081_make_HPA_cell_type_specificity.R` for details.
+#' See `scripts/make_HPA_cell_type_specificities.R` for details.
 #'
-#' @name HPA_cell_type_specificity
+#' @name HPA_cell_type_specificities
 #'
 #' @docType data
 NULL
