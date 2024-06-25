@@ -30,13 +30,14 @@ FGC_sce <- FGC_sce[, FGC_sce$type %in%
                "F_oogonia_meiotic", "F_pre_oocyte", "F_oocyte",
                "M_PGC", "M_GC", "M_GC_mitotic", "M_pre_spermatogonia")]
 
-## Merge cell types into 5 major germ cells states.
-## See Supplementary Note 3 "Characterisation of germ cells" from paper.
 FGC_sce$type[FGC_sce$type %in% c("F_GC", "F_GC_mitotic")] <- "F_GC"
 FGC_sce$type[FGC_sce$type %in% c("M_GC", "M_GC_mitotic")] <- "M_GC"
 
-FGC_sce$type[FGC_sce$type %in% c("F_oogonia_STRA8", "F_oogonia_meiotic")] <-
-  "F_oogonia"
+## Merge cell types into 5 major germ cells states.
+## See Supplementary Note 3 "Characterisation of germ cells" from paper.
+# table(FGC_sce$type, FGC_sce$cell_type)
+FGC_sce$Type <- FGC_sce$type
+FGC_sce$type[FGC_sce$type %in% c("F_oogonia_STRA8", "F_oogonia_meiotic")] <- "F_oogonia"
 FGC_sce$type[FGC_sce$type %in% c("F_pre_oocyte", "F_oocyte")] <- "F_oocyte"
 
 FGC_sce$type <- factor(FGC_sce$type, levels =
