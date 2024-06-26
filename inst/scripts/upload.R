@@ -56,7 +56,9 @@ src <- c("/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/all_gen
          "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/scRNAseq_HPA.rda",
          "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/TCGA_methylation.rda",
          "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/TCGA_TPM.rda",
-         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/testis_sce.rda")
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/testis_sce.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/embryo_sce_Zhu.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/embryo_sce_Petropoulos.rda")
 
 dest <- c("CTdata/eh_data/v2/CCLE_data.rda",
           "CTdata/eh_data/v2/DAC_treated_cells_multimapping.rda",
@@ -74,7 +76,9 @@ dest <- c("CTdata/eh_data/v2/CCLE_data.rda",
           "CTdata/eh_data/mean_methylation_in_tissues.rda",
           "CTdata/eh_data/methylation_in_tissues.rda",
           "CTdata/eh_data/oocytes_sce.rda",
-          "CTdata/eh_data/TCGA_methylation.rda")
+          "CTdata/eh_data/TCGA_methylation.rda",
+          "CTdata/eh_data/embryo_sce_Zhu.rda",
+          "CTdata/eh_data/embryo_sce_Petropoulos.rda")
 
 # Removed CT_methylation_in_tissues.rda, CT_mean_methylation_in_tissues.rda,
 # TCGA_CT_methylation.rda

@@ -1035,3 +1035,83 @@ NULL
 #' @docType data
 NULL
 
+#' Embryo scRNAseq
+#'
+#' @description
+#'
+#' Human embryo single cell RNAseq data in FPKM from
+#' `Single Cell DNA Methylome Sequencing of Human Preimplantation
+## Embryos` (Zhu et al. 2018)
+#'
+#' @format
+#'
+#' A `SingleCellExperiment` object with 26255 rows and 50 columns
+#'
+#' - Rows correspond to genes (gene names as rownames)
+#'
+#' - Columns correspond to cells
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `embryo` gives the embryo the cell is coming from.
+#'
+#' - Column `stage` specifies the stage of the early embryo.
+#'
+#' - Column `sex` is the sex inference made using the expression of RPS4Y1. If
+#' mean expression of RPS4Y1 is higher than 50 FPKM, the sample is male.
+#'
+#' @source
+#'
+#' 50 FPKM files were downloaded from GEO
+#' (accession: GSE81233). The data were converted in a SingleCellExperiment
+#' (see `scripts/make_embryo_sce_Zhu.R` for details).
+#'
+#' @name embryo_sce_Zhu
+#'
+#' @docType data
+NULL
+
+#' Embryo scRNAseq
+#'
+#' @description
+#'
+#' Human embryo single cell RNAseq data in RPKM from
+#' `Single-Cell RNA-Seq Reveals Lineage and X Chromosome Dynamics in
+# Human Preimplantation Embryos` (Petropulous et al, 2014)
+#'
+#' @format
+#'
+#' A `SingleCellExperiment` object with 26178 rows and 1481 columns
+#'
+#' - Rows correspond to genes (gene names as rownames)
+#'
+#' - Columns correspond to cells
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `individual` gives the sample the cell is coming from.
+#'
+#' - Column `stage` specifies the stage of the early embryo.
+#'
+#' - Column `sex` is the sex inference made using the expression of 11
+#' Y-linked genes, made for each day individually.
+#'
+#' - Column `ambigous` indicates if the inference of the embryo's sex was
+#' ambigous due to some cells expression of the Y-linked genes.
+#'
+#' @source
+#'
+#' RPKM and metadata files were downloaded from
+#' https://www.ebi.ac.uk/biostudies/files/E-MTAB-3929/
+#' The data were converted in a SingleCellExperiment
+#' (see `scripts/make_embryo_sce_Petropoulos.R` for details).
+#'
+#' @name embryo_sce_Petropoulos
+#'
+#' @docType data
+NULL
+

@@ -7,7 +7,7 @@ library(SingleCellExperiment)
 
 ## Data from Single Cell DNA Methylome Sequencing of Human Preimplantation
 ## Embryos (Zhu et al. 2018)
-## 50 FPKM files wer downloaded from GEO (accession: GSE81233).
+## 50 FPKM files were downloaded from GEO (accession: GSE81233).
 
 
 # FPKM expression values import

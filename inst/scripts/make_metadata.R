@@ -20,7 +20,9 @@ metadata <-
             "mean_methylation_in_tissues",
             "methylation_in_tissues",
             "oocytes_sce",
-            "TCGA_methylation"),
+            "TCGA_methylation",
+            "embryo_sce_Zhu",
+            "embryo_sce_Petropoulos"),
         Description = c(
             "Gene expression data in normal tissues from GTEx database",
             "Gene expression data in cancer cell lines from CCLE",
@@ -41,7 +43,9 @@ metadata <-
             "All genes' promoters mean methylation",
             "Methylation of CpGs within all genes promoters",
             "Oocytes scRNAseq",
-            "Methylation of all genes promoters in TCGA samples"),
+            "Methylation of all genes promoters in TCGA samples",
+            "Gene expression values in early embryo (blastocyst)",
+            "Gene expression values in early embryo (blastocyst and Morula)"),
         BiocVersion = c(
             "3.19",
             "3.19",
@@ -52,6 +56,8 @@ metadata <-
             "3.17",
             "3.17",
             "3.17",
+            "3.19",
+            "3.19",
             "3.19",
             "3.19",
             "3.19",
@@ -84,7 +90,9 @@ metadata <-
             "BED",
             "BED",
             "TXT",
-            "TSV"),
+            "TSV",
+            "tab",
+            "TXT"),
         SourceUrl = c(
             "https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz",
             "https://ndownloader.figshare.com/files/34989922, https://ndownloader.figshare.com/files/35020903",
@@ -105,7 +113,9 @@ metadata <-
             "https://www.encodeproject.org/",
             "https://www.encodeproject.org/",
             "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE154762",
-            "https://portal.gdc.cancer.gov/"),
+            "https://portal.gdc.cancer.gov/",
+            "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE81233",
+            "https://www.ebi.ac.uk/biostudies/files/E-MTAB-3929/"),
         SourceVersion = c(
             "8",
             "22Q2",
@@ -126,7 +136,9 @@ metadata <-
             "5",
             "5",
             "1",
-            "36.0"),
+            "36.0",
+            "1",
+            "1"),
         Species = "Homo sapiens",
         TaxonomyId = "9606",
         Coordinate_1_based = "TRUE",
@@ -151,7 +163,10 @@ metadata <-
             "ENCODE Project",
             "NCBI GEO : Decoding dynamic epigenetic landscapes in human oocytes
             using single-cell multi-omics sequencing (Yan et al. Cell Stem Cell 2021)",
-            "The Cancer Genome Atlas"),
+            "The Cancer Genome Atlas",
+            "Single Cell DNA Methylome Sequencing of Human Preimplantation Embryos (Zhu et al. 2018)",
+            "Single-Cell RNA-Seq Reveals Lineage and X Chromosome Dynamics in
+            Human Preimplantation Embryos (Petropulous et al, 2014)"),
         Maintainer = "Axelle Loriot <axelle.loriot@uclouvain.be>",
         RDataClass = c(
             "SummarizedExperiment",
@@ -173,7 +188,9 @@ metadata <-
             "SummarizedExperiment",
             "RangedSummarizedExperiment",
             "SingleCellExperiment",
-            "SummarizedExperiment"),
+            "SummarizedExperiment",
+            "SingleCellExperiment",
+            "SingleCellExperiment"),
         DispatchClass = "Rda",
         RDataPath = c(
             "CTdata/eh_data/v2/GTEX_data.rda",
@@ -195,7 +212,9 @@ metadata <-
             "CTdata/eh_data/mean_methylation_in_tissues.rda",
             "CTdata/eh_data/methylation_in_tissues.rda",
             "CTdata/eh_data/oocytes_sce.rda",
-            "CTdata/eh_data/TCGA_methylation.rda"),
+            "CTdata/eh_data/TCGA_methylation.rda",
+            "CTdata/eh_data/embryo_sce_Zhu.rda",
+            "CTdata/eh_data/embryo_sce_Petropoulos.rda"),
         Tags = c("GeneExpression:NormalTissues",
                  "GeneExpression:CancerData:CellLines",
                  "GeneExpression:NormalTissues:Multimapping",
@@ -215,7 +234,9 @@ metadata <-
                  "MethylationData:CancerTestis:NormalTissues",
                  "MethylationData:CancerTestis:NormalTissues",
                  "GeneExpression:scRNAseq:Oocyts:Gonad",
-                 "GeneExpression:CancerData:TumorSamples")
+                 "GeneExpression:CancerData:TumorSamples",
+                 "GeneExpression:scRNAseq:embryo",
+                 "GeneExpression:scRNAseq:embryo")
     )
 
 
