@@ -3,7 +3,7 @@
 library("tidyverse")
 library("SummarizedExperiment")
 
-load("../extdata/all_genes_prelim.rda")
+load("../../../CTdata_extdata/all_genes_prelim.rda")
 load(file = "../../eh_data/mean_methylation_in_tissues.rda")
 load(file = "../../eh_data/DAC_treated_cells_multimapping.rda")
 
@@ -66,7 +66,7 @@ all_genes <- all_genes %>%
 ## [Cancermine](http://bionlp.bcgsc.ca/cancermine/), a literature-mined database
 ## of drivers, oncogenes and tumor suppressors in cancer.
 ################################################################################
-if (!file.exists("../extdata/cancermine_collated.tsv")) {
+if (!file.exists("../../../CTdata_extdata/cancermine_collated.tsv")) {
   download.file(url = "https://zenodo.org/record/7537824/files/cancermine_collated.tsv?download=1",
                 destfile = "../extdata/cancermine_collated.tsv")
 }

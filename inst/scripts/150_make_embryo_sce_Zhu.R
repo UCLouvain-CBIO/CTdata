@@ -11,7 +11,7 @@ library(SingleCellExperiment)
 
 
 # FPKM expression values import
-files <- list.files("../extdata/GSE81233_RAW/", full.names = TRUE )
+files <- list.files("../../../CTdata_extdata/GSE81233_RAW/", full.names = TRUE )
 count_data <- read_tsv(files[1]) %>%
   dplyr::select(gene_id, FPKM)
 sample <- gsub(".genes.fpkm_tracking.gz",
@@ -45,7 +45,7 @@ coldata <- tibble(sample = colnames(count_data[,-1])) %>%
 # identify Y-linked genes highly expressed
 ensembl <- biomaRt::useDataset("hsapiens_gene_ensembl", useMart("ensembl"))
 
-attributes_vector <-  c("ensembl_gene_id", "external_gene_name",
+attributes_vector <- c("ensembl_gene_id", "external_gene_name",
                         "ensembl_transcript_id", "external_transcript_name",
                         "chromosome_name", "strand", "transcript_start",
                         "transcript_end", "transcription_start_site",
@@ -54,7 +54,7 @@ attributes_vector <-  c("ensembl_gene_id", "external_gene_name",
                         "transcript_mane_select", "transcript_biotype",
                         "transcript_is_canonical" )
 
-transcripts_infos <-  as_tibble(biomaRt::getBM(attributes = attributes_vector,
+transcripts_infos <- as_tibble(biomaRt::getBM(attributes = attributes_vector,
                                                mart = ensembl))
 Y_linked <- transcripts_infos %>%
   filter(external_gene_name %in% count_data$gene) %>%

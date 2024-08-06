@@ -15,12 +15,12 @@ library(SingleCellExperiment)
 ## Sample metadata was downloaded here
 ## https://www.ebi.ac.uk/biostudies/files/E-MTAB-3929/E-MTAB-3929.sdrf.txt
 
-counts <- read_tsv("../extdata/Petropoulos_rpkm.txt")
+counts <- read_tsv("../../../CTdata_extdata/Petropoulos_rpkm.txt")
 
 mat <- as.matrix(counts[,-1])
 rownames(mat) <- counts$...1
 
-metadata <- read_tsv("../extdata/Petropoulos_metadata.txt")
+metadata <- read_tsv("../../../CTdata_extdata/Petropoulos_metadata.txt")
 coldata <- as.data.frame(metadata)
 rownames(coldata) <- coldata$`Source Name`
 
@@ -345,8 +345,6 @@ ranks$sex[ranks$individual %in% F_individual] <- "F"
 ranks$sex[ranks$individual %in% M_individual] <- "M"
 
 individual_sex <- rbind(individual_sex, ranks)
-
-
 
 
 ## Summary of sexs

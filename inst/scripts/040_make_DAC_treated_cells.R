@@ -33,8 +33,8 @@ genes_in_gtex <- rownames(GTEX_data)
 ## [featurecounts](https://rdrr.io/bioc/Rsubread/man/featureCounts.html) was
 ## used to assign reads to genes using Homo_sapiens.GRCh38.105.gtf.
 
-load("../extdata/DAC_coldata.rda")
-load("../extdata/DAC_raw_counts.rda")
+load("../../../CTdata_extdata/DAC_coldata.rda")
+load("../../../CTdata_extdata/DAC_raw_counts.rda")
 
 dds <- DESeqDataSetFromMatrix(countData = raw_counts,
                               colData = coldata,

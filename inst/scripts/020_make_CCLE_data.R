@@ -7,7 +7,7 @@ library(biomaRt)
 
 load("../../eh_data/GTEX_data.rda")
 
-bfc <- BiocFileCache(cache = "../BiocFileCache",
+bfc <- BiocFileCache(cache = "../../../CTdata_extdata/BiocFileCache",
                      ask = FALSE)
 
 if (length(bfcquery(bfc, "CCLE_data")$rid) == 0) {

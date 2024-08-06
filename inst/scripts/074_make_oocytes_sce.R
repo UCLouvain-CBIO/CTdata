@@ -11,9 +11,9 @@ library(biomaRt)
 ## `GSE154762_hO_scChaRM_count_matix.txt.gz` was downloaded from GEO (accession:
 ## GSE154762).
 
-table <- read_table(file = "../extdata/GSE154762_hO_scChaRM_count_matix.txt.gz",
+table <- read_table(file = "../../../CTdata_extdata/GSE154762_hO_scChaRM_count_matix.txt.gz",
                     skip = 1, col_names = F)
-header <- read_table(file = "../extdata/GSE154762_hO_scChaRM_count_matix.txt.gz",
+header <- read_table(file = "../../../CTdata_extdata/GSE154762_hO_scChaRM_count_matix.txt.gz",
                      col_names = F,  n_max = 1)
 colnames(table) <- c("gene", header)
 

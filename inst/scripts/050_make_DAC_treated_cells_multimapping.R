@@ -36,8 +36,8 @@ genes_in_gtex <- rownames(GTEX_data)
 ## hisat2 was run with -k 20 parameter (to report up to 20 alignments per read),
 ## and featurecounts was run with -M parameter (multi-mapping reads are counted).
 
-load("../extdata/DAC_coldata.rda")
-load("../extdata/DAC_raw_counts_with_multimapping.rda")
+load("../../../CTdata_extdata/DAC_coldata.rda")
+load("../../../CTdata_extdata/DAC_raw_counts_with_multimapping.rda")
 
 dds <- DESeqDataSetFromMatrix(countData = raw_counts_with_MP,
                               colData = coldata,

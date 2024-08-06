@@ -12,7 +12,7 @@ library(biomaRt)
 ## ee58527e-e1e4-465d-8dc8-800ee40f14f2.rds data dowloaded from
 ## https://cellxgene.cziscience.com/collections/661a402a-2a5a-4c71-9b05-b346c57bc451Data
 
-seur <- readRDS("../extdata/ee58527e-e1e4-465d-8dc8-800ee40f14f2.rds")
+seur <- readRDS("../../../CTdata_extdata/ee58527e-e1e4-465d-8dc8-800ee40f14f2.rds")
 
 FGC_sce <- SingleCellExperiment(
   assays = list(counts = as.matrix(seur@assays$RNA$counts)),

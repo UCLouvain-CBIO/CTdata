@@ -4,7 +4,7 @@ library(GenomicRanges)
 library(tidyverse)
 library(SummarizedExperiment)
 
-load("../extdata/all_genes_prelim.rda")
+load("../../../CTdata_extdata/all_genes_prelim.rda")
 load("../../eh_data/methylation_in_tissues.rda")
 
 ## Promoter region is defined as `nt_up` nucleotides upstream TSS

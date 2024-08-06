@@ -8,7 +8,7 @@ library("org.Hs.eg.db")
 
 load(file = "../../eh_data/GTEX_data.rda")
 
-bfc <- BiocFileCache(cache = "../BiocFileCache",
+bfc <- BiocFileCache(cache = "../../../CTdata_extdata/BiocFileCache",
                      ask = FALSE)
 
 # Load and save TCGA expression data
@@ -157,7 +157,7 @@ coldata <- rbind(colData(SKCM)[, coldata_common_variables],
 ## mutation and copy number load. Jang et al., Nature Commun 2019
 ## Keep also `CD8 T cells` and `Proliferation score` columns
 global_hypo <- readxl::read_xlsx(
-  "../extdata/41467_2019_12159_MOESM4_ESM.xlsx", skip = 3)
+  "../../../CTdata_extdata/41467_2019_12159_MOESM4_ESM.xlsx", skip = 3)
 names(global_hypo) <- c("project_id", "Sample", "global_methylation",
                         "CD8_T_cells", "proliferation_score")
 global_hypo$project_id <- paste0("TCGA-", global_hypo$project_id)

@@ -11,10 +11,10 @@ library(biomaRt)
 
 ## ! `TableS1` could only be downoaded as a pdf file!
 ## => Copied the pdf content and pasted it in data/Guo_et_al_TableS1 text file.
-command <- "cat ../extdata/Guo_et_al_TableS1 | tr ' ' '\n' > ../extdata/Guo_et_al_TableS1_tmp"
+command <- "cat ../../../CTdata_extdata/Guo_et_al_TableS1 | tr ' ' '\n' > ../../../CTdata_extdata/Guo_et_al_TableS1_tmp"
 system(command)
 
-tableS1 <- read_table(file = "../extdata/Guo_et_al_TableS1_tmp",
+tableS1 <- read_table(file = "../../../CTdata_extdata/Guo_et_al_TableS1_tmp",
                       col_names = FALSE, skip = 5)
 
 CellID <- vector()
@@ -57,7 +57,8 @@ metadata$type <- factor(metadata$type,
 
 metadata$clusters <- as.factor(metadata$clusters)
 
-counts <- read_tsv(file = "../extdata/GSE112013_Combined_UMI_table.txt")
+counts <- read_tsv(file =
+                     "../../../CTdata_extdata/GSE112013_Combined_UMI_table.txt")
 
 # Some gene names are not the official ones!
 ensembl <- biomaRt::useDataset("hsapiens_gene_ensembl", useMart("ensembl"))

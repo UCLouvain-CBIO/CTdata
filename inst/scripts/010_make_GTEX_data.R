@@ -5,7 +5,7 @@ library(SummarizedExperiment)
 library(BiocFileCache)
 library(biomaRt)
 
-bfc <- BiocFileCache(cache = "../BiocFileCache",
+bfc <- BiocFileCache(cache = "../../../CTdata_extdata/BiocFileCache",
                      ask = FALSE)
 
 if (length(bfcquery(bfc, "GTEX")$rid) == 0) {

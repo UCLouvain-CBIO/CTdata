@@ -7,7 +7,7 @@ load("../../eh_data/GTEX_data.rda")
 # Data from the Human Protein Atlas (version 23.0) in tab-separated format
 # https://www.proteinatlas.org/download/proteinatlas.tsv.zip
 
-proteinatlas <- read_tsv("../extdata/proteinatlas.tsv")
+proteinatlas <- read_tsv("../../../CTdata_extdata/proteinatlas.tsv")
 
 
 # Use the column `RNA single cell type specific nTPM` to flag gene

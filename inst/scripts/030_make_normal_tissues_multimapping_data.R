@@ -45,13 +45,13 @@ load("../../eh_data/GTEX_data.rda")
 ## Data generated without allowing multi-mapping
 ################################################################################
 
-load("../extdata/normal_tissues_RNAseq_coldata.rda")
-load("../extdata/normal_tissues_RNAseq_raw_counts.rda")
+load("../../../CTdata_extdata/normal_tissues_RNAseq_coldata.rda")
+load("../../../CTdata_extdata/normal_tissues_RNAseq_raw_counts.rda")
 
 ## TPM normalisation
 ## Keep only genes present in GTEx database
 gene_lengths <-
-  read_table("../extdata/adrenal_gland_featurecounts.tsv",
+  read_table("../../../CTdata_extdata/adrenal_gland_featurecounts.tsv",
              skip = 1) %>%
   dplyr::select(Geneid, Length)
 x1 <- raw_counts / gene_lengths$Length * 1000
@@ -76,7 +76,7 @@ rownames(mat_no_multimapping) <- TPM_matrix_no_multimapping$ensembl_gene_id
 ## Data generated when allowing multi-mapping
 ################################################################################
 
-load(file = "../extdata/normal_tissues_RNAseq_raw_counts_multiM.rda")
+load(file = "../../../CTdata_extdata/normal_tissues_RNAseq_raw_counts_multiM.rda")
 
 ## Normalise in TPM
 ## Keep only genes present in GTEx database

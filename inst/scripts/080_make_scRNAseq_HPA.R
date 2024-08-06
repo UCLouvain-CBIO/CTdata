@@ -10,7 +10,7 @@ library("SingleCellExperiment")
 ## - The cell types group associated to each cell type were copied manually from
 ## https://www.proteinatlas.org/humanproteome/single+cell+type
 
-data <- read_tsv("../extdata/rna_single_cell_type.tsv")
+data <- read_tsv("../../../CTdata_extdata/rna_single_cell_type.tsv")
 data <- data %>%
   dplyr::rename(ensembl_gene_id = Gene, external_gene_name = "Gene name") %>%
   pivot_wider(names_from = "Cell type", values_from = "nTPM")
@@ -26,12 +26,13 @@ cell_types <- c("Adipocyte_cells", "Blood_immune_cells", "Endocrine_cells",
                 "Glial_cells", "Mesenchymal_cells", "Pigment_cells",
                 "Specialized_epithelial_cells", "Trophoblast_cells")
 
-cell_types_by_group <- read_tsv(paste0("../extdata/", cell_types[1]), col_select = 1,
+cell_types_by_group <- read_tsv(paste0("../../../CTdata_extdata/",
+                                       cell_types[1]), col_select = 1,
                                 col_names = c("Cell_type")) %>%
   mutate(group = cell_types[1])
 
 for (cell in cell_types[-1]){
-  tmp <- read_tsv(paste0("../extdata/", cell), col_select = 1,
+  tmp <- read_tsv(paste0("../../../CTdata_extdata/", cell), col_select = 1,
                   col_names = c("Cell_type")) %>%
     mutate(group = cell)
   cell_types_by_group <- rbind(cell_types_by_group, tmp)
