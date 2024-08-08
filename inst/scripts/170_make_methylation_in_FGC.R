@@ -10,7 +10,7 @@ load("../extdata/CpG_positions_all_prom_hg19.rda")
 
 ## Data from Dissecting the epigenomic dynamics of human fetal germ cell
 ## development at single-cell resolution (Li et al. 2021)
-## 461 scWGBS files were downloaded from GEO (accession: GSE81233).
+## 461 scWGBS files were downloaded from GEO (accession: GSE107714).
 
 
 ################################################################################
