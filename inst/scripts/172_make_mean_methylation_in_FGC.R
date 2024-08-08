@@ -9,6 +9,10 @@ load("../../eh_data/methylation_in_FGC.rda")
 load("../../eh_data/all_genes.rda")
 
 
+################################################################################
+# Define promoter regions
+################################################################################
+
 ## Promoter region is defined as `nt_up` nucleotides upstream TSS
 ## and `nt_down` nucleotides downstream TSS
 nt_up <- 1000
@@ -37,6 +41,10 @@ gene_ids <- all_genes %>%
 all_prom_GR$ensembl_gene_id <- gene_ids$ensembl_gene_id
 
 
+################################################################################
+# Compute mean meth for all promoters
+################################################################################
+
 mean_meth <- tibble(external_gene_name =
                                     all_prom_GR$external_gene_name)
 
@@ -52,6 +60,10 @@ for (i in 1:length(all_prom_GR)) {
     rownames_to_column("external_gene_name")
   mean_meth <- suppressMessages(left_join(mean_meth, tmp))
 }
+
+################################################################################
+# Save it as a RangedSE
+################################################################################
 
 
 mean_methylation_in_FGC <-
