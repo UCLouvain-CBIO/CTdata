@@ -36,8 +36,6 @@ gene_ids <- all_genes %>%
   dplyr::select("ensembl_gene_id", "external_gene_name") %>%
   filter(external_gene_name %in% all_prom_GR$external_gene_name)
 
-# all(rownames(rowdata) == all_prom_GR$external_gene_name)
-
 all_prom_GR$ensembl_gene_id <- gene_ids$ensembl_gene_id
 
 
@@ -65,6 +63,7 @@ for (i in 1:length(all_prom_GR)) {
 # Save it as a RangedSE
 ################################################################################
 
+# all(rownames(rowdata) == all_prom_GR$external_gene_name)
 
 mean_methylation_in_FGC <-
   SummarizedExperiment(assays = column_to_rownames(mean_meth,
