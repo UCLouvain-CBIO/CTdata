@@ -63,8 +63,6 @@ for (i in 1:length(all_prom_GR)) {
 # Save it as a RangedSE
 ################################################################################
 
-# all(rownames(rowdata) == all_prom_GR$external_gene_name)
-
 mean_methylation_in_FGC <-
   SummarizedExperiment(assays = column_to_rownames(mean_meth,
                                                    "external_gene_name"),
