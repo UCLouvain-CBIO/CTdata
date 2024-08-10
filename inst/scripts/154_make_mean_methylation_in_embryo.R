@@ -55,7 +55,7 @@ for (i in 1:length(all_prom_GR)) {
     column_to_rownames("name") %>%
     rename(value = all_prom_GR[i]$external_gene_name) %>%
     t() %>%
-    data.frame() %>%
+    as.data.frame() %>%
     rownames_to_column("external_gene_name")
   mean_meth <- suppressMessages(left_join(mean_meth, tmp))
 }
@@ -64,10 +64,9 @@ for (i in 1:length(all_prom_GR)) {
 # Save it as a RangedSE
 ################################################################################
 
-
 mean_methylation_in_embryo <-
   SummarizedExperiment(assays = column_to_rownames(mean_meth,
-                                                   "external_gene_name"),
+                                                   "external_gene_name") ,
                        colData = colData(methylation_in_embryo),
                        rowRanges = all_prom_GR)
 
