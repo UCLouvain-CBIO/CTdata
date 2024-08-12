@@ -7,7 +7,8 @@
 \format{
 A \code{RangedSummarizedExperiment} object with 4280327 rows and 14 columns
 \itemize{
-\item Rows correspond to CpGs (located within all genes promoters)
+\item Rows correspond to CpGs (located within all genes promoters (TSS +- 5000
+nt))
 \item Columns correspond to normal tissues
 \item Methylation values from WGBS data
 \item rowRanges correspond to CpG positions

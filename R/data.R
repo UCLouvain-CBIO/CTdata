@@ -371,7 +371,8 @@ NULL
 #'
 #' A `RangedSummarizedExperiment` object with 4280327 rows and 14 columns
 #'
-#' - Rows correspond to CpGs (located within all genes promoters)
+#' - Rows correspond to CpGs (located within all genes promoters (TSS +- 5000
+#' nt))
 #'
 #' - Columns correspond to normal tissues
 #'
@@ -1115,3 +1116,260 @@ NULL
 #' @docType data
 NULL
 
+#' Genes expression in hESC
+#'
+#' @description
+#'
+#' Gene expression data in human embryonic stem cells
+#'
+#' @format
+#'
+#' A `SummarizedExperiment` object with 24488 rows and 4 columns
+#'
+#' - Rows correspond to genes (ensembl_gene_id as rownames)
+#' - Columns correspond to hESC types
+#' - Expression data from the assay are TPM values
+#'
+#' @details
+#'
+#' The colData contains
+#'
+#' - Column `genotype` gives the sexual genotype of the cells
+#'
+#' @source
+#'
+#' RNAseq fastq files were downloaded from Encode databas (see
+#' `scripts/make_hESC_data.R` for details).
+#'
+#' @name hESC_data
+#'
+#' @docType data
+NULL
+
+#' Methylation of CpGs within all genes promoters in hESC
+#'
+#' @description
+#'
+#' Methylation values of CpGs located within all genes
+#' promoters in human embryonic stem cells.
+#'
+#' @format
+#'
+#' A `RangedSummarizedExperiment` object with 4280098 rows and 3 columns
+#'
+#' - Rows correspond to CpGs (located within all genes promoters (TSS +- 5000
+#' nt))
+#'
+#' - Columns correspond to hESC
+#'
+#' - Methylation values from WGBS data
+#'
+#' - rowRanges correspond to CpG positions
+#'
+#' @source
+#'
+#' WGBS methylation data was downloaded from Encode
+#' (see `scripts/make_methylation_in_hESC.R` for details).
+#'
+#' @name methylation_in_hESC
+#'
+#' @docType data
+NULL
+
+#' All genes' promoters mean methylation in hESC
+#'
+#' @description
+#'
+#' Mean methylation values of all CpGs located within all genes
+#' promoters in human embryonic stem cells
+#'
+#' @format
+#'
+#' A `SummarizedExperiment` object with 24488 rows and 3 columns
+#'
+#' - Rows correspond to all genes (gene names as rownames)
+#'
+#' - Mean methylation levels in hESC types are stored in columns
+#'
+#' @details
+#'
+#' The rowData contains:
+#'
+#' - A column named `ensembl_gene_id` containing gene ids.
+#'
+#' The colData contains
+#'
+#' - Column `genotype` gives the sexual genotype of the cells
+#'
+#' @source
+#'
+#' WGBS methylation data was downloaded from Encode. Mean methylation levels are
+#' evaluated using methylation values of CpGs located in promoter region
+#' (defined as 1000 nt upstream TSS and 200 nt downstream TSS) (see
+#' `scripts/make_mean_methylation_in_hESC.R` for details).
+#'
+#' @name mean_methylation_in_hESC
+#'
+#' @docType data
+NULL
+
+#' Methylation of CpGs within all genes promoters in FGC
+#'
+#' @description
+#'
+#' Methylation values of CpGs located within all genes
+#' promoters in fetal germ cells. Data is based on hg19 reference genome ! From
+#' `Dissecting the epigenomic dynamics of human fetal germ cell development at
+#' single-cell resolution (Li et al. 2021)`
+#'
+#' @format
+#'
+#' A `RangedSummarizedExperiment` object with 1915545 rows and 337 columns
+#'
+#' - Rows correspond to CpGs (located within all genes promoters (TSS +- 1000
+#' nt))
+#'
+#' - Columns correspond to cells
+#'
+#' - Methylation values from scWGBS data
+#'
+#' - rowRanges correspond to CpG positions
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `type` indicates if the cell type is somatic or FGC
+#'
+#' - Column `time_week` specifies the time of the embryo when cells were removed.
+#'
+#' - Column `sex` indicates the sex of the cells.
+#'
+#' - Other information about the sequencing of each sample are clearly labelled
+#'
+#' @source
+#'
+#' scWGBS methylation data was downloaded from GEO database
+#' (see `scripts/make_methylation_in_FGC.R` for details).
+#'
+#' @name methylation_in_FGC
+#'
+#' @docType data
+NULL
+
+#' All genes' promoters mean methylation in FGC
+#'
+#' @description
+#'
+#' Mean methylation values of all CpGs located within all genes
+#' promoters in fetal germ cells. Data is based on hg19 reference genome ! From
+#' `Dissecting the epigenomic dynamics of human fetal germ cell development at
+#' single-cell resolution (Li et al. 2021)`
+#'
+#' @format
+#'
+#' A `RangedSummarizedExperiment` object with 24441 rows and 337 columns
+#'
+#' - Rows correspond to all genes (gene names as rownames)
+#'
+#' - Mean methylation levels in FGC types are stored in columns
+#'
+#' - rowRanges correspond to the hg19 promoter positions
+#'
+#' @details
+#'
+#' The rowData contains:
+#'
+#' - A column named `ensembl_gene_id` containing gene ids.
+#'
+#' @source
+#'
+#' WGBS methylation data was downloaded from GEO. Mean methylation levels are
+#' evaluated using methylation values of CpGs located in promoter region
+#' (defined as 1000 nt upstream TSS and 500 nt downstream TSS) (see
+#' `scripts/make_mean_methylation_in_FGC.R` for details).
+#'
+#' @name mean_methylation_in_FGC
+#'
+#' @docType data
+NULL
+
+#' Methylation of CpGs within all genes promoters in embryo
+#'
+#' @description
+#'
+#' Methylation values of CpGs located within all genes
+#' promoters in embryo. Data is based on hg19 reference genome ! From
+#' `Single Cell DNA Methylome Sequencing of Human Preimplantation
+#' Embryos` (Zhu et al. 2018)
+#'
+#' @format
+#'
+#' A `RangedSummarizedExperiment` object with 1915545 rows and 492 columns
+#'
+#' - Rows correspond to CpGs (located within all genes promoters (TSS +- 1000
+#' nt))
+#'
+#' - Columns correspond to cells
+#'
+#' - Methylation values from scWGBS data
+#'
+#' - rowRanges correspond to CpG positions
+#'
+#' @details
+#'
+#' Description of the colData:
+#'
+#' - Column `cell_type` indicates the embryo type.
+#'
+#' - Column `bulk_or_single_cell` specifies if the sample was indeed only a
+#' single cell or a bulk of several cells.
+#'
+#' - Other information about the sequencing of each sample are clearly labelled
+#'
+#' @source
+#'
+#' scWGBS methylation data was downloaded from GEO database
+#' (see `scripts/make_methylation_in_embryo.R` for details).
+#'
+#' @name methylation_in_embryo
+#'
+#' @docType data
+NULL
+
+#' All genes' promoters mean methylation in embryos
+#'
+#' @description
+#'
+#' Mean methylation values of all CpGs located within all genes
+#' promoters in early embryos. Data is based on hg19 reference genome ! From
+#' `Single Cell DNA Methylome Sequencing of Human Preimplantation
+#' Embryos` (Zhu et al. 2018)
+#'
+#' @format
+#'
+#' A `RangedSummarizedExperiment` object with 24441 rows and 492 columns
+#'
+#' - Rows correspond to all genes (gene names as rownames)
+#'
+#' - Mean methylation levels in embryos types are stored in columns
+#'
+#' - rowRanges correspond to the hg19 promoter positions
+#'
+#' @details
+#'
+#' The rowData contains:
+#'
+#' - A column named `ensembl_gene_id` containing gene ids.
+#'
+#' @source
+#'
+#' WGBS methylation data was downloaded from GEO. Mean methylation levels are
+#' evaluated using methylation values of CpGs located in promoter region
+#' (defined as 1000 nt upstream TSS and 500 nt downstream TSS) (see
+#' `scripts/make_mean_methylation_in_embryos.R` for details).
+#'
+#' @name mean_methylation_in_embryo
+#'
+#' @docType data
+NULL
