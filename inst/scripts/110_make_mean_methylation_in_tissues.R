@@ -31,10 +31,6 @@ for (gene in all_genes_prelim$external_gene_name) {
     filter(external_gene_name == gene) %>%
     pull(strand)
 
-  TSS <- all_genes_prelim %>%
-    filter(external_gene_name == gene) %>%
-    pull(transcription_start_site)
-
   if (strand == 1) { # Analyse region at +/- nt_up and nt_down around TSS
     promoter_gr <- GRanges(seqnames = paste0("chr", chr),
                            strand = '+',
