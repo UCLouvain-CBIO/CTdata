@@ -33,7 +33,7 @@ load("../../../CTdata_extdata/hESC_RNAseq_raw_counts.rda")
 
 coldata <- as.data.frame(coldata) %>%
   mutate(cell_type = "hESC") %>%
-  mutate(genotype = factor(coldata$genotype, levels = c("XX", "XY"))) %>%
+  mutate(genotype = factor(genotype, levels = c("XX", "XY"))) %>%
   mutate(dataset = "Encode") %>%
   mutate(data = "Expression")
 
