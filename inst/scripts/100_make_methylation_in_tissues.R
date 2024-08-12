@@ -12,7 +12,7 @@ load("../../../CTdata_extdata/all_genes_prelim.rda")
 # download.file("http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
 #               destfile = "../extdata/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz")
 hg <- rtracklayer::import(
-  "../extdata/Homo_sapiens.GRCh38.dna.primary_assembly.fa",
+  "../../../CTdata_extdata/Homo_sapiens.GRCh38.dna.primary_assembly.fa",
   format = "fasta")
 
 ################################################################################
