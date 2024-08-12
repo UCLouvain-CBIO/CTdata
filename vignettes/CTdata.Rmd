@@ -58,6 +58,10 @@ BiocManager::install("UCLouvain-CBIO/CTdata")
 
 # Available data
 
+```{r, echo=FALSE, fig.align='center', out.width = '100%'}
+knitr::include_graphics("Datasets.png")
+```
+
 For details about each data, see their respective manual pages.
 
 ## GTEX data
