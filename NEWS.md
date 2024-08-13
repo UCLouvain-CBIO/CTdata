@@ -28,6 +28,7 @@ mean_methylation_in_tissues and TCGA_methylation)
 methylation in somatic only
 - Reordered CT_genes and all_genes
 - Changed all documentation
+- Added embryo, FGC and hESC data
 
 
 
