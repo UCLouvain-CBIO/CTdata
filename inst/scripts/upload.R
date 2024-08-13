@@ -38,7 +38,7 @@ dest <- "CTdata/eh_data/v3/CT_methylation_in_tissues.rda"
 storage_multiupload(container, src = src, dest = dest)
 
 ## ------------------------------------------
-## 2024-05
+## 2024-08
 
 src <- c("/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/all_genes.rda",
          "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/CCLE_correlation_matrix.rda",
@@ -58,7 +58,14 @@ src <- c("/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/all_gen
          "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/TCGA_TPM.rda",
          "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/testis_sce.rda",
          "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/embryo_sce_Zhu.rda",
-         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/embryo_sce_Petropoulos.rda")
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/embryo_sce_Petropoulos.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/hESC_data.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/methylation_in_hESC.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/mean_methylation_in_hESC.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/methylation_in_FGC.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/mean_methylation_in_FGC.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/methylation_in_embryo.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/mean_methylation_in_embryo.rda")
 
 dest <- c("CTdata/eh_data/v2/CCLE_data.rda",
           "CTdata/eh_data/v2/DAC_treated_cells_multimapping.rda",
@@ -78,7 +85,14 @@ dest <- c("CTdata/eh_data/v2/CCLE_data.rda",
           "CTdata/eh_data/oocytes_sce.rda",
           "CTdata/eh_data/TCGA_methylation.rda",
           "CTdata/eh_data/embryo_sce_Zhu.rda",
-          "CTdata/eh_data/embryo_sce_Petropoulos.rda")
+          "CTdata/eh_data/embryo_sce_Petropoulos.rda",
+          "CTdata/eh_data/hESC_data.rda",
+          "CTdata/eh_data/methylation_in_hESC.rda",
+          "CTdata/eh_data/mean_methylation_in_hESC.rda",
+          "CTdata/eh_data/methylation_in_FGC.rda",
+          "CTdata/eh_data/mean_methylation_in_FGC.rda",
+          "CTdata/eh_data/methylation_in_embryo.rda",
+          "CTdata/eh_data/mean_methylation_in_embryo.rda")
 
 # Removed CT_methylation_in_tissues.rda, CT_mean_methylation_in_tissues.rda,
 # TCGA_CT_methylation.rda
