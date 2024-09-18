@@ -1,5 +1,9 @@
 # CTdata 1.5
 
+## CTdata 1.5.2
+
+- Correction of an error in the upload
+
 ## CTdata 1.5.1
 
 - Used more stringent threshold to define genes activated in CCLE cell lines ang
