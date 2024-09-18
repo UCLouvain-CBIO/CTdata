@@ -106,7 +106,9 @@ all_promoter_regions_hg19_GR <- makeGRangesFromDataFrame(all_promoter_regions_hg
 all_promoter_regions_hg19 <- all_promoter_regions_hg19_GR
 
 save(all_promoter_regions_hg19,
-     file = "../extdata/all_promoter_regions_hg19.rda")
+     file = "../extdata/all_promoter_regions_hg19.rda",
+     compress = "xz",
+     compression_level = 9)
 
 
 ################################################################################
@@ -116,4 +118,6 @@ save(all_promoter_regions_hg19,
 CpG_positions_all_prom_hg19 <- subsetByOverlaps(CpG_positions_GR,
                                                 all_promoter_regions_hg19_GR)
 save(CpG_positions_all_prom_hg19,
-     file = "../extdata/CpG_positions_all_prom_hg19.rda")
+     file = "../extdata/CpG_positions_all_prom_hg19.rda",
+     compress = "xz",
+     compression_level = 9)
