@@ -1373,3 +1373,128 @@ NULL
 #'
 #' @docType data
 NULL
+
+#' Methylation of CpGs within CT promoters
+#'
+#' @description
+#'
+#' DEPRECATED after v1.5, see `methylation_in_tissues`
+#' Methylation values of CpGs located within Cancer-Testis (CT)
+#' promoters in a set of normal tissues.
+#'
+#' @format
+#'
+#' A `RangedSummarizedExperiment` object with 51725 rows and 14 columns
+#'
+#' - Rows correspond to CpGs (located within CT genes promoters)
+#'
+#' - Columns correspond to normal tissues
+#'
+#' - Methylation values from WGBS data
+#'
+#' - rowRanges correspond to CpG positions
+#'
+#' @source
+#'
+#' WGBS methylation data was downloaded from Encode and from GEO
+#' databases (see `scripts/make_CT_methylation_in_tissues.R` for
+#' details).
+#'
+#' @name CT_methylation_in_tissues
+#'
+#' @docType data
+NULL
+
+#' CT genes' promoters mean methylation
+#'
+#' @description
+#' DEPRECATED after v1.5, see `mean_methylation_in_tissues`
+#' Mean methylation values of all CpGs located within Cancer-Testis
+#' (CT) promoters in a set of normal tissues
+#'
+#' @format
+#'
+#' A `SummarizedExperiment` object with 298 rows and 14 columns
+#'
+#' - Rows correspond to CT genes
+#'
+#' - Mean methylation levels in normal tissues are stored in columns
+#'
+#' - CpG densities and results of methylation analysis are stored in
+#'   rowData
+#'
+#' @details
+#'
+#' The rowData contains:
+#'
+#' - A column named `CpG_density`, gives the density of CpG within
+#'   each promoter (number of CpG / promoter length * 100).
+#'
+#' - A column `CpG_promoter` that classifies the promoters according
+#'   to their CpG densities: "low" (CpG_density < 2), "intermediate"
+#'   (CpG_density >= 2 & CpG_density < 4), and "high" (CpG_density >=
+#'   4).
+#'
+#' - A column `somatic_met_level` that gives the mean methylation
+#'   level of each promoter in somatic tissues.
+#'
+#' - A column `sperm_met_level` that gives the methylation level of
+#'   each promoter in sperm.
+#'
+#' - A column `somatic_methylation` indicates if the promoter's mean
+#'   methylation level in somatic tissues is higher than 50%.
+#'
+#' - A column `germline_methylation`indicates if the promoter is
+#'   methylated in germline, based on the ratio with somatic tissues
+#'   (FALSE if somatic_met_level is at least twice higher than
+#'   germline_met_level).
+#'
+#' @source
+#'
+#' WGBS methylation data was downloaded from Encode and from GEO
+#' databases. Mean methylation levels are evaluated using methylation
+#' values of CpGs located in promoter region (defined as 1000 nt
+#' upstream TSS and 200 nt downstream TSS) (see
+#' `scripts/make_CT_mean_methylation_in_tissues.R` for details).
+#'
+#' @name CT_mean_methylation_in_tissues
+#'
+#' @docType data
+NULL
+
+
+
+#' Methylation of CT promoters in TCGA samples
+#'
+#' @description
+#'
+#' DEPRECATED after v1.5, see `TCGA_methylation`
+#' Methylation values of probes located within Cancer-Testis (CT)
+#' promoters in samples from TCGA (tumor and peritumoral samples)
+#'
+#' @format
+#'
+#' A `RangedSummarizedExperiment` object with 666 rows and 3423
+#' columns
+#'
+#' - Rows correspond to Infinium 450k probes
+#'
+#' - Columns correspond to samples
+#'
+#' - Methylation data from the assay are Beta values
+#'
+#' - Clinical information are stored in colData
+#'
+#' - Probe information (hg38 coordinates) are stored in rowRanges
+#'
+#' @source
+#'
+#' SKCM, LUAD, LUSC, COAD, ESCA, BRCA and HNSC methylation data were
+#' downloaded with TCGAbiolinks and subsetted to select probes located
+#' in CT genes promoter regions (see
+#' `scripts/make_TCGA_CT_methylation.R` for details).
+#'
+#' @name TCGA_CT_methylation
+#'
+#' @docType data
+NULL
