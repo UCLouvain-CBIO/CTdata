@@ -22,7 +22,7 @@ BiocStyle::markdown()
 `CTdata` is the companion Package for `CTexploreR` and provides omics
 data to select and characterise cancer testis genes. Data come from
 public databases and include expression and methylation values of
-genes in normal and tumor samples as well as in tumor cell lines, and
+genes in normal, fetal and tumor samples as well as in tumor cell lines, and
 expression in cells treated with a demethylating agent is also
 available.
 
@@ -64,7 +64,9 @@ knitr::include_graphics("Datasets.png")
 
 For details about each data, see their respective manual pages.
 
-## GTEX data
+## Normal adult tissues
+
+### GTEX data
 
 A `SummarizedExperiment` object with gene expression data in normal
 tissues from GTEx database:
@@ -77,17 +79,7 @@ library("SummarizedExperiment")
 GTEX_data()
 ```
 
-## CCLE data
-
-A `SummarizedExperiment` object with gene expression data in cancer
-cell lines from CCLE:
-
-```{r}
-CCLE_data()
-```
-
-
-## Normal tissue gene expression
+### Normal tissue gene expression
 
 A `SummarizedExperiment` object with gene expression values in normal
 tissues with or without allowing multimapping:
@@ -95,6 +87,165 @@ tissues with or without allowing multimapping:
 ```{r}
 normal_tissues_multimapping_data()
 ```
+
+### Methylation in normal adult tissues
+
+A `RangedSummarizedExperiment` containing methylation of CpGs located
+within gene promoters in normal tissues:
+
+```{r}
+methylation_in_tissues()
+```
+
+(`CT_methylation_in_tissues` before v 1.5)
+
+
+A `SummarizedExperiment` with all genes' promoters mean
+methylation in normal tissues:
+
+```{r}
+mean_methylation_in_tissues()
+```
+
+(`CT_mean_methylation_in_tissues` before v 1.5)
+
+
+### Testis scRNAseq data
+
+A `SingleCellExperiment` object containing gene expression from testis
+single cell RNAseq experiment (*The adult human testis transcriptional
+cell atlas* (Guo et al. 2018)):
+
+```{r, message = FALSE}
+library("SingleCellExperiment")
+```
+
+```{r}
+testis_sce()
+```
+
+
+### Oocytes scRNAseq data
+
+A `SingleCellExperiment` object containing gene expression from oocytes
+single cell RNAseq experiment (Yan et al. 2021):
+
+```{r}
+oocytes_sce()
+```
+
+
+### Human Protein Atlas scRNAseq data
+
+A `SingleCellExperiment` object containing gene expression in different human
+cell types based on scRNAseq data obtained from the Human Protein Atlas
+(https://www.proteinatlas.org)
+
+```{r}
+scRNAseq_HPA()
+```
+
+### Human Protein Atlas cell type specificity data
+
+A `tibble` object containing cell type specificities based on scRNAseq data 
+analysis from the Human Protein Atlas (https://www.proteinatlas.org)
+
+```{r}
+HPA_cell_type_specificities()
+```
+
+## Fetal cells
+
+### Fetal germ cell scRNAseq data
+
+A `SingleCellExperiment` object containing gene expression from fetal germ cells
+single cell RNAseq experiment (*Single-cell roadmap of human gonadal development
+*(Garcia-Alonso et al. 2022)):
+
+```{r}
+FGC_sce()
+```
+
+### Methylation in fetal germ cells (scWGBS)
+
+A `RangedSummarizedExperiment` containing methylation of CpGs (hg19 based) 
+located within gene promoters in fetal germ cells (*Dissecting the epigenomic 
+dynamics of human fetal germ cell development at single-cell resolution*(Li et 
+al. 2021)):
+
+```{r}
+methylation_in_FGC()
+```
+
+A `SummarizedExperiment` with all genes' promoters mean
+methylation in fetal germ cells:
+
+```{r}
+mean_methylation_in_FGC()
+```
+
+### Embryonic stem cells RNA-Seq data
+
+A `SummarizedExperiment` object with gene expression data in embryonic stem
+cells from ENCODE database:
+
+```{r}
+hESC_data()
+```
+
+### Methylation in embryonic stem cells
+
+A `RangedSummarizedExperiment` containing methylation of CpGs
+located within gene promoters in embryonic stem cells from ENCODE
+
+```{r}
+methylation_in_hESC()
+```
+
+A `SummarizedExperiment` with all genes' promoters mean
+methylation in embryonic stem cells:
+
+```{r}
+mean_methylation_in_hESC()
+```
+
+### Early embryo scRNA-seq data
+
+A `SingleCellExperiment` object containing gene expression from early embryo
+single cell RNAseq experiment (Petropulous et al, 2014):
+
+```{r}
+embryo_sce_Petropoulos()
+```
+
+A `SingleCellExperiment` object containing gene expression from early embryo
+single cell RNAseq experiment (Zhu et al, 2018):
+
+```{r}
+embryo_sce_Zhu()
+```
+
+
+### Methylation in early embryo 
+
+A `RangedSummarizedExperiment` containing methylation of CpGs (hg19 based) 
+located within gene promoters in early embryo (*Single Cell DNA Methylome 
+Sequencing of Human Preimplantation Embryos* (Zhu et al. 2018)):
+
+```{r}
+methylation_in_embryo()
+```
+
+A `RangedSummarizedExperiment ` with all genes' promoters mean
+methylation in early embryo:
+
+```{r}
+mean_methylation_in_embryo()
+```
+
+
+
+
 
 ## Demethylated gene expression
 
@@ -112,7 +263,25 @@ As above, with multimapping:
 DAC_treated_cells_multimapping()
 ```
 
-## TCGA data
+## Tumor cells
+
+### CCLE data
+
+A `SummarizedExperiment` object with gene expression data in cancer
+cell lines from CCLE:
+
+```{r}
+CCLE_data()
+```
+
+Also, a `matrix` with gene expression correlations in CCLE cancer cell lines:
+
+```{r}
+dim(CCLE_correlation_matrix())
+CCLE_correlation_matrix()[1:10, 1:5]
+```
+
+### TCGA data
 
 A `SummarizedExperiment` with gene expression data in TCGA samples
 (tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
@@ -122,100 +291,17 @@ and HNSC):
 TCGA_TPM()
 ```
 
-
-## Testis scRNAseq data
-
-A `SingleCellExperiment` object containing gene expression from testis
-single cell RNAseq experiment (*The adult human testis transcriptional
-cell atlas* (Guo et al. 2018)):
-
-```{r, message = FALSE}
-library("SingleCellExperiment")
-```
-
-```{r}
-testis_sce()
-```
-
-## Fetal germ cell scRNAseq data
-
-A `SingleCellExperiment` object containing gene expression from fetal germ cells
-single cell RNAseq experiment (*Single-cell roadmap of human gonadal development
-*(Garcia-Alonso et al. 2022)):
-
-```{r}
-FGC_sce()
-```
-
-## Oocytes scRNAseq data
-
-A `SingleCellExperiment` object containing gene expression from oocyres
-single cell RNAseq experiment (Yan et al. 2021):
-
-```{r}
-oocytes_sce()
-```
-
-
-## Human Protein Atlas scRNAseq data
-
-A `SingleCellExperiment` object containing gene expression in different human
-cell types based on scRNAseq data obtained from the Human Protein Atlas
-(https://www.proteinatlas.org)
-
-```{r}
-scRNAseq_HPA()
-```
-
-## Human Protein Atlas cell type specificity data
-
-A `tibble` object containing cell type specificities based on scRNAseq data 
-from the Human Protein Atlas (https://www.proteinatlas.org)
-
-```{r}
-HPA_cell_type_specificities()
-```
-
-## Metylation in normal tissue
-
-A `RangedSummarizedExperiment` containing methylation of CpGs located
-within gene promoters in normal tissues:
-
-```{r}
-methylation_in_tissues()
-```
-
-(`CT_methylation_in_tissues` before before v 1.5)
-
-
-A `SummarizedExperiment` with all genes' promoters mean
-methylation in normal tissues:
-
-```{r}
-mean_methylation_in_tissues()
-```
-
-(`CT_mean_methylation_in_tissues` before before v 1.5)
-
-## TCGA data
-
-A `SummarizedExperiment` with gene expression data in TCGA samples
-(tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
+Also, a `SummarizedExperiment` with gene promoters methylation data in TCGA 
+samples (tumor and peritumoral samples : SKCM, LUAD, LUSC, COAD, ESCA, BRCA
 and HNSC):
 
 
 ```{r}
-TCGA_CT_methylation()
+TCGA_methylation()
 ```
 
-## CCLE data
 
-A `matrix` with gene expression correlations in CCLE cancer cell lines:
-
-```{r}
-dim(CCLE_correlation_matrix())
-CCLE_correlation_matrix()[1:10, 1:5]
-```
+(`TCGA_CT_methylation` before v 1.5)
 
 
 ## CT genes determination
@@ -227,10 +313,8 @@ all_genes <- all_genes()
 n <- nrow(all_genes)
 ```
 
-The entire analysis can be found in `all_genes`, a tibble like `CT_genes` 
+The analysis for all genes can be found in `all_genes`, a tibble like `CT_genes` 
 containing all `r n` genes characterisation. 
-
-A `tibble` with all genes and their characteristics:
 
 ```{r}
 all_genes()
