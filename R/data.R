@@ -1017,7 +1017,7 @@ NULL
 #' - Column `max_HPA_somatic` specifies if the maximum expression value in a
 #' somatic cell type
 #'
-##' - Column `not_detected_in_somatic_HPA` specifies if the gene is detected or
+#' - Column `not_detected_in_somatic_HPA` specifies if the gene is detected or
 #' not in a somatic cell type. Genes are flagged as
 #' `TRUE` if the `max_HPA_somatic` value is equal to 0, and `FALSE` if
 #' `max_HPA_somatic` value is > 0. `NA` is set when the original table from HPA
@@ -1042,7 +1042,7 @@ NULL
 #'
 #' Human embryo single cell RNAseq data in FPKM from
 #' `Single Cell DNA Methylome Sequencing of Human Preimplantation
-## Embryos` (Zhu et al. 2018)
+#' Embryos` (Zhu et al. 2018)
 #'
 #' @format
 #'
@@ -1080,7 +1080,7 @@ NULL
 #'
 #' Human embryo single cell RNAseq data in RPKM from
 #' `Single-Cell RNA-Seq Reveals Lineage and X Chromosome Dynamics in
-# Human Preimplantation Embryos` (Petropulous et al, 2014)
+#' Human Preimplantation Embryos` (Petropulous et al, 2014)
 #'
 #' @format
 #'
