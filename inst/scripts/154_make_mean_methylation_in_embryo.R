@@ -44,29 +44,27 @@ all_prom_GR$ensembl_gene_id <- gene_ids$ensembl_gene_id
 # Compute mean meth for all promoters
 ################################################################################
 
-mean_meth <- tibble(external_gene_name =
-                      all_prom_GR$external_gene_name)
+mean_meth <- tibble(cell = colnames(methylation_in_embryo))
 
 for (i in 1:length(all_prom_GR)) {
   print(i)
   tested_gene_GR <- subsetByOverlaps(methylation_in_embryo, all_prom_GR[i])
   mat <- assay(tested_gene_GR)
-  tmp <- enframe(colMeans(mat, na.rm = TRUE)) %>%
-    column_to_rownames("name") %>%
-    rename(value = all_prom_GR[i]$external_gene_name) %>%
-    t() %>%
-    as.data.frame() %>%
-    rownames_to_column("external_gene_name")
+  tmp <- enframe(colMeans(mat, na.rm = TRUE), name = "cell",
+                 value = all_prom_GR[i]$external_gene_name)
   mean_meth <- suppressMessages(left_join(mean_meth, tmp))
 }
+
+
+mat <- t(as.matrix(mean_meth[,-1]))
+colnames(mat) <- mean_meth$cell
 
 ################################################################################
 # Save it as a RangedSE
 ################################################################################
 
 mean_methylation_in_embryo <-
-  SummarizedExperiment(assays = column_to_rownames(mean_meth,
-                                                   "external_gene_name") ,
+  SummarizedExperiment(assays = mat ,
                        colData = colData(methylation_in_embryo),
                        rowRanges = all_prom_GR)
 
