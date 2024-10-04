@@ -19,7 +19,7 @@ The data were converted in a SingleCellExperiment
 }
 \description{
 Human embryo single cell RNAseq data in RPKM from
-`Single-Cell RNA-Seq Reveals Lineage and X Chromosome Dynamics in
+\verb{Single-Cell RNA-Seq Reveals Lineage and X Chromosome Dynamics in Human Preimplantation Embryos} (Petropulous et al, 2014)
 }
 \details{
 Description of the colData:

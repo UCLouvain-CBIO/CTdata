@@ -18,7 +18,7 @@ A \code{SingleCellExperiment} object with 26255 rows and 50 columns
 }
 \description{
 Human embryo single cell RNAseq data in FPKM from
-`Single Cell DNA Methylome Sequencing of Human Preimplantation
+\verb{Single Cell DNA Methylome Sequencing of Human Preimplantation Embryos} (Zhu et al. 2018)
 }
 \details{
 Description of the colData:
