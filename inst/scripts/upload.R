@@ -94,7 +94,18 @@ dest <- c("CTdata/eh_data/v2/CCLE_data.rda",
           "CTdata/eh_data/methylation_in_embryo.rda",
           "CTdata/eh_data/mean_methylation_in_embryo.rda")
 
-# Removed CT_methylation_in_tissues.rda, CT_mean_methylation_in_tissues.rda,
+# Deprecated CT_methylation_in_tissues.rda, CT_mean_methylation_in_tissues.rda,
 # TCGA_CT_methylation.rda
+
+storage_multiupload(container, src = src, dest = dest)
+
+## ------------------------------------------
+## 2024-10
+
+src <- c("/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/mean_methylation_in_FGC.rda",
+         "/storage/research/dduv/cbio-lg/cluster/Packages/CTdata/eh_data/mean_methylation_in_embryo.rda")
+
+dest <- c("CTdata/eh_data/mean_methylation_in_FGC.rda",
+          "CTdata/eh_data/mean_methylation_in_embryo.rda")
 
 storage_multiupload(container, src = src, dest = dest)

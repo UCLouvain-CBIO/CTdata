@@ -1,5 +1,11 @@
 # CTdata 1.5
 
+## CTdata 1.5.3
+
+- Correction of a bug in mean_methylation_in_embryo and mean_methylation_in_FGC
+datasets
+- Vignette update
+
 ## CTdata 1.5.2
 
 - Correction of an error in the upload
@@ -12,7 +18,7 @@ and TPM > 5 in at least one tumor and cancer cell line)
 - Changed selection criteria of testis-specific and testis-preferential genes 
 in GTEX 
 - Added a slightly more stringent criteria of selection of testis-specific 
-genes when analysing RNAseq data of normal tissues with multumapping 
+genes when analysing RNAseq data of normal tissues with multimapping 
 - Minor modifications in selection of genes induced by DAC
 - Set TCGA_catgeory in TCGA_TPM to "leaky" when the q75 expression in normal
 peritumoral TCGA samples is higher than 0.5
